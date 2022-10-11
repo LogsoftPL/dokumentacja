@@ -18,8 +18,8 @@
 
 ## Atrybuty
 
-### status jakosci 
-specjalny atrybut **door_attrib9** ktróry zawsze pownnien byc akładany(najlepiej skopiowac z istniejacego zlecniodawcy trzba pamietac zeby ustawic odpowiednie warości w sekcji zapytania:
+### Status jakosci 
+Specjalny atrybut **stk_attrib9** ktróry zawsze pownnien byc zakładany(najlepiej skopiowac z istniejacego zlecniodawcy trzba pamietac zeby ustawic odpowiednie warości w sekcji zapytania:
 
 - Lista wartości w ComboBox
 
@@ -37,6 +37,15 @@ specjalny atrybut **door_attrib9** ktróry zawsze pownnien byc akładany(najlepi
 from doc_order with (nolock)
 where door_id = @dori_orderID
 ```
+Kolejnym ważnym atrybutem jest stk_attrib1, czyli LOT(numer partii). Powinien być uwzględniany przy przyjęciach. W klasyfikacji GS1 ma numer IZ10.
 
+## Sortowanie produktów do wydania 
+ - - [ ] Wprowadzając atrybuty dotyczące dat produkcji('IZ11')/dat bestbefore('IZ15')/ dat ważności('IZ17') do grupy magazynowej ustawiamy im sortowanie czyli 'kolejność sortowania' oraz 'typ sortowania'
+ - - [ ] Wchodzimy w Parametry systemowe. Tam szukamy 'stkGeneratePickingPlanMetod', który określa kolejność sortowania w systemie stocków przy wysyłce. Zmieniamy wartość parametru zgdnie z założeniami klienta sugerując się opisem.
+# Metody kolejkowania wysyłanych produktów:
+ -FIFO 'First In First Out', czyli pierwsze weszło, pierwsze wyszło
+ -LIFO 'Last In First Out', czyli ostatnie weszło, pierwsze wyszło
+ -FEFO 'First Expired First Out', czyli pierwsze wychodzą z magazynu produkty, których data ważności kończy się najwcześniej.
+ 
 
 
