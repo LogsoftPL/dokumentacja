@@ -43,9 +43,9 @@ Kolejnym ważnym atrybutem jest stk_attrib1, czyli LOT(numer partii). Powinien b
  - - [ ] Wprowadzając atrybuty dotyczące dat produkcji('IZ11')/dat bestbefore('IZ15')/ dat ważności('IZ17') do grupy magazynowej ustawiamy im sortowanie czyli 'kolejność sortowania' oraz 'typ sortowania'
  - - [ ] Wchodzimy w Parametry systemowe. Tam szukamy 'stkGeneratePickingPlanMetod', który określa kolejność sortowania w systemie stocków przy wysyłce. Zmieniamy wartość parametru zgdnie z założeniami klienta sugerując się opisem.
 ### Metody kolejkowania wysyłanych produktów:
- --FIFO 'First In First Out', czyli pierwsze weszło, pierwsze wyszło
- --LIFO 'Last In First Out', czyli ostatnie weszło, pierwsze wyszło
- --FEFO 'First Expired First Out', czyli pierwsze wychodzą z magazynu produkty, których data ważności kończy się najwcześniej.
+ - - FIFO 'First In First Out', czyli pierwsze weszło, pierwsze wyszło
+ - - LIFO 'Last In First Out', czyli ostatnie weszło, pierwsze wyszło
+ - - FEFO 'First Expired First Out', czyli pierwsze wychodzą z magazynu produkty, których data ważności kończy się najwcześniej.
  
 
 
