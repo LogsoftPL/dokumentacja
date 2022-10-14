@@ -41,11 +41,11 @@ Ze względu na sposób obsługi priorytety dzielimy wg zakresu na:
 ## Planowanie wysyłek
 
 ### Automatyczne planowanie wysyłek 
-Wysyłki planowane automatycznie poprzez wywołanie procedyry ```doc_autoGeneratePickingPlan```  wielkość paczki okresla parametr systemowy **doc_autoGeneratePickingPlan_QTY** 
+Wysyłki planowane automatycznie poprzez wywołanie procedyry ```doc_autoGeneratePickingPlan```  wielkość paczki okresla parametr systemowy ```doc_autoGeneratePickingPlan_QTY```
 Kolejność przetawrzania zleceń wg:
-- prirytetu
-- daty modyfikacji (przy czym w celu unikanięcia planowania ciagle tych samych zleceń pomijane są zlecenia kórych data modyfikacji jest mniejsza niż 20 minut)
-- daty utwiorzenia 
+- **prirytetu**
+- **daty modyfikacji** (przy czym w celu unikanięcia planowania ciagle tych samych zleceń pomijane są zlecenia kórych data modyfikacji jest mniejsza niż 20 minut)
+- **daty utworzenia**
 
 Kazda próba planowania ustawia detę modyfikacji zlecenia na bieżącą 
 
