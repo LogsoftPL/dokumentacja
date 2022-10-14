@@ -1,7 +1,7 @@
 # Lite WMS Orange wersja 4.5
 
 
-# Wysyłki
+# Wysyłki informacje ogólne
 
 
 Ogólne informacje o wysyłkach
@@ -33,11 +33,27 @@ Ze względu na sposób obsługi priorytety dzielimy wg zakresu na:
 
 #### Miejsca gdzie wykorzystane są priorytety
 
-
 -   planowanie wysyłki
 -   uzupełnianie zbiórki
 -   wydruk kart zbiórki
 -   kolejność wyświetlania zleceń na terminalu
+
+## Planowanie wysyłek
+
+### Automatyczne planowanie wysyłek 
+Wysyłki planowane automatycznie poprzez wywołanie procedyry ```doc_autoGeneratePickingPlan```  wielkość paczki okresla parametr systemowy **doc_autoGeneratePickingPlan_QTY** 
+Kolejność przetawrzania zleceń wg:
+- prirytetu
+- daty modyfikacji (przy czym w celu unikanięcia planowania ciagle tych samych zleceń pomijane są zlecenia kórych data modyfikacji jest mniejsza niż 20 minut)
+- daty utwiorzenia 
+
+Kazda próba planowania ustawia detę modyfikacji zlecenia na bieżącą 
+
+
+
+### Zasady planowania wysyłek
+
+tu diopisac
 
 
 # Wydanie grupowe
