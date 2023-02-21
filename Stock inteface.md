@@ -33,13 +33,13 @@ Struktura pakowania.
 
 | Pole | Opis | Typ danych| Pole WMS
 |--|--|--|--|
-|Unit_of_measure|N |podstawowa jednostka miary. |varchar(25) |`uom_code`
-|Weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_weight
-|Volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_volume
-|Units_in_package|N |ilość jednostek podatwowych w opakowaniu(kartonie).| decimal(18,6) |
-|Unit_of_package|N |jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`
-|Units_on_pallet|N |ilość jednostek podatwowych na palecie. | decimal(18,6) |
-|Unit_of_pallet|N |jednostka miary dla palety |varchar(25) |`uom_code`
+|Unit_of_measure|podstawowa jednostka miary. |varchar(25) |`uom_code`
+|Weight|Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_weight
+|Volume|Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_volume
+|Units_in_package|ilość jednostek podatwowych w opakowaniu(kartonie).| decimal(18,6) |
+|Unit_of_package|jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`
+|Units_on_pallet|ilość jednostek podatwowych na palecie. | decimal(18,6) |
+|Unit_of_pallet|jednostka miary dla palety |varchar(25) |`uom_code`
 
 
 ## Kolekcja atrybuty
@@ -49,7 +49,7 @@ Kolekcja atrybuty może posiadać Max 20 obiektów.
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
 |Name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
-|Value|T |wartość wstawiana do odpowiedniego atrybutu | varchar(50) |`prd_attribXX`
+|Value|T |wartość wstawiana do odpowiedniego atrybutu | varchar(50) |`prd_attribXX` lub 'stk_attribX'
 
 
 ## Kolekcja stocks
@@ -59,7 +59,7 @@ Kolekcja atrybuty może posiadać Max 20 obiektów.
 |SSCC|Numer nośnika, palety| varchar(25) |`stlu_SSCC`
 |Quantity|Ilość produktu na nośniku |decimal(18,6) |`stk_basicQuantity`
 |Location|Kod lokacji na której znajduje się nośnik/produkt|varchar(25) |`whlo_code`
-|item_attribute|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+|item_attribute|Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 |Attributes|Atrybuty stoku (patrz kolekcja Attributes, zastosowana również w kolekcji Products)|kolekcja
 
 
