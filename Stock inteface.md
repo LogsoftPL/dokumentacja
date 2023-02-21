@@ -7,9 +7,8 @@ Dokument zawiera ustandaryzowany format pozwalający uzyskać informacje związa
 
 ## Obiekt Document
 
-
 | Pole | Opis | Typ danych| Pole WMS
-|--|--|--|--|--|
+|--|--|--|--|
 |Type| zawsze Stocks | varchar(5)  
 |Orderer|kod zleceniodawcy z WMS | nvarchar(25)  | `dord_code`
 Logistics_Center|centrum logistyczne z WMS | nvarchar(25)  |`whc_code`
@@ -30,8 +29,9 @@ Przykład JSON:
 ```
 
 ## Kolekcja Products
+
 | Pole | Opis | Typ danych| Pole WMS
-|--|--|--|--|--|
+|--|--|--|--|
 |Code|kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
 |Name|nazwa produktu, nie musi byc unikatowa.|nvarchar(250) |`prd_name`
 |Warehouse_group|Grupa magazynowa w sytemie WMS|varchar(250)|
@@ -40,90 +40,60 @@ Przykład JSON:
 |Attributes|Atrybuty produktu (patrz kolekcja Attributes, zastosowana również w kolekcji Stocks)|kolekcja
 |Stocks|Kolekcja stanów magazynowych, w rozbicu na nośniki i lokacje (patrz kolekcja Attributes|kolekcja
 
+### Opakowania - kolekcja Packaging_structure
 
+Struktura pakowania.
 
+| Pole | Opis | Typ danych| Pole WMS
+|--|--|--|--|
+|Unit_of_measure|N |podstawowa jednostka miary. |varchar(25) |`uom_code`
+|Weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_weight
+|Volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_volume
+|Units_in_package|N |ilość jednostek podatwowych w opakowaniu(kartonie).| decimal(18,6) |
+|Unit_of_package|N |jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`
+|Units_on_pallet|N |ilość jednostek podatwowych na palecie. | decimal(18,6) |
+|Unit_of_pallet|N |jednostka miary dla palety |varchar(25) |`uom_code`
 
 
 ## Kolekcja atrybuty
 
-
-Kolekcja atrybuty może posiadać Max 20 obiektów. Atrybuty, których nazwa będzie niezgodna z nazwą w definicji atrybutów systemu WMS będą ignorowane. Niewymagane
-
+Kolekcja atrybuty może posiadać Max 20 obiektów. 
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
-|name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
-|value|T |wartość wstawiana do odpowiedniego atrybutu nagłówka dokumentu|varchar(50) |`door_attribXX`
-
-
-
+|Name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
+|Value|T |wartość wstawiana do odpowiedniego atrybutu | varchar(50) |`prd_attribXX`
 
 Przykład JSON: 
 ```json
-  "document_attribute": {
-    "attribute": [
-      {
-        "name":"customs_number",
-        "value": "123456"
-      },
-      {
-        "name": "order_number",
-        "value": "hth/2020/829347"
-      }
-    ]
-  }
+"Attributes": [
+	{
+		"Name": "Status jakości",
+		"Value": "GOOD"
+	},
+	{
+		"Name": "Partia ",
+		"Value": "13760698"
+	},
+	{
+		"Name": "Data produkcji",
+		"Value": "2022-02-28"
+	},
+	{
+		"Name": "Lokalizacja",
+		"Value": "BRAK"
+	}
+]
 ```
+## Kolekcja stocks
 
-Przykład XML:
-
-```XML
-        <document_attribute>
-            <attribute>
-                <name> customs_number</name>
-                <value>123456</value>
-            </attribute>
-            <attribute>
-                <name> order_number</name>
-                <value>hth/2020/829347</value>
-            </attribute>
-        </document_attribute>
-```
-### Opakowania
-
-Struktura pakowania ***nie aktualizuje sie*** zakładana jest przy pierwszym dodaniu produktu. 
-
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
-|--|--|--|--|--|--|
-|unit_of_measure|N |podstawowa jednostka miary. Kod jednostki miary pownien byc zgodny ze słownikiem w systemie WMS. (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostań domyślna jednostka miary) |varchar(25) |`uom_code`
-|weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_weight
-|volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_volume
-|units_in_package|N |ilość jednostek podatwowych w opakowaniu(kartonie). Tworzony jest nowy poziom struktury pakowania. Ten poziom opakowań oznaczany jest automatycznie jako opakowanie zbiorcze `pplv_calcAsOpa` | decimal(18,6) |
-|unit_of_package|N |jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`|1.1
-|units_on_pallet|N |ilość jednostek podatwowych na palecie. Tworzony jest nowy poziom struktury pakowania.Ten poziom opakowań oznaczany jest automatycznie jako paleta `pplv_isLoadUnit` | decimal(18,6) |
-|unit_of_pallet|N |jednostka miary dla palety |varchar(25) |`uom_code`|1.1
-      
-
-## Pozycja dokumentu
-Reprezentuje pozycje dokumentu. 
-
-
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
-|--|--|--|--|--|--|
-|LN|N | Numer linii - pole wykorzystywane w przypadku gdy systemy ERP w  komunikatach zwrotnych wymagają tej informacji np. SAP R3| int |`dori_lineNr`
-|code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
-|ordered_quantity|T |Ilość zamówiona w podstawowych jednostkach miary|decimal(18,6) |`dori_basicQuantity`
-|SSCC|N |Numer nośnika stosowany tylko w przypadku awiza dostawy **typ = IN** |varchar(25) |`dori_SSCC`
-|pallet_type|N |typ nośnika stosowany tylko w przypadku awiza dostawy. Używany tylko w przypadku wypełniania pola SSCC|varchar(50) |`dori_luType`
+| Pole | Opis | Typ danych| Pole WMS 
+|--|--|--|--|
+|SSCC|Numer nośnika, palety| varchar(25) |`stlu_SSCC`
+|Quantity|Ilość produktu na nośniku |decimal(18,6) |`stk_basicQuantity`
+|Location|Kod lokacji na której znajduje się nośnik/produkt|varchar(25) |`whlo_code`
 |item_attribute|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
-
-
-### Komunikat zwrotny
-Zawiera to co komunikat wejściowy poszerzone o pola:
-
-
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |
-|--|--|--|--|--|
-|OUT_quantity_confirmed | N |[Tylko dla komunikatu zwrotnego] Zrealizowana ilość w jednostkach podstawowych |decimal(18,6)|`door_confirmedQuantity`
+|Attributes|Atrybuty stoku (patrz kolekcja Attributes, zastosowana również w kolekcji Products)|kolekcja
 
 
 ## Przykłady
