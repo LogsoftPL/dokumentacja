@@ -27,7 +27,7 @@ Products| Dane słownikowe produktów na stanach magazynowych wraz z ich ilości
 |Attributes|Atrybuty produktu (patrz kolekcja Attributes, zastosowana również w kolekcji Stocks)|kolekcja
 |Stocks|Kolekcja stanów magazynowych, w rozbicu na nośniki i lokacje (patrz kolekcja Attributes|kolekcja
 
-### Opakowania - kolekcja Packaging_structure
+## Kolekcja Packaging_structure - opakowania
 
 Struktura pakowania.
 
