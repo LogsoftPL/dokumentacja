@@ -59,7 +59,6 @@ Kolekcja atrybuty może posiadać Max 20 obiektów.
 |SSCC|Numer nośnika, palety| varchar(25) |`stlu_SSCC`
 |Quantity|Ilość produktu na nośniku/lokacji |decimal(18,6) |`stk_basicQuantity`
 |Location|Kod lokacji na której znajduje się nośnik/produkt|varchar(25) |`whlo_code`
-|item_attribute|Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 |Attributes|Atrybuty stoku (patrz kolekcja Attributes, zastosowana również w kolekcji Products)|kolekcja
 
 
