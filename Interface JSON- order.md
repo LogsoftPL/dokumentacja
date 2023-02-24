@@ -6,8 +6,8 @@ Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje zwią
 
 ## Obiekt naglowek
 
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
-|--|--|--|--|--|--|
+| Pole | Wymagane | Opis | Typ danych| Pole WMS
+|--|--|--|--|--|
 |type| T | określa typ dokumentu, przyjmowane wartości **OUT** dla dokumentów wyjściowych (Zamówienie od klienta), **IN** dla dokumentów wejściowych (awizo przyjęcia), **IN-PZ** dokument PZ automatycznie przyjmowany (np. do przenoszenia stanów mag. jako bilans otwarcia), **PRODUCTS** tylko słownik produktów (w trybie update/insert lub tylko insert),  **RECIPES** import receptur (w trybie update/insert lub tylko insert) | varchar(10)  
 |orderer|T |kod zleceniodawcy z WMS Z punktu widzenia klienta (systemu ERP) mozna traktowac jako stałą)| nvarchar(25)  | `dord_code`
 logistics_center|T |centrum logistyczne z WMS | nvarchar(25)  |`whc_code`
@@ -21,14 +21,15 @@ attachment|N|Link lub plik załącznika|varchar(max)|
 firm|T| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
 courier|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
 document_attributes|N| Atrybuty nagłówka dokumentu|Kolekcja|
-products|N| Dane słownikowe produktów wykorzystywanych w zamówiniu |Kolekcja||1.1
+products|N| Dane słownikowe produktów wykorzystywanych w zamówiniu |Kolekcja|
+recipes|N| Struktura dla receptur |Kolekcja|
 
 
 ### Komunikat zwrotny
 Zawiera to co komunikat wejściowy poszerzone o opcjonalne pola:
 
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
-|--|--|--|--|--|--|
+| Pole | Wymagane | Opis | Typ danych| Pole WMS
+|--|--|--|--|--|
 OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
 OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
 OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
@@ -116,9 +117,10 @@ Przykład XML:
 ```
 
 
-## Kolekcja atrybuty
+## Kolekcja atrybuty - document_attributes, product_attributes, item_attributes
 
 Kolekcja atrybuty może posiadać Max 20 obiektów. Atrybuty, których nazwa będzie niezgodna z nazwą w definicji atrybutów systemu WMS będą ignorowane. Niewymagane
+Obiekt attribute:
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
@@ -157,7 +159,28 @@ Przykład XML:
 ```
 
 
-## Produkty
+## Produkty - kolekcja products
+
+| Pole | Wymagane | Opis | Typ danych| Pole WMS
+|--|--|--|--|--|
+|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość dla całej kolekcji, nadpisywana wartością z obiektu product, nieobowiązkowa jeśli w WMS istnieje dla zleceniodawcy tylko jedna grupa magazynowa |varchar(250)|
+
+Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa jest aktualizacja nazwy i wartości atrybutów. 
+Obiekt product:
+
+| Pole | Wymagane | Opis | Typ danych| Pole WMS
+|--|--|--|--|--|
+|code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
+|name|N |nazwa produktu (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie wykorzystany kod produktu). Nazwa nie musi byc unikatowa.|nvarchar(250) |`prd_name`
+|EAN|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_value`
+|packaging_structure|N |Struktura pakowania produktu sekcja w zasadzie powinna być wstawiana głownie w przypadku awizacji dostaw.|kolekcja
+|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie product nadpisuje wartość z kolekcji products! |varchar(250)|
+|product_attributes|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+
+## Receptury - kolekcja recipes
+
+Struktura dla receptur, obiekt recipe:
+
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
 |code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
@@ -168,9 +191,10 @@ Przykład XML:
 |product_attributes|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
-### Opakowania
+## Opakowania - packaging_structure
 
 Struktura pakowania ***nie aktualizuje sie*** zakładana jest przy pierwszym dodaniu produktu. 
+Aktualizowane mogą być poszczególne wartości w struktrurze, pod warunkiem, że produkt nie został jescze wykorzystany w żadnym zadaniu WMS (nie istniał nigdy na stanie magazynowym)
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
@@ -186,7 +210,7 @@ Struktura pakowania ***nie aktualizuje sie*** zakładana jest przy pierwszym dod
 |unit_of_pallet|N |jednostka miary dla palety |varchar(25) |`uom_code`|1.1
       
 
-## Pozycja dokumentu
+## Pozycja dokumentu - items/item
 Reprezentuje pozycje dokumentu. 
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
@@ -199,7 +223,7 @@ Reprezentuje pozycje dokumentu.
 |item_attributes|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
-### Komunikat zwrotny
+## Komunikat zwrotny
 Zawiera to co komunikat wejściowy poszerzone o pola:
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
