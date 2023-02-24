@@ -36,6 +36,47 @@ OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Da
 *document_attributes*|N| Atrybuty nagłówka dokumentu|Kolekcja|
 
 
+## Kolekcja atrybuty - document_attributes, product_attributes, item_attributes
+
+Kolekcja atrybuty może posiadać Max 20 obiektów. Atrybuty, których nazwa będzie niezgodna z nazwą w definicji atrybutów systemu WMS będą ignorowane. Niewymagane
+#### Obiekt attribute:
+| Pole | Wymagane | Opis | Typ danych| Pole WMS |
+|--|--|--|--|--|
+|name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
+|value|T |wartość wstawiana do odpowiedniego atrybutu nagłówka dokumentu|varchar(50) |`door_attribXX`
+
+Przykład JSON: 
+```json
+  "document_attribute": {
+    "attribute": [
+      {
+        "name":"customs_number",
+        "value": "123456"
+      },
+      {
+        "name": "order_number",
+        "value": "hth/2020/829347"
+      }
+    ]
+  }
+```
+
+Przykład XML:
+
+```XML
+        <document_attribute>
+            <attribute>
+                <name> customs_number</name>
+                <value>123456</value>
+            </attribute>
+            <attribute>
+                <name> order_number</name>
+                <value>hth/2020/829347</value>
+            </attribute>
+        </document_attribute>
+```
+
+
 ## Obiekt kontrahent
 
 Obiekt zawiera dane kontrahenta (klienta/dostawcy) w zależności od typu dokumentu. Jeżeli dane kontrahenta nie istnieją w słowniku firm nowa firma zostanie automatycznie dodana do słownika. Możliwe jest podanie tylko kodu firmy, wówczas wstawiany do zamówienia jest ostatni adres dla danej firmy.
@@ -115,47 +156,6 @@ Przykład XML:
 	<email>klient@kontakt.pl</email>
 	<additional_info>Note glass<additional_info>
 </courier>
-```
-
-
-## Kolekcja atrybuty - document_attributes, product_attributes, item_attributes
-
-Kolekcja atrybuty może posiadać Max 20 obiektów. Atrybuty, których nazwa będzie niezgodna z nazwą w definicji atrybutów systemu WMS będą ignorowane. Niewymagane
-#### Obiekt attribute:
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |
-|--|--|--|--|--|
-|name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
-|value|T |wartość wstawiana do odpowiedniego atrybutu nagłówka dokumentu|varchar(50) |`door_attribXX`
-
-Przykład JSON: 
-```json
-  "document_attribute": {
-    "attribute": [
-      {
-        "name":"customs_number",
-        "value": "123456"
-      },
-      {
-        "name": "order_number",
-        "value": "hth/2020/829347"
-      }
-    ]
-  }
-```
-
-Przykład XML:
-
-```XML
-        <document_attribute>
-            <attribute>
-                <name> customs_number</name>
-                <value>123456</value>
-            </attribute>
-            <attribute>
-                <name> order_number</name>
-                <value>hth/2020/829347</value>
-            </attribute>
-        </document_attribute>
 ```
 
 
