@@ -224,281 +224,140 @@ Reprezentuje pozycje dokumentu.
 
 ## Przykłady
 
-Przykład dokumetu typu IN:
+Przykład dokumetu:
 ```json
 {
-  "document": {
-    "header": {
-      "type": "IN",
-      "orderer": "Acme",
-      "logistics_center": "CL 1",
-      "completion_date": "2021-07-23",
-      "priority": "1",
-      "document_alternative_code": "PO/2021/62934",
-      "description": "Sample description for the document",
-      "firm": {
-        "code": "Sunway",
-        "name": "SunWay Europe GmbH",
-        "street": "Wrangelstraße 100",
-        "postal_code": "92-318",
-        "city": "10997",
-        "country": "DE"
-      },
-    "products": {
-      "product": [
-        {
-          "code": "PM YOS9",
-          "name": "Teddy bear",
-          "ean": "5091234567890",
-          "warehouse_group": "Toys",
-          "packaging_structure": {
-            "unit_of_measure": "szt",
-            "weight": "12",
-            "volume": "0.02",
-            "units_in_package": "10",
-            "unit_of_package": "KRT",
-            "units_on_pallet": "100",
-            "unit_of_pallet": "EP"
-          },
-          "product_attributes": {
-            "attribute": [
-              {
-                "name": "Producer",
-                "value": "LOBITO"
-              },
-              {
-                "name": "Colour",
-                "value": "White"
-              }
-            ]
-          }
-        },
-        {
-          "code": "GK A314",
-          "name": "Hand cream 250ml",
-          "ean": "5090987654321",
-          "warehouse_group": "Cosmetics",
-          "packaging_structure": {
-            "unit_of_measure": "szt"
-          }
-        }
-      ]
-    },
-    "items": {
-      "item": [
-        {
-          "LN": "1",
-          "code": "PM YOS9",
-          "ordered_quantity": "1000"
-        },
-        {
-          "LN": "2",
-          "code": "GK A314",
-          "ordered_quantity": "1000"         
-        }
-      ]
-    }
-  }
-}
-```
-
-Przykład dokumetu typu IN dla potwierdzenia:
-```json
-{
-  "document": {
-    "header": {
-      "type": "IN_CONF",
-      "orderer": "Acme",
-      "logistics_center": "CL 1",
-      "completion_date": "2021-07-23",
-      "priority": "1",
-      "document_alternative_code": "PO/2021/62934",
-      "OUT_document_nr": "SWWZ000001",
-      "OUT_date_creation": "2022-07-23",
-      "OUT_date_closed": "022-07-23",
-      "firm": {
-        "code": "Sunway",
-        "name": "SunWay Europe GmbH",
-        "street": "Wrangelstraße 100",
-        "postal_code": "92-318",
-        "city": "10997",
-        "country": "DE"      
-        }
-    },    
-    "items": {
-      "item": [
-        {
-          "LN": "1",
-          "code": "PM YOS9",
-          "ordered_quantity": "1000",
-          "OUT_quantity_confirmed": "1000"
-        },
-        {
-          "LN": "2",
-          "code": "GK A314",
-          "ordered_quantity": "1000",
-          "OUT_quantity_confirmed": "300",
-          "item_attributes": {
-            "attribute": [
-              {
-                "name": "nr_LOT",
-                "value": "ABCD826"
-              }
-            ]
-          }
-        },
-        {
-            "LN": "2",
-            "code": "GK A314",
-            "ordered_quantity": "1000",
-            "OUT_quantity_confirmed": "700",
-            "item_attributes": {
-              "attribute": [
-                {
-                  "name": "nr_LOT",
-                  "value": "ABCD827"
-                }
-              ]
-            }
-          }
-      ]
-    }
-  }
-}
-```
-
-Przykład dokumetu typu OUT:
-```json
-{
-  "document": {
-    "header": {
-      "type": "OUT",
-      "orderer": "Acme",
-      "logistics_center": "CL 1",
-      "completion_date": "2022-02-10",
-      "priority": "1",
-      "document_alternative_code": "ZAM/2021/62934",
-      "description": "Sample description for the document",
-      "firm": {
-        "code": "7811903679",
-        "name": "Logsoft",
-        "street": "Papiernicza 7e",
-        "postal_code": "92-318",
-        "city": "Łódź",
-        "country": "PL"
-      },
-      "courier": {
-        "service": "DHL Standard",
-        "COD": "156.23",
-        "insurance_amount": "500",
-        "telephone": "555-666-777",
-        "email": "klient@kontakt.pl",
-        "additional_info": "Sample additional info for courier"
-      },
-      "document_attributes": {
-        "attribute": [
-          {
-            "name": "Alternative_seller",
-            "value": "seller code"
-          }
-        ]
-      }
-    },
-    "items": {
-      "item": [
-        {
-          "LN": "1",
-          "code": "PM YOS9",
-          "ordered_quantity": "1"
-        },
-        {
-          "LN": "2",
-          "code": "GK A314",
-          "ordered_quantity": "4",
-          "item_attributes": {
-            "attribute": [
-              {
-                "name": "nr_LOT",
-                "value": "ABCD826"
-              },
-              {
-                "name": "Quality_status",
-                "value": "OK"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-Przykład dokumetu typu OUT dla potwierdzenia:
-```json
-{
-  "document": {
-    "header": {
-      "type": "OUT_CONF",
-      "orderer": "Acme",
-      "logistics_center": "CL 1",
-      "completion_date": "2022-02-10",
-      "priority": "1",
-      "document_alternative_code": "ZAM/2021/62934",
-      "OUT_document_nr": "SWWZ000001",
-      "OUT_date_creation": "2022-02-05",
-      "OUT_date_closed": "2022-02-10",
-      "firm": {
-        "code": "7811903679",
-        "name": "Logsoft",
-        "street": "Papiernicza 7e",
-        "postal_code": "92-318",
-        "city": "Łódź",
-        "country": "PL"
-      },
-      "courier": {
-        "service": "DHL Standard",
-        "COD": "156.23",
-        "insurance_amount": "500",
-        "telephone": "555-666-777",
-        "email": "klient@kontakt.pl",
-        "additional_info": "Sample additional info for courier",
-        "OUT_tracking_number": "1F1928390128312908312903478"
-
-      },
-      "document_attributes": {
-        "attribute": [
-          {
-            "name": "Alternative_seller",
-            "value": "seller code"
-          }
-        ]
-      }
-    },
-    "items": {
-      "item": [
-        {
-          "LN": "1",
-          "code": "PM YOS9",
-          "ordered_quantity": "1",
-          "OUT_quantity_confirmed": "1"
-        },
-        {
-          "LN": "2",
-          "code": "GK A314",
-          "ordered_quantity": "4",
-          "OUT_quantity_confirmed": "3",
-          "item_attributes": {
-            "attribute": [
-              {
-                "name": "nr_LOT",
-                "value": "ABCD826"
-              }           
-            ]
-          }
-        }
-      ]
-    }
-  }
+	"document": {
+		"header": {
+			"type": "IN",
+			"orderer": "Acme",
+			"logistics_center": "CL 1",
+			"completion_date": "2021-07-23",
+			"priority": "1",
+			"document_alternative_code": "PO/2021/62934",
+			"description": "Sample description for the document",
+			"firm": {
+				"code": "Sunway",
+				"name": "SunWay Europe GmbH",
+				"street": "Wrangelstraße 100",
+				"postal_code": "92-318",
+				"city": "10997",
+				"country": "DE"
+			},
+			"courier": {
+				"service": "Paczkomaty Inpost",
+				"COD": "156.23",
+				"insurance_amount": "160",
+				"phone": "555-666-777",
+				"email": "klient@kontakt.pl",
+				"additional_info": "additional_info",
+				"parcel_size": "B"
+			}
+		},
+		"products": {
+			"warehouse_group": "Cosmetics",
+			"product": [
+				{
+					"code": "PM YOS9",
+					"name": "Teddy bear",
+					"ean": "5091234567890",
+					"warehouse_group": "Toys",
+					"packaging_structure": {
+						"unit_of_measure": "szt",
+						"weight": 12,
+						"volume": 0.02,
+						"units_in_package": "10",
+						"unit_of_package": "KRT",
+						"units_on_pallet": "100",
+						"unit_of_pallet": "EP"
+					},
+					"product_attributes": {
+						"attribute": [
+							{
+								"name": "Producer",
+								"value": "LOBITO"
+							},
+							{
+								"name": "Colour",
+								"value": "White"
+							}
+						]
+					}
+				},
+				{
+					"code": "KDT",
+					"name": "Face cream",
+					"ean": "5091234561111",
+					"packaging_structure": {
+						"unit_of_measure": "szt",
+						"weight": 0.12,
+						"volume": 0.0002,
+						"units_in_package": 22,
+						"unit_of_package": "KRT",
+						"units_on_pallet": 260,
+						"unit_of_pallet": "EP"
+					},
+					"product_attributes": {
+						"attribute": [
+							{
+								"name": "Producer",
+								"value": "NIVEA"
+							},
+							{
+								"name": "Type",
+								"value": "Strong"
+							}
+						]
+					}
+				}
+			]
+		},
+		"recipes": {
+			"rec_code": "SFC_Nivea_22",
+			"code": "SFC22",
+			"version": "2.0",
+			"description": "gift box",
+			"recipe": [
+				{
+					"code": "FC01",
+					"quantity": 1
+				},
+				{
+					"code": "FC02",
+					"quantity": 4
+				},
+				{
+					"code": "HC01",
+					"quantity": 3
+				}
+			]
+		},
+		"items": {
+			"item": [
+				{
+					"LN": "1",
+					"code": "PM YOS9",
+					"ordered_quantity": 1000
+				},
+				{
+					"LN": "2",
+					"code": "KDT",
+					"ordered_quantity": 1000,
+					"item_attributes": {
+						"attribute": [
+							{
+								"name": "Quality status",
+								"value": "OK"
+							},
+							{
+								"name": "Manufacture Date",
+								"value": "2021-12-15"
+							}
+						]
+					}
+				}
+			]
+		}
+	}
 }
 ```
