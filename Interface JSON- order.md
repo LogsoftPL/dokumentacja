@@ -45,7 +45,7 @@ Kolekcja atrybuty może posiadać Max 20 obiektów. Atrybuty, których nazwa bę
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
 |name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
-|value|T |wartość wstawiana do odpowiedniego atrybutu nagłówka dokumentu|varchar(50) |`door_attribXX`
+|value|T |wartość wstawiana do odpowiedniego atrybutu nagłówka dokumentu|varchar(50) |`xxx_attribXX`
 
 Przykład JSON: 
 ```json
@@ -90,8 +90,8 @@ name|T |nazwa firmy|nvarchar(100)|`frm_name`
 address_code|N |kod_adresu|nvarchar(50)|`fadr_code`
 street|T |nazwa ulicy z numerem domu|nvarchar(100)|`fadr_street` 
 postal_code|T|kod pocztowy, format zależny od kraju |varchar(10)|`fadr_postalCode`
-city|T |nazwa miejscowości|nvarchar(100)`fadr_city
-country|N |kod kraju, dwuliterowy, jeśli puste wstawiany **PL**|varchar(2)`dctr_code2`
+city|T |nazwa miejscowości|nvarchar(100)|`fadr_city
+country|N |kod kraju, dwuliterowy, jeśli puste wstawiany **PL**|varchar(2)|`dctr_code2`
 NIP|N |NIP firmy|varchar(50)|`fadr_NIP`
 
 Przykład JSON:
