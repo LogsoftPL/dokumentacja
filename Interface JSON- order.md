@@ -319,5 +319,128 @@ Przykład dokumetu:
     }
  ```
  
- 
+Ten sam przykład w wersji XML:
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+  <header>
+    <type>IN</type>
+    <orderer>Acme</orderer>
+    <logistics_center>CL 1</logistics_center>
+    <completion_date>2021-07-23</completion_date>
+    <priority>1</priority>
+    <document_alternative_code>PO/2021/62934</document_alternative_code>
+    <description>Sample description for the document</description>
+    <firm>
+      <code>Sunway</code>
+      <name>SunWay Europe GmbH</name>
+      <street>Wrangelstraße 100</street>
+      <postal_code>92-318</postal_code>
+      <city>10997</city>
+      <country>DE</country>
+    </firm>
+    <courier>
+      <service>Paczkomaty Inpost</service>
+      <COD>156.23</COD>
+      <insurance_amount>160</insurance_amount>
+      <phone>555-666-777</phone>
+      <email>klient@kontakt.pl</email>
+      <additional_info>additional_info</additional_info>
+      <parcel_size>B</parcel_size>
+    </courier>
+  </header>
+  <products>
+    <warehouse_group>Cosmetics</warehouse_group>
+    <product>
+      <code>PM YOS9</code>
+      <name>Teddy bear</name>
+      <ean>5091234567890</ean>
+      <warehouse_group>Toys</warehouse_group>
+      <packaging_structure>
+        <unit_of_measure>szt</unit_of_measure>
+        <weight>12</weight>
+        <volume>0.02</volume>
+        <units_in_package>10</units_in_package>
+        <unit_of_package>KRT</unit_of_package>
+        <units_on_pallet>100</units_on_pallet>
+        <unit_of_pallet>EP</unit_of_pallet>
+      </packaging_structure>
+      <product_attributes>
+        <attribute>
+          <name>Producer</name>
+          <value>LOBITO</value>
+        </attribute>
+        <attribute>
+          <name>Colour</name>
+          <value>White</value>
+        </attribute>
+      </product_attributes>
+    </product>
+    <product>
+      <code>KDT</code>
+      <name>Face cream</name>
+      <ean>5091234561111</ean>
+      <packaging_structure>
+        <unit_of_measure>szt</unit_of_measure>
+        <weight>0.12</weight>
+        <volume>0.0002</volume>
+        <units_in_package>22</units_in_package>
+        <unit_of_package>KRT</unit_of_package>
+        <units_on_pallet>260</units_on_pallet>
+        <unit_of_pallet>EP</unit_of_pallet>
+      </packaging_structure>
+      <product_attributes>
+        <attribute>
+          <name>Producer</name>
+          <value>NIVEA</value>
+        </attribute>
+        <attribute>
+          <name>Type</name>
+          <value>Strong</value>
+        </attribute>
+      </product_attributes>
+    </product>
+  </products>
+  <recipes>
+    <rec_code>SFC_Nivea_22</rec_code>
+    <code>SFC22</code>
+    <version>2.0</version>
+    <description>gift box</description>
+    <recipe>
+      <code>FC01</code>
+      <quantity>1</quantity>
+    </recipe>
+    <recipe>
+      <code>FC02</code>
+      <quantity>4</quantity>
+    </recipe>
+    <recipe>
+      <code>HC01</code>
+      <quantity>3</quantity>
+    </recipe>
+  </recipes>
+  <items>
+    <item>
+      <LN>1</LN>
+      <code>PM YOS9</code>
+      <ordered_quantity>1000</ordered_quantity>
+    </item>
+    <item>
+      <LN>2</LN>
+      <code>KDT</code>
+      <ordered_quantity>1000</ordered_quantity>
+      <item_attributes>
+        <attribute>
+          <name>Quality status</name>
+          <value>OK</value>
+        </attribute>
+        <attribute>
+          <name>Manufacture Date</name>
+          <value>2021-12-15</value>
+        </attribute>
+      </item_attributes>
+    </item>
+  </items>
+</document>
+```
  
