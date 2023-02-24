@@ -172,8 +172,8 @@ Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa 
 
 ## Receptury - kolekcja recipes
 
-Struktura dla receptur.
-
+Struktura dla receptur, kolekcja receptur
+#### Obiekt recipe
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
 |--|--|--|--|--|
 |rec_code|T |kod receptury|varchar(50) |`prec_code`
@@ -181,7 +181,9 @@ Struktura dla receptur.
 |version|N |wersja receptury |varchar(25) |`prec_version`
 |description|N |opis receptury |varchar(25) |`prec_description`
 |items|N |Kolekcja elementów receptury|kolekcja
-#### Obiekt item:
+### Kolekcja elementów receptur - items
+Kolekcja elementów receptury
+#### Obiekt item - element receptury
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
 |--|--|--|--|--|
 |code|T |kod receptury|varchar(50) |`prd_product`
