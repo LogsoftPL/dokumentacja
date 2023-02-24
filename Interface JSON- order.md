@@ -1,10 +1,20 @@
 # Logsoft - Lite WMS 
 
-# Interface wymiany danych, komunikat Dokument
+# Interface wymiany danych z WMS, komunikaty Dokument
+
+## Obiekt dokument - document
 
 Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje związane z awizacją dostaw i zamówieniami od klientów a także importować receptury i słownik produktów.
 
-## Obiekt naglowek
+| Pole | Wymagane | Opis 
+|--|--|--|
+*header*|T| Nagłówek dokumentu |Obiekt|
+*products*|N| Dane słownikowe produktów |Kolekcja|
+*recipes*|N| Struktura dla receptur |Kolekcja|
+*items*|N| Pozycje dokumentu |Kolekcja|
+
+
+## Obiekt nagłówek - header
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
@@ -12,8 +22,8 @@ Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje zwią
 |orderer|T |kod zleceniodawcy z WMS Z punktu widzenia klienta (systemu ERP) mozna traktowac jako stałą)| nvarchar(25)  | `dord_code`
 logistics_center|T |centrum logistyczne z WMS | nvarchar(25)  |`whc_code`
 completion_date|N |żądana data realizacji|smalldatetime | `door_expectedCompletion`
-priority|N |priorytet wartiosci od 0 - 89 priorytet zero jest najniższy. Priorytety 90-99 zarezerwowane jako specjalne do uzytku wewnętrznego| smallint |`door_expectedCompletion`
-document_alternative_code|T |kod alternatywny zamówienia - kod zamówienia z systemu ERP klienta| nvarchar(50) | `door_alternativeCode`
+priority|N |priorytet, wartości od 0 - 89. Priorytet zero jest najniższy. Priorytety 90-99 zarezerwowane jako specjalne do użytku wewnętrznego.| smallint |`door_expectedCompletion`
+document_alternative_code|T |kod alternatywny zamówienia - kod zamówienia z systemu ERP klienta.| nvarchar(50) | `door_alternativeCode`
 description|N|Opis do dokumentu|nvarchar(500) | `door_description`
 baselinker_id|N|'order_id' w API baselinkera, nr zamówienia baselinker|varchar(10)|'door_tr_BaselinklerID'
 baselinker_order_source_id|N|'order_source_id' w API baselinkera, identyfikator źródła zamówienia w baselinkerze|varchar(10)|'door_tr_BaselinkerOrderSourceID'
@@ -21,11 +31,9 @@ attachment|N|Link lub plik załącznika|varchar(max)|
 OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
 OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
 OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
-firm|T| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
-courier|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
-document_attributes|N| Atrybuty nagłówka dokumentu|Kolekcja|
-products|N| Dane słownikowe produktów wykorzystywanych w zamówiniu |Kolekcja|
-recipes|N| Struktura dla receptur |Kolekcja|
+*firm*|T| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
+*courier*|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
+*document_attributes*|N| Atrybuty nagłówka dokumentu|Kolekcja|
 
 
 ## Obiekt kontrahent
