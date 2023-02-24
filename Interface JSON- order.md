@@ -2,7 +2,7 @@
 
 # Interface wymiany danych, komunikat Dokument
 
-Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje związane z awizacją dostaw i zamówieniami od klientów.
+Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje związane z awizacją dostaw i zamówieniami od klientów a także importować receptury i słownik produktów.
 
 ## Obiekt naglowek
 
