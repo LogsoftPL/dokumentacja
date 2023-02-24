@@ -2,6 +2,8 @@
 
 # Interface wymiany danych z WMS, komunikaty Dokument
 
+*Wymagane pola - w nawiasie podano typy dokumnetu dla któych pole jest wymagane*
+
 ## Obiekt dokument - document
 
 Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje związane z awizacją dostaw i zamówieniami od klientów a także importować receptury i słownik produktów.
@@ -9,9 +11,9 @@ Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje zwią
 | Pole | Wymagane | Opis 
 |--|--|--|
 *header*|T| Nagłówek dokumentu |Obiekt|
-*products*|N| Dane słownikowe produktów |Kolekcja|
-*recipes*|N| Struktura dla receptur |Kolekcja|
-*items*|N| Pozycje dokumentu |Kolekcja|
+*products*|T(PRODUCTS)| Dane słownikowe produktów |Kolekcja|
+*recipes*|T(RECIPES)| Struktura dla receptur |Kolekcja|
+*items*|T(IN,OUT)| Pozycje dokumentu |Kolekcja|
 
 
 ## Obiekt nagłówek - header
@@ -31,7 +33,7 @@ attachment|N|Link lub plik załącznika|varchar(max)|
 OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
 OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
 OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
-*firm*|T(IN,OUT)| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
+*firm|T(IN,OUT)| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|*
 *courier*|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
 *document_attributes*|N| Atrybuty nagłówka dokumentu|Kolekcja|
 
