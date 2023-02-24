@@ -187,7 +187,7 @@ Struktura dla receptur, kolekcja receptur
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
 |--|--|--|--|--|
 |rec_code|T |kod receptury|varchar(50) |`prec_code`
-|code|T |kod produktu głównego, wyjściowego.|varchar(50) |
+|code|T |kod produktu głównego, wyjściowego.|varchar(50) |`prd_code`
 |version|N |wersja receptury |varchar(25) |`prec_version`
 |description|N |opis receptury |varchar(25) |`prec_description`
 |*items*|N |Kolekcja elementów receptury|kolekcja
@@ -196,7 +196,7 @@ Struktura dla receptur, kolekcja receptur
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
 |--|--|--|--|--|
 |code|T |kod receptury|varchar(50) |`prd_product`
-|quantity|T |kod produktu głównego, wyjściowego.|decimal(18,6) |
+|quantity|T |kod produktu głównego, wyjściowego.|decimal(18,6) |`prei_quantity`
 
 
 ## Opakowania - packaging_structure
@@ -207,11 +207,11 @@ Aktualizowane mogą być poszczególne wartości w struktrurze, pod warunkiem, �
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
 |unit_of_measure|N |podstawowa jednostka miary. Kod jednostki miary pownien byc zgodny ze słownikiem w systemie WMS. (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie domyślna jednostka miary) |varchar(25) |`uom_code`
-|weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_packWeight
-|volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_packVolume
-|height|N |Wysokość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packHeight
-|length|N |Długość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packLength
-|width|N |Szerokość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packWidth
+|weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |`pplv_packWeight`
+|volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |`pplv_packVolume`
+|height|N |Wysokość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |`pplv_packHeight`
+|length|N |Długość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |`pplv_packLength`
+|width|N |Szerokość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |`pplv_packWidth`
 |units_in_package|N |ilość jednostek podatwowych w opakowaniu(kartonie). Tworzony jest nowy poziom struktury pakowania. Ten poziom opakowań oznaczany jest automatycznie jako opakowanie zbiorcze `pplv_calcAsOpa` | decimal(18,6) |
 |unit_of_package|N |jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`
 |units_on_pallet|N |ilość jednostek podatwowych na palecie. Tworzony jest nowy poziom struktury pakowania.Ten poziom opakowań oznaczany jest automatycznie jako paleta `pplv_isLoadUnit` | decimal(18,6) |
@@ -229,7 +229,7 @@ Reprezentuje pozycje dokumentu.
 |ordered_quantity|T |Ilość zamówiona w podstawowych jednostkach miary|decimal(18,6) |`dori_basicQuantity`
 |SSCC|N |Numer nośnika stosowany w przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ) |varchar(25) |`dori_SSCC`
 |pallet_type|N |typ nośnika stosowany przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ). Używany tylko w przypadku wypełniania pola SSCC|varchar(50) |`dori_luType`
-|OUT_quantity_confirmed | N |[Tylko dla komunikatu zwrotnego] Zrealizowana ilość w jednostkach podstawowych |decimal(18,6)|`door_confirmedQuantity`
+|OUT_quantity_confirmed | N |[Tylko dla komunikatu zwrotnego] Zrealizowana ilość w jednostkach podstawowych |decimal(18,6)|`dori_confirmedQuantity`
 |*item_attributes*|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
