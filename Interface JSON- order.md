@@ -2,7 +2,7 @@
 
 # Interface wymiany danych z WMS, komunikaty Dokument
 
-*Wymagane pola - w nawiasie podano typy dokumnetu dla któych pole jest wymagane*
+*Kolumna Wymagane - w nawiasie podano typy dokumnetu dla któych pole jest wymagane*
 
 ## Obiekt dokument - document
 
@@ -33,7 +33,7 @@ attachment|N|Link lub plik załącznika|varchar(max)|
 OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
 OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
 OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
-*firm|T(IN,OUT)| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|*
+*firm*|T(IN,OUT)| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
 *courier*|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
 *document_attributes*|N| Atrybuty nagłówka dokumentu|Kolekcja|
 
@@ -204,8 +204,8 @@ Struktura dla receptur, kolekcja receptur
 Struktura pakowania ***nie aktualizuje sie*** zakładana jest przy pierwszym dodaniu produktu. 
 Aktualizowane mogą być poszczególne wartości w struktrurze, pod warunkiem, że produkt nie został jescze wykorzystany w żadnym zadaniu WMS (nie istniał nigdy na stanie magazynowym)
 
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
-|--|--|--|--|--|--|
+| Pole | Wymagane | Opis | Typ danych| Pole WMS
+|--|--|--|--|--|
 |unit_of_measure|N |podstawowa jednostka miary. Kod jednostki miary pownien byc zgodny ze słownikiem w systemie WMS. (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie domyślna jednostka miary) |varchar(25) |`uom_code`
 |weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_packWeight
 |volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_packVolume
@@ -213,16 +213,16 @@ Aktualizowane mogą być poszczególne wartości w struktrurze, pod warunkiem, �
 |length|N |Długość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packLength
 |width|N |Szerokość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packWidth
 |units_in_package|N |ilość jednostek podatwowych w opakowaniu(kartonie). Tworzony jest nowy poziom struktury pakowania. Ten poziom opakowań oznaczany jest automatycznie jako opakowanie zbiorcze `pplv_calcAsOpa` | decimal(18,6) |
-|unit_of_package|N |jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`|1.1
+|unit_of_package|N |jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`
 |units_on_pallet|N |ilość jednostek podatwowych na palecie. Tworzony jest nowy poziom struktury pakowania.Ten poziom opakowań oznaczany jest automatycznie jako paleta `pplv_isLoadUnit` | decimal(18,6) |
-|unit_of_pallet|N |jednostka miary dla palety |varchar(25) |`uom_code`|1.1
+|unit_of_pallet|N |jednostka miary dla palety |varchar(25) |`uom_code`
       
 
 ## Pozycje dokumentu - items
 Reprezentuje pozycje dokumentu. 
 
 #### obiekt item
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
+| Pole | Wymagane | Opis | Typ danych| Pole WMS 
 |--|--|--|--|--|--|
 |LN|N | Numer linii - pole wykorzystywane w przypadku gdy systemy ERP w  komunikatach zwrotnych wymagają tej informacji np. SAP R3| int |`dori_lineNr`
 |code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
