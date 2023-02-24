@@ -182,7 +182,6 @@ Struktura dla receptur, kolekcja receptur
 |description|N |opis receptury |varchar(25) |`prec_description`
 |items|N |Kolekcja elementów receptury|kolekcja
 ### Kolekcja elementów receptur - items
-Kolekcja elementów receptury
 #### Obiekt item - element receptury
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
 |--|--|--|--|--|
