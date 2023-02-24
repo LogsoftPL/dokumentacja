@@ -29,7 +29,7 @@ document_alternative_code|T(IN,OUT) |kod alternatywny zamówienia - kod zamówie
 description|N|Opis do dokumentu|nvarchar(500) | `door_description`
 baselinker_id|N|'order_id' w API baselinkera, nr zamówienia baselinker|varchar(10)|`door_tr_BaselinklerID`
 baselinker_order_source_id|N|'order_source_id' w API baselinkera, identyfikator źródła zamówienia w baselinkerze|varchar(10)|`door_tr_BaselinkerOrderSourceID`
-attachment|N|Link lub plik załącznika|varchar(max)|
+attachment|N|Link lub plik załącznika|varchar(500)|`satt_oryginalFileName`
 OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
 OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
 OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
