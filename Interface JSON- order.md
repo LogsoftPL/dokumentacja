@@ -18,22 +18,14 @@ description|N|Opis do dokumentu|nvarchar(500) | `door_description`
 baselinker_id|N|'order_id' w API baselinkera, nr zamówienia baselinker|varchar(10)|'door_tr_BaselinklerID'
 baselinker_order_source_id|N|'order_source_id' w API baselinkera, identyfikator źródła zamówienia w baselinkerze|varchar(10)|'door_tr_BaselinkerOrderSourceID'
 attachment|N|Link lub plik załącznika|varchar(max)|
+OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
+OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
+OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
 firm|T| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
 courier|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
 document_attributes|N| Atrybuty nagłówka dokumentu|Kolekcja|
 products|N| Dane słownikowe produktów wykorzystywanych w zamówiniu |Kolekcja|
 recipes|N| Struktura dla receptur |Kolekcja|
-
-
-## Komunikat zwrotny
-Zawiera to co komunikat wejściowy poszerzone o opcjonalne pola:
-
-| Pole | Wymagane | Opis | Typ danych| Pole WMS
-|--|--|--|--|--|
-OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
-OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
-OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
-OUT_nr_log_tracking| |[Tylko dla komunikatu zwrotnego] nr listu przewozowego|Datetime | `door_tr_trackingNumber`
 
 
 ## Obiekt kontrahent
@@ -78,7 +70,7 @@ Przykład XML:
 
 ## Obiekt kurier
 
-Sekcja nie jest obowiązkowa, dotyczy tylko zleceń o typie ***OUT*** i jest używana tylko w przypadku gdy z systemu wystawiany jest list przewozowy
+Sekcja nie jest obowiązkowa, dotyczy tylko zleceń o typie ***OUT*** i jest używana tylko w przypadku gdy z systemu wystawiany jest list przewozowy. Niewymagane pola w tym obiekcie a wymagane przez API kuriera muszą być uzupełnione w procesie pakowania lub ręcznie w formatce zamówienia.
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
@@ -91,6 +83,7 @@ Sekcja nie jest obowiązkowa, dotyczy tylko zleceń o typie ***OUT*** i jest uż
 |email|N |mail kontaktowy|varchar(50) | `door_tr_contact`
 |additional_info|N |informacje dodatkowe do wydruku na etykiecie|varchar(50) |`door_tr_description`
 |parcel_size|N |gabaryt przesyłki|varchar(50) |'door_tr_parcelSize'
+OUT_nr_log_tracking| |[Tylko dla komunikatu zwrotnego] nr listu przewozowego|Datetime | `door_tr_trackingNumber`
 
 Przykład JSON:
 ```json
@@ -214,9 +207,10 @@ Aktualizowane mogą być poszczególne wartości w struktrurze, pod warunkiem, �
 |unit_of_pallet|N |jednostka miary dla palety |varchar(25) |`uom_code`|1.1
       
 
-## Pozycja dokumentu - items/item
+## Pozycje dokumentu - items
 Reprezentuje pozycje dokumentu. 
 
+#### obiekt item
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
 |LN|N | Numer linii - pole wykorzystywane w przypadku gdy systemy ERP w  komunikatach zwrotnych wymagają tej informacji np. SAP R3| int |`dori_lineNr`
@@ -224,15 +218,8 @@ Reprezentuje pozycje dokumentu.
 |ordered_quantity|T |Ilość zamówiona w podstawowych jednostkach miary|decimal(18,6) |`dori_basicQuantity`
 |SSCC|N |Numer nośnika stosowany w przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ) |varchar(25) |`dori_SSCC`
 |pallet_type|N |typ nośnika stosowany przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ). Używany tylko w przypadku wypełniania pola SSCC|varchar(50) |`dori_luType`
-|item_attributes|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
-
-
-## Komunikat zwrotny
-Zawiera to co komunikat wejściowy poszerzone o pola:
-
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |
-|--|--|--|--|--|
 |OUT_quantity_confirmed | N |[Tylko dla komunikatu zwrotnego] Zrealizowana ilość w jednostkach podstawowych |decimal(18,6)|`door_confirmedQuantity`
+|item_attributes|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
 ## Przykłady
@@ -290,7 +277,7 @@ Przykład dokumetu typu IN:
           "code": "GK A314",
           "name": "Hand cream 250ml",
           "ean": "5090987654321",
-          "grupa_magazynowa": "Cosmetics",
+          "warehouse_group": "Cosmetics",
           "packaging_structure": {
             "unit_of_measure": "szt"
           }
