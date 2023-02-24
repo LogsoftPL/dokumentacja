@@ -167,15 +167,15 @@ Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa 
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
-|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość dla całej kolekcji, nadpisywana wartością z obiektu product, nieobowiązkowa jeśli w WMS istnieje dla zleceniodawcy tylko jedna grupa magazynowa |varchar(250)|`prwg_code`
+|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość dla całej kolekcji, nadpisywana wartością z obiektu *product*, nieobowiązkowa jeśli w WMS istnieje dla zleceniodawcy tylko jedna grupa magazynowa |varchar(250)|`prwg_code`
 
 #### Obiekt product:
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
-|code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
+|code|T |kod produktu jednoznacznie identyfikuje produkt. Musi być unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
 |name|N |nazwa produktu (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie wykorzystany kod produktu). Nazwa nie musi byc unikatowa.|nvarchar(250) |`prd_name`
 |EAN|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_value`
-|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie product nadpisuje wartość z kolekcji products! |varchar(250)|`prwg_code`
+|warehouse_group|N |Powinna odpowiadać istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie *product* nadpisuje wartość z kolekcji *products*! |varchar(250)|`prwg_code`
 |*packaging_structure*|N |Struktura pakowania produktu, sekcja w zasadzie powinna być wstawiana głównie w przypadku awizacji dostaw.|kolekcja
 |*product_attributes*|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
@@ -195,8 +195,8 @@ Struktura dla receptur, kolekcja receptur
 #### Obiekt item - element receptury
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
 |--|--|--|--|--|
-|code|T |kod receptury|varchar(50) |`prd_product`
-|quantity|T |kod produktu głównego, wyjściowego.|decimal(18,6) |`prei_quantity`
+|code|T |kod produktu składnika|varchar(50) |`prd_product`
+|quantity|T |ilość składnika|decimal(18,6) |`prei_quantity`
 
 
 ## Opakowania - packaging_structure
