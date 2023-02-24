@@ -319,40 +319,44 @@ Przykład dokumetu JSON:
           "code":"SFC22",
           "version":"2.0",
           "description":"gift box",
-          "recipe":[
-            {
-              "code":"FC01",
-              "quantity":1
-            },
-            {
-              "code":"FC02",
-              "quantity":4
-            },
-            {
-              "code":"HC01",
-              "quantity":3
-            }
-          ]
+          "items":{
+            "item":[
+              {
+                "code":"FC01",
+                "quantity":1
+              },
+              {
+                "code":"FC02",
+                "quantity":4
+              },
+              {
+                "code":"HC01",
+                "quantity":3
+              }
+            ]
+          }
         },
         {
           "rec_code":"SHC_Loreal_42",
           "code":"SHL_42",
           "version":"1.0",
           "description":"gift box extra",
-          "recipe":[
-            {
-              "code":"HC03",
-              "quantity":1
-            },
-            {
-              "code":"SH02",
-              "quantity":2
-            },
-            {
-              "code":"HC01",
-              "quantity":12
-            }
-          ]
+          "items":{
+            "item":[
+              {
+                "code":"HC03",
+                "quantity":1
+              },
+              {
+                "code":"SH02",
+                "quantity":2
+              },
+              {
+                "code":"HC01",
+                "quantity":12
+              }
+            ]
+          }
         }
       ]
     },
@@ -474,36 +478,40 @@ Ten sam przykład w wersji XML:
       <code>SFC22</code>
       <version>2.0</version>
       <description>gift box</description>
-      <recipe>
-        <code>FC01</code>
-        <quantity>1</quantity>
-      </recipe>
-      <recipe>
-        <code>FC02</code>
-        <quantity>4</quantity>
-      </recipe>
-      <recipe>
-        <code>HC01</code>
-        <quantity>3</quantity>
-      </recipe>
+      <items>
+        <item>
+          <code>FC01</code>
+          <quantity>1</quantity>
+        </item>
+        <item>
+          <code>FC02</code>
+          <quantity>4</quantity>
+        </item>
+        <item>
+          <code>HC01</code>
+          <quantity>3</quantity>
+        </item>
+      </items>
     </recipe>
     <recipe>
       <rec_code>SHC_Loreal_42</rec_code>
       <code>SHL_42</code>
       <version>1.0</version>
       <description>gift box extra</description>
-      <recipe>
-        <code>HC03</code>
-        <quantity>1</quantity>
-      </recipe>
-      <recipe>
-        <code>SH02</code>
-        <quantity>2</quantity>
-      </recipe>
-      <recipe>
-        <code>HC01</code>
-        <quantity>12</quantity>
-      </recipe>
+      <items>
+        <item>
+          <code>HC03</code>
+          <quantity>1</quantity>
+        </item>
+        <item>
+          <code>SH02</code>
+          <quantity>2</quantity>
+        </item>
+        <item>
+          <code>HC01</code>
+          <quantity>12</quantity>
+        </item>
+      </items>
     </recipe>
   </recipes>
   <items>
