@@ -222,9 +222,9 @@ Reprezentuje pozycje dokumentu.
 |item_attributes|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
-## Przykłady
+# Przykłady
 
-Przykład dokumetu:
+Przykład dokumetu JSON:
 ```json
 {
   "document":{
@@ -313,22 +313,46 @@ Przykład dokumetu:
       ]
     },
     "recipes":{
-      "rec_code":"SFC_Nivea_22",
-      "code":"SFC22",
-      "version":"2.0",
-      "description":"gift box",
       "recipe":[
         {
-          "code":"FC01",
-          "quantity":1
+          "rec_code":"SFC_Nivea_22",
+          "code":"SFC22",
+          "version":"2.0",
+          "description":"gift box",
+          "recipe":[
+            {
+              "code":"FC01",
+              "quantity":1
+            },
+            {
+              "code":"FC02",
+              "quantity":4
+            },
+            {
+              "code":"HC01",
+              "quantity":3
+            }
+          ]
         },
         {
-          "code":"FC02",
-          "quantity":4
-        },
-        {
-          "code":"HC01",
-          "quantity":3
+          "rec_code":"SHC_Loreal_42",
+          "code":"SHL_42",
+          "version":"1.0",
+          "description":"gift box extra",
+          "recipe":[
+            {
+              "code":"HC03",
+              "quantity":1
+            },
+            {
+              "code":"SH02",
+              "quantity":2
+            },
+            {
+              "code":"HC01",
+              "quantity":12
+            }
+          ]
         }
       ]
     },
@@ -445,21 +469,41 @@ Ten sam przykład w wersji XML:
     </product>
   </products>
   <recipes>
-    <rec_code>SFC_Nivea_22</rec_code>
-    <code>SFC22</code>
-    <version>2.0</version>
-    <description>gift box</description>
     <recipe>
-      <code>FC01</code>
-      <quantity>1</quantity>
+      <rec_code>SFC_Nivea_22</rec_code>
+      <code>SFC22</code>
+      <version>2.0</version>
+      <description>gift box</description>
+      <recipe>
+        <code>FC01</code>
+        <quantity>1</quantity>
+      </recipe>
+      <recipe>
+        <code>FC02</code>
+        <quantity>4</quantity>
+      </recipe>
+      <recipe>
+        <code>HC01</code>
+        <quantity>3</quantity>
+      </recipe>
     </recipe>
     <recipe>
-      <code>FC02</code>
-      <quantity>4</quantity>
-    </recipe>
-    <recipe>
-      <code>HC01</code>
-      <quantity>3</quantity>
+      <rec_code>SHC_Loreal_42</rec_code>
+      <code>SHL_42</code>
+      <version>1.0</version>
+      <description>gift box extra</description>
+      <recipe>
+        <code>HC03</code>
+        <quantity>1</quantity>
+      </recipe>
+      <recipe>
+        <code>SH02</code>
+        <quantity>2</quantity>
+      </recipe>
+      <recipe>
+        <code>HC01</code>
+        <quantity>12</quantity>
+      </recipe>
     </recipe>
   </recipes>
   <items>
