@@ -25,7 +25,7 @@ products|N| Dane słownikowe produktów wykorzystywanych w zamówiniu |Kolekcja|
 recipes|N| Struktura dla receptur |Kolekcja|
 
 
-### Komunikat zwrotny
+## Komunikat zwrotny
 Zawiera to co komunikat wejściowy poszerzone o opcjonalne pola:
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
@@ -120,8 +120,7 @@ Przykład XML:
 ## Kolekcja atrybuty - document_attributes, product_attributes, item_attributes
 
 Kolekcja atrybuty może posiadać Max 20 obiektów. Atrybuty, których nazwa będzie niezgodna z nazwą w definicji atrybutów systemu WMS będą ignorowane. Niewymagane
-Obiekt attribute:
-
+#### Obiekt attribute:
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
 |name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
@@ -161,13 +160,13 @@ Przykład XML:
 
 ## Produkty - kolekcja products
 
+Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa jest aktualizacja nazwy i wartości atrybutów. 
+
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
 |warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość dla całej kolekcji, nadpisywana wartością z obiektu product, nieobowiązkowa jeśli w WMS istnieje dla zleceniodawcy tylko jedna grupa magazynowa |varchar(250)|
 
-Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa jest aktualizacja nazwy i wartości atrybutów. 
-Obiekt product:
-
+#### Obiekt product:
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
 |code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
@@ -177,18 +176,23 @@ Obiekt product:
 |warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie product nadpisuje wartość z kolekcji products! |varchar(250)|
 |product_attributes|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
+
 ## Receptury - kolekcja recipes
 
-Struktura dla receptur, obiekt recipe:
+Struktura dla receptur.
 
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
-|--|--|--|--|--|--|
-|code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
-|name|N |nazwa produktu (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie wykorzystany kod produktu). Nazwa nie musi byc unikatowa.|nvarchar(250) |`prd_name`
-|EAN|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_code`
-|packaging_structure|N |Struktura pakowania produktu sekcja w zasadzie powinna być wstawiana głownie w przypadku awizacji dostaw.|kolekcja
-|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS|varchar(250)||1.1
-|product_attributes|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+| Pole | Wymagane | Opis | Typ danych| Pole WMS 
+|--|--|--|--|--|
+|rec_code|T |kod receptury|varchar(50) |`prec_code`
+|code|T |kod produktu głównego, wyjściowego.|varchar(50) |
+|version|N |wersja receptury |varchar(25) |`prec_version`
+|description|N |opis receptury |varchar(25) |`prec_description`
+|items|N |Kolekcja elementów receptury|kolekcja
+#### Obiekt item:
+| Pole | Wymagane | Opis | Typ danych| Pole WMS 
+|--|--|--|--|--|
+|code|T |kod receptury|varchar(50) |`prd_product`
+|quantity|T |kod produktu głównego, wyjściowego.|decimal(18,6) |
 
 
 ## Opakowania - packaging_structure
