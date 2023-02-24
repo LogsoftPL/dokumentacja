@@ -85,14 +85,14 @@ Obiekt zawiera dane kontrahenta (klienta/dostawcy) w zależności od typu dokume
 
  Pole | Wymagane | Opis | Typ danych| Pole WMS |
 --|--|--|--|--|
-code|T |kod_firmy|nvarchar(50)
-name|T |nazwa firmy|nvarchar(100)
-address_code|N |kod_adresu|nvarchar(50)
-street|T |nazwa ulicy z numerem domu|nvarchar(100) 
-postal_code|T|kod pocztowy, format zależny od kraju |varchar(10)
-city|T |nazwa miejscowości|nvarchar(100) 
-country|N |kod kraju, dwuliterowy, jeśli puste wstawiany **PL**|varchar(2)
-NIP|N |NIP firmy|varchar(50)
+code|T |kod_firmy|nvarchar(50)|`frm_code`
+name|T |nazwa firmy|nvarchar(100)|`frm_name`
+address_code|N |kod_adresu|nvarchar(50)|`fadr_code`
+street|T |nazwa ulicy z numerem domu|nvarchar(100)|`fadr_street` 
+postal_code|T|kod pocztowy, format zależny od kraju |varchar(10)|`fadr_postalCode`
+city|T |nazwa miejscowości|nvarchar(100)`fadr_city
+country|N |kod kraju, dwuliterowy, jeśli puste wstawiany **PL**|varchar(2)`dctr_code2`
+NIP|N |NIP firmy|varchar(50)|`fadr_NIP`
 
 Przykład JSON:
 ```json
@@ -133,7 +133,7 @@ Sekcja nie jest obowiązkowa, dotyczy tylko zleceń o typie ***OUT*** i jest uż
 |telephone|N |numer telefonu kontaktowego odbiorcy|varchar(50) |`door_tr_contactPhone`
 |email|N |mail kontaktowy|varchar(50) | `door_tr_contact`
 |additional_info|N |informacje dodatkowe do wydruku na etykiecie|varchar(50) |`door_tr_description`
-|parcel_size|N |gabaryt przesyłki|varchar(50) |'door_tr_parcelSize'
+|parcel_size|N |gabaryt przesyłki|varchar(50) |`door_tr_parcelSize`
 OUT_nr_log_tracking| |[Tylko dla komunikatu zwrotnego] nr listu przewozowego|Datetime | `door_tr_trackingNumber`
 
 Przykład JSON:
