@@ -15,6 +15,8 @@ completion_date|N |żądana data realizacji|smalldatetime | `door_expectedComple
 priority|N |priorytet wartiosci od 0 - 89 priorytet zero jest najniższy. Priorytety 90-99 zarezerwowane jako specjalne do uzytku wewnętrznego| smallint |`door_expectedCompletion`
 document_alternative_code|T |kod alternatywny zamówienia - kod zamówienia z systemu ERP klienta| nvarchar(50) | `door_alternativeCode`
 description|N|Opis do dokumentu|nvarchar(500) | `door_description`
+baselinker_id|N|'order_id' w API baselinkera, nr zamówienia baselinker|varchar(10)|'door_tr_BaselinklerID'
+baselinker_order_source_id|N|'order_source_id' w API baselinkera, identyfikator źródła zamówienia w baselinkerze|varchar(10)|'door_tr_BaselinkerOrderSourceID'
 attachment|N|Link lub plik załącznika|varchar(max)|
 firm|T| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
 courier|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
@@ -23,7 +25,7 @@ products|N| Dane słownikowe produktów wykorzystywanych w zamówiniu |Kolekcja|
 
 
 ### Komunikat zwrotny
-Zawiera to co komunikat wejściowy poszerzone o pola:
+Zawiera to co komunikat wejściowy poszerzone o opcjonalne pola:
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
@@ -35,17 +37,18 @@ OUT_nr_log_tracking| |[Tylko dla komunikatu zwrotnego] nr listu przewozowego|Dat
 
 ## Obiekt kontrahent
 
-Obiekt zawiera dane kontrahenta (klienta/dostawcy) w zależności od typu dokumentu. Jeżeli dane kontrahenta nie istnieją w słowniku firm nowa firma zostanie automatycznie dodana do słownika.
+Obiekt zawiera dane kontrahenta (klienta/dostawcy) w zależności od typu dokumentu. Jeżeli dane kontrahenta nie istnieją w słowniku firm nowa firma zostanie automatycznie dodana do słownika. Możliwe jest podanie tylko kodu firmy, wówczas wstawiany do zamówienia jest ostatni adres dla danej firmy.
 
  Pole | Wymagane | Opis | Typ danych| Pole WMS |
 --|--|--|--|--|
 code|T |kod_firmy|nvarchar(50)
 name|T |nazwa firmy|nvarchar(100)
+address_code|N |kod_adresu|nvarchar(50)
 street|T |nazwa ulicy z numerem domu|nvarchar(100) 
-postal_code|T|format zależny od kraju |varchar(10)
+postal_code|T|kod pocztowy, format zależny od kraju |varchar(10)
 city|T |nazwa miejscowości|nvarchar(100) 
-country|N |kod kraju jeśli puste wstawiany **PL**|varchar(2)
-
+country|N |kod kraju, dwuliterowy, jeśli puste wstawiany **PL**|varchar(2)
+NIP|N |NIP firmy|varchar(50)
 
 Przykład JSON:
 ```json
@@ -72,34 +75,21 @@ Przykład XML:
 ```
 
 
-
 ## Obiekt kurier
 
-
-Sekcja nie jest obowiązkowa dotyczy tylko zleceń o typie ***OUT*** i jest używana tylko w przypadku gdy z systemu wystawiany jest list przewozowy
-
+Sekcja nie jest obowiązkowa, dotyczy tylko zleceń o typie ***OUT*** i jest używana tylko w przypadku gdy z systemu wystawiany jest list przewozowy
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
-|service|T |DHL Standard|varchar(50) |`door_tr_service`
+|service|T |Nazwa usługi kurierskiej, np. DHL Standard|varchar(50) |`door_tr_service`
 |COD|N | kwota pobrania |decimal(18,6)| `door_tr_COD`
-|insurance_amount|N |deklarowana kwota do ubezpieczenia (jesli pobranie kwota musi być >= COD)| decimal(18,6)| `door_tr_packageValue`
+|insurance_amount|N |deklarowana kwota do ubezpieczenia (jesli pobranie kwota musi być = COD), sprawdź wymogi konkrentnego kuriera| decimal(18,6)| `door_tr_packageValue`
+|currency|N |waluta pobrania/ubezpieczenia| decimal(18,6)| `door_tr_packageValue`
+|weight|N |waga przesyłki| decimal(18,6)| `door_tr_weight`
 |telephone|N |numer telefonu kontaktowego odbiorcy|varchar(50) |`door_tr_contactPhone`
 |email|N |mail kontaktowy|varchar(50) | `door_tr_contact`
 |additional_info|N |informacje dodatkowe do wydruku na etykiecie|varchar(50) |`door_tr_description`
-
-
-### Komunikat zwrotny
-Zawiera to co komunikat wejściowy poszerzone o pola:
-
-
-| Pole | Wymagane | Opis | Typ danych| Pole WMS |
-|--|--|--|--|--|
-|OUT_nr_log_trucking|N |[Tylko dla komunikatu zwrotnego] numer wygenerowanego listu przewozowego |nvarchar(50) |`door_tr_truckingNumber`
-
-
-> do dodania pola baselinkerID, Inpost_gabaryt, Inpost_paczkomat
-
+|parcel_size|N |gabaryt przesyłki|varchar(50) |'door_tr_parcelSize'
 
 Przykład JSON:
 ```json
@@ -125,19 +115,15 @@ Przykład XML:
 </courier>
 ```
 
+
 ## Kolekcja atrybuty
 
-
 Kolekcja atrybuty może posiadać Max 20 obiektów. Atrybuty, których nazwa będzie niezgodna z nazwą w definicji atrybutów systemu WMS będą ignorowane. Niewymagane
-
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
 |name|T | kod atrybutu z definicji atrybutów systemu WMS | varchar(50) |`pdef_code`
 |value|T |wartość wstawiana do odpowiedniego atrybutu nagłówka dokumentu|varchar(50) |`door_attribXX`
-
-
-
 
 Przykład JSON: 
 ```json
@@ -169,6 +155,8 @@ Przykład XML:
             </attribute>
         </document_attribute>
 ```
+
+
 ## Produkty
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
@@ -177,7 +165,8 @@ Przykład XML:
 |EAN|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_code`
 |packaging_structure|N |Struktura pakowania produktu sekcja w zasadzie powinna być wstawiana głownie w przypadku awizacji dostaw.|kolekcja
 |warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS|varchar(250)||1.1
-|product_attribute|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+|product_attributes|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+
 
 ### Opakowania
 
@@ -185,9 +174,12 @@ Struktura pakowania ***nie aktualizuje sie*** zakładana jest przy pierwszym dod
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
-|unit_of_measure|N |podstawowa jednostka miary. Kod jednostki miary pownien byc zgodny ze słownikiem w systemie WMS. (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostań domyślna jednostka miary) |varchar(25) |`uom_code`
-|weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_weight
-|volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_volume
+|unit_of_measure|N |podstawowa jednostka miary. Kod jednostki miary pownien byc zgodny ze słownikiem w systemie WMS. (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie domyślna jednostka miary) |varchar(25) |`uom_code`
+|weight|N |Waga brutto dla podstawowej jednostki miary wyrazona w ***kg***| decimal(18,6) |pplv_packWeight
+|volume|N |Objętość podstawowej jednostki miary wyrazona w ***m3***| decimal(18,6) |pplv_packVolume
+|height|N |Wysokość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packHeight
+|length|N |Długość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packLength
+|width|N |Szerokość podstawowej jednostki miary wyrazona w ***mm***| decimal(18,6) |pplv_packWidth
 |units_in_package|N |ilość jednostek podatwowych w opakowaniu(kartonie). Tworzony jest nowy poziom struktury pakowania. Ten poziom opakowań oznaczany jest automatycznie jako opakowanie zbiorcze `pplv_calcAsOpa` | decimal(18,6) |
 |unit_of_package|N |jednostka miary dla opakowania (kartonu) |varchar(25) |`uom_code`|1.1
 |units_on_pallet|N |ilość jednostek podatwowych na palecie. Tworzony jest nowy poziom struktury pakowania.Ten poziom opakowań oznaczany jest automatycznie jako paleta `pplv_isLoadUnit` | decimal(18,6) |
@@ -197,20 +189,18 @@ Struktura pakowania ***nie aktualizuje sie*** zakładana jest przy pierwszym dod
 ## Pozycja dokumentu
 Reprezentuje pozycje dokumentu. 
 
-
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
 |LN|N | Numer linii - pole wykorzystywane w przypadku gdy systemy ERP w  komunikatach zwrotnych wymagają tej informacji np. SAP R3| int |`dori_lineNr`
 |code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
 |ordered_quantity|T |Ilość zamówiona w podstawowych jednostkach miary|decimal(18,6) |`dori_basicQuantity`
-|SSCC|N |Numer nośnika stosowany tylko w przypadku awiza dostawy **typ = IN** |varchar(25) |`dori_SSCC`
-|pallet_type|N |typ nośnika stosowany tylko w przypadku awiza dostawy. Używany tylko w przypadku wypełniania pola SSCC|varchar(50) |`dori_luType`
-|item_attribute|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+|SSCC|N |Numer nośnika stosowany w przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ) |varchar(25) |`dori_SSCC`
+|pallet_type|N |typ nośnika stosowany przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ). Używany tylko w przypadku wypełniania pola SSCC|varchar(50) |`dori_luType`
+|item_attributes|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
 ### Komunikat zwrotny
 Zawiera to co komunikat wejściowy poszerzone o pola:
-
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |
 |--|--|--|--|--|
