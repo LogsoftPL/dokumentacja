@@ -173,9 +173,9 @@ Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa 
 |code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
 |name|N |nazwa produktu (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie wykorzystany kod produktu). Nazwa nie musi byc unikatowa.|nvarchar(250) |`prd_name`
 |EAN|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_value`
-|packaging_structure|N |Struktura pakowania produktu sekcja w zasadzie powinna być wstawiana głownie w przypadku awizacji dostaw.|kolekcja
 |warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie product nadpisuje wartość z kolekcji products! |varchar(250)|
-|product_attributes|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+|*packaging_structure*|N |Struktura pakowania produktu, sekcja w zasadzie powinna być wstawiana głównie w przypadku awizacji dostaw.|kolekcja
+|*product_attributes*|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
 ## Receptury - kolekcja recipes
@@ -188,7 +188,7 @@ Struktura dla receptur, kolekcja receptur
 |code|T |kod produktu głównego, wyjściowego.|varchar(50) |
 |version|N |wersja receptury |varchar(25) |`prec_version`
 |description|N |opis receptury |varchar(25) |`prec_description`
-|items|N |Kolekcja elementów receptury|kolekcja
+|*items*|N |Kolekcja elementów receptury|kolekcja
 ### Kolekcja elementów receptur - items
 #### Obiekt item - element receptury
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
@@ -228,7 +228,7 @@ Reprezentuje pozycje dokumentu.
 |SSCC|N |Numer nośnika stosowany w przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ) |varchar(25) |`dori_SSCC`
 |pallet_type|N |typ nośnika stosowany przypadku awiza dostawy (IN), lub dokumentu PZ (IN-PZ). Używany tylko w przypadku wypełniania pola SSCC|varchar(50) |`dori_luType`
 |OUT_quantity_confirmed | N |[Tylko dla komunikatu zwrotnego] Zrealizowana ilość w jednostkach podstawowych |decimal(18,6)|`door_confirmedQuantity`
-|item_attributes|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
+|*item_attributes*|N |Atrybuty pozycji dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
 
 # Przykłady
