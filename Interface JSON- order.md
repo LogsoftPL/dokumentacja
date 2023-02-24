@@ -20,18 +20,18 @@ Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje zwią
 |--|--|--|--|--|
 |type| T | określa typ dokumentu, przyjmowane wartości **OUT** dla dokumentów wyjściowych (Zamówienie od klienta), **IN** dla dokumentów wejściowych (awizo przyjęcia), **IN-PZ** dokument PZ automatycznie przyjmowany (np. do przenoszenia stanów mag. jako bilans otwarcia), **PRODUCTS** tylko słownik produktów (w trybie update/insert lub tylko insert),  **RECIPES** import receptur (w trybie update/insert lub tylko insert) | varchar(10)  
 |orderer|T |kod zleceniodawcy z WMS Z punktu widzenia klienta (systemu ERP) mozna traktowac jako stałą)| nvarchar(25)  | `dord_code`
-logistics_center|T |centrum logistyczne z WMS | nvarchar(25)  |`whc_code`
+logistics_center|T(IN,OUT) |centrum logistyczne z WMS | nvarchar(25)  |`whc_code`
 completion_date|N |żądana data realizacji|smalldatetime | `door_expectedCompletion`
 priority|N |priorytet, wartości od 0 - 89. Priorytet zero jest najniższy. Priorytety 90-99 zarezerwowane jako specjalne do użytku wewnętrznego.| smallint |`door_expectedCompletion`
-document_alternative_code|T |kod alternatywny zamówienia - kod zamówienia z systemu ERP klienta.| nvarchar(50) | `door_alternativeCode`
+document_alternative_code|T(IN,OUT) |kod alternatywny zamówienia - kod zamówienia z systemu ERP klienta.| nvarchar(50) | `door_alternativeCode`
 description|N|Opis do dokumentu|nvarchar(500) | `door_description`
-baselinker_id|N|'order_id' w API baselinkera, nr zamówienia baselinker|varchar(10)|'door_tr_BaselinklerID'
-baselinker_order_source_id|N|'order_source_id' w API baselinkera, identyfikator źródła zamówienia w baselinkerze|varchar(10)|'door_tr_BaselinkerOrderSourceID'
+baselinker_id|N|'order_id' w API baselinkera, nr zamówienia baselinker|varchar(10)|`door_tr_BaselinklerID`
+baselinker_order_source_id|N|'order_source_id' w API baselinkera, identyfikator źródła zamówienia w baselinkerze|varchar(10)|`door_tr_BaselinkerOrderSourceID`
 attachment|N|Link lub plik załącznika|varchar(max)|
 OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
 OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
 OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
-*firm*|T| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
+*firm*|T(IN,OUT)| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
 *courier*|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
 *document_attributes*|N| Atrybuty nagłówka dokumentu|Kolekcja|
 
