@@ -90,7 +90,7 @@ name|T |nazwa firmy|nvarchar(100)|`frm_name`
 address_code|N |kod_adresu|nvarchar(50)|`fadr_code`
 street|T |nazwa ulicy z numerem domu|nvarchar(100)|`fadr_street` 
 postal_code|T|kod pocztowy, format zależny od kraju |varchar(10)|`fadr_postalCode`
-city|T |nazwa miejscowości|nvarchar(100)|`fadr_city
+city|T |nazwa miejscowości|nvarchar(100)|`fadr_city`
 country|N |kod kraju, dwuliterowy, jeśli puste wstawiany **PL**|varchar(2)|`dctr_code2`
 NIP|N |NIP firmy|varchar(50)|`fadr_NIP`
 
@@ -167,7 +167,7 @@ Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa 
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
-|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość dla całej kolekcji, nadpisywana wartością z obiektu product, nieobowiązkowa jeśli w WMS istnieje dla zleceniodawcy tylko jedna grupa magazynowa |varchar(250)|
+|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość dla całej kolekcji, nadpisywana wartością z obiektu product, nieobowiązkowa jeśli w WMS istnieje dla zleceniodawcy tylko jedna grupa magazynowa |varchar(250)|`prwg_code`
 
 #### Obiekt product:
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
@@ -175,7 +175,7 @@ Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa 
 |code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
 |name|N |nazwa produktu (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie wykorzystany kod produktu). Nazwa nie musi byc unikatowa.|nvarchar(250) |`prd_name`
 |EAN|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_value`
-|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie product nadpisuje wartość z kolekcji products! |varchar(250)|
+|warehouse_group|N |Powinna odpowiadac istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie product nadpisuje wartość z kolekcji products! |varchar(250)|`prwg_code`
 |*packaging_structure*|N |Struktura pakowania produktu, sekcja w zasadzie powinna być wstawiana głównie w przypadku awizacji dostaw.|kolekcja
 |*product_attributes*|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
 
