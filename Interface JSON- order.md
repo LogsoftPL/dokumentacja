@@ -4,44 +4,38 @@
 
 Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje związane z awizacją dostaw i zamówieniami od klientów.
 
-
 ## Obiekt naglowek
-
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
-|type| T | określa typ dokumentu przyjmowane wartości **OUT** dla dokumentów wejściowych **IN** dla dokumentów wyjściowych | varchar(5)  
+|type| T | określa typ dokumentu, przyjmowane wartości **OUT** dla dokumentów wyjściowych (Zamówienie od klienta), **IN** dla dokumentów wejściowych (awizo przyjęcia), **IN-PZ** dokument PZ automatycznie przyjmowany (np. do przenoszenia stanów mag. jako bilans otwarcia), **PRODUCTS** tylko słownik produktów (w trybie update/insert lub tylko insert),  **RECIPES** import receptur (w trybie update/insert lub tylko insert) | varchar(10)  
 |orderer|T |kod zleceniodawcy z WMS Z punktu widzenia klienta (systemu ERP) mozna traktowac jako stałą)| nvarchar(25)  | `dord_code`
 logistics_center|T |centrum logistyczne z WMS | nvarchar(25)  |`whc_code`
 completion_date|N |żądana data realizacji|smalldatetime | `door_expectedCompletion`
 priority|N |priorytet wartiosci od 0 - 89 priorytet zero jest najniższy. Priorytety 90-99 zarezerwowane jako specjalne do uzytku wewnętrznego| smallint |`door_expectedCompletion`
 document_alternative_code|T |kod alternatywny zamówienia - kod zamówienia z systemu ERP klienta| nvarchar(50) | `door_alternativeCode`
 description|N|Opis do dokumentu|nvarchar(500) | `door_description`
+attachment|N|Link lub plik załącznika|varchar(max)|
 firm|T| Obiekt zawiera dane kontrahenta (klienta/dostawcy w zależności od typu dokumentu|Obiekt|
 courier|N| Obiekt zawiara dane potrzebne do wystawiania listu przewozowego z poziomu systemu WMS|Obiekt|
-document_attribute|N| Atrybuty nagłówka dokumentu|Kolekcja|
+document_attributes|N| Atrybuty nagłówka dokumentu|Kolekcja|
 products|N| Dane słownikowe produktów wykorzystywanych w zamówiniu |Kolekcja||1.1
 
 
 ### Komunikat zwrotny
 Zawiera to co komunikat wejściowy poszerzone o pola:
 
-
 | Pole | Wymagane | Opis | Typ danych| Pole WMS |Od wersji 
 |--|--|--|--|--|--|
 OUT_document_nr| |[Tylko dla komunikatu zwrotnego] nr dokumentu w WMS|nvarchar(25)  | `ddoc_code`
 OUT_date_creation| |[Tylko dla komunikatu zwrotnego] data utworzenia/importu dokumentu|Datetime | `door_dateCreated`
 OUT_date_closed| |[Tylko dla komunikatu zwrotnego] data zamknięcia dokumentu|Datetime | `door_dateClosed`
-
-
-
+OUT_nr_log_tracking| |[Tylko dla komunikatu zwrotnego] nr listu przewozowego|Datetime | `door_tr_trackingNumber`
 
 
 ## Obiekt kontrahent
 
-
 Obiekt zawiera dane kontrahenta (klienta/dostawcy) w zależności od typu dokumentu. Jeżeli dane kontrahenta nie istnieją w słowniku firm nowa firma zostanie automatycznie dodana do słownika.
-
 
  Pole | Wymagane | Opis | Typ danych| Pole WMS |
 --|--|--|--|--|
