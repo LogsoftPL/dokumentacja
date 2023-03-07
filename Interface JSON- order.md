@@ -223,7 +223,7 @@ Reprezentuje pozycje dokumentu.
 
 #### obiekt item
 | Pole | Wymagane | Opis | Typ danych| Pole WMS 
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 |LN|N | Numer linii - pole wykorzystywane w przypadku gdy systemy ERP w  komunikatach zwrotnych wymagają tej informacji np. SAP R3| int |`dori_lineNr`
 |code|T |kod porduktu jednoznacznie identyfikuje produkt musi byc unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
 |ordered_quantity|T |Ilość zamówiona w podstawowych jednostkach miary|decimal(18,6) |`dori_basicQuantity`
