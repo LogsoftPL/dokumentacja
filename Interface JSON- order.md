@@ -20,7 +20,7 @@ Dokument zawiera ustandaryzowany format pozwalający wymieniać informacje zwią
 
 | Pole | Wymagane | Opis | Typ danych| Pole WMS
 |--|--|--|--|--|
-|type| T | określa typ dokumentu, przyjmowane wartości **OUT** dla dokumentów wyjściowych (Zamówienie od klienta), **IN** dla dokumentów wejściowych (awizo przyjęcia), **IN-PZ** dokument PZ automatycznie przyjmowany (np. do przenoszenia stanów mag. jako bilans otwarcia), **PRODUCTS** tylko słownik produktów (w trybie update/insert lub tylko insert),  **RECIPES** import receptur (w trybie update/insert lub tylko insert) | varchar(10)  
+|type| T | określa typ dokumentu, przyjmowane wartości **OUT** dla dokumentów wyjściowych (Zamówienie od klienta), **IN** dla dokumentów wejściowych (awizo przyjęcia), **IN-PZ** dokument PZ automatycznie przyjmowany (np. do przenoszenia stanów mag. jako bilans otwarcia), **PRODUCTS** tylko słownik produktów (w trybie update/insert lub tylko insert),  **RECIPES** import receptur (w trybie update/insert lub tylko insert), **CONFIRM-IN**, **CONFIRM-OUT** eksportowane pliki z WMS z potwierdzeniami dostaw/wydań | varchar(10)  
 |orderer|T |kod zleceniodawcy z WMS Z punktu widzenia klienta (systemu ERP) mozna traktowac jako stałą)| nvarchar(25)  | `dord_code`
 logistics_center|T(IN,OUT) |centrum logistyczne z WMS | nvarchar(25)  |`whc_code`
 completion_date|N |żądana data realizacji|smalldatetime | `door_expectedCompletion`
