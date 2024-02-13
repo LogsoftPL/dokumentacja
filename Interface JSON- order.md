@@ -174,7 +174,7 @@ Dane słownikowe produktów. Produkty identyfikowane są po polu code. Możliwa 
 |--|--|--|--|--|
 |code|T |kod produktu jednoznacznie identyfikuje produkt. Musi być unikatowy w obrębie jednego zleceniodawcy|nvarchar(50) |`prd_code`
 |name|N |nazwa produktu (jeśli pole puste przy zakładaniu nowego produktu jako nazwa zostanie wykorzystany kod produktu). Nazwa nie musi byc unikatowa.|nvarchar(250) |`prd_name`
-|EAN|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_value`
+|ean|N |kod kreskowy dla podstawowej jednostki miary (np EAN13) - kod nie musi byc unikatowy. W przypadku wystepienia innego kodu niż wczesniej dodany oryginalny wpis sie nie zaktulizuje, dodany zostanie nowy z bieżacym kodem |varchar(25) |`prdb_value`
 |warehouse_group|N |Powinna odpowiadać istniejącej grupie magazynowej w sytemie WMS, wartość w obiekcie *product* nadpisuje wartość z kolekcji *products*! |varchar(250)|`prwg_code`
 |*packaging_structure*|N |Struktura pakowania produktu, sekcja w zasadzie powinna być wstawiana głównie w przypadku awizacji dostaw.|kolekcja
 |*product_attributes*|N |Atrybuty nagłówka dokumentu Jeśli nie będzie zdefiniowanego atrybutu Status jakości wstawiona zostanie wartość domyślna dla statusu jakości|kolekcja
