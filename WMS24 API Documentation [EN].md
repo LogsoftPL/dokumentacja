@@ -1359,7 +1359,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xTransportOrder or null**\]
 
-- **api/0.9/transport-orders**
+- **api/0.9/transport-orders/{transportOrderId}**
 - Path: \[ _transportOrderId_ (int, required) \]
 
 Get transport order.
