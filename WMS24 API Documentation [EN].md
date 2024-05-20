@@ -1150,7 +1150,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xPackageLabel**\]
 
-- **api/0.9/packages/label/transport-order/{transportOrderId}/{packageId}**
+- **api/0.9/packages/label/{transportOrderId}/{packageId}**
 - Path: \[ _transportOrderId_ (required), _packageId_ (required)\]
 
 Get label for package.
