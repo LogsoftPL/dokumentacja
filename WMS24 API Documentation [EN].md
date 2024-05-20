@@ -95,7 +95,7 @@ Address email of IT support: [logsoft@logsoft.com.pl](mailto:logsoft@logsoft.com
 
 Endpoint example:
 
-<http://x.x.x.x:PORT/api/v1/transport-orders?limit=50>
+<http://x.x.x.x:PORT/api/v0.9/transport-orders?limit=50>
 
 Requests are made to the service using the _http_ protocol. This is a temporary solution. In the future, all queries will be called using the _https_ protocol.
 
@@ -735,7 +735,7 @@ Get attachment file for attachment.
 _Request:_
 ```
 curl -X 'GET' \  
-'https://localhost:7072/api/v1/attachments/file/transport-order/123/12' \
+'https://localhost:7072/api/v0.9/attachments/file/transport-order/123/12' \
 \-H 'accept: */*' \
 \-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
 ```
