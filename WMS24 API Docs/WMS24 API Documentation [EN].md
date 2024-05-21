@@ -949,7 +949,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xOrder or null**\]
 
-- **api/0.9/orders**
+- **api/0.9/orders/{orderId}**
 - Path: \[ _orderId_ (int, required) \]
 
 Get order.
