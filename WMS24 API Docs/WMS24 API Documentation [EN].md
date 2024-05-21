@@ -578,7 +578,7 @@ curl -X 'POST'  \
 ```
 _Response body:_
 ```
-{**
+{
 "success": true, 
 "code": 200,  
 "message": "Login successfully.", 
