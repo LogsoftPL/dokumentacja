@@ -86,7 +86,7 @@ Available API versions: **v0.9**
 | **Description** | **Doc version** | **Date** | **Author** |
 | --- | --- | --- | --- |
 | Creation of document. | 1.0 | 17.05.2024 | Artur Masłowski |
-| Added the feature to add batch transport orders Changed xResNewEntry to xResNewEntries. The limit for obtaining orders and transport orders was raised to 300. | 1.03 | 22.05.2024 | Artur Masłowski |
+| Added the feature to add batch transport orders. Changed xResNewEntry to xResNewEntries. The limit for obtaining orders and transport orders was raised to 300. | 1.03 | 22.05.2024 | Artur Masłowski |
 
 # Introduction
 
