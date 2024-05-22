@@ -556,7 +556,7 @@ Object describing response for creation entry action.
 | EntryIds | object[] | Id of new created entry |     |
 
 #### xOrderBody
-Object describing request body for transport order.
+Object describing request body for order.
 
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
 | --- | --- | --- | --- |
