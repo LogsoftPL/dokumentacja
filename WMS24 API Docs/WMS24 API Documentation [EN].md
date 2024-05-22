@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.0 - 17.05.2024**
+Doc version / date: **v1.03 - 22.05.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -86,6 +86,7 @@ Available API versions: **v0.9**
 | **Description** | **Doc version** | **Date** | **Author** |
 | --- | --- | --- | --- |
 | Creation of document. | 1.0 | 17.05.2024 | Artur Masłowski |
+| Added the feature to add batch transport orders Changed xResNewEntry to xResNewEntries. The limit for obtaining orders and transport orders was raised to 300. | 1.03 | 22.05.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -541,7 +542,7 @@ Object describing response for login action.
 | Message | string | Response message |     |
 | Token | string | Auth token |     |
 
-#### xResNewEntry
+#### xResNewEntries
 Object describing response for creation entry action.
 
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
@@ -549,7 +550,7 @@ Object describing response for creation entry action.
 | Success | bool | Was the request successful? |     |
 | Code | int | Http code |     |
 | Message | string | Response message |     |
-| EntryId | object | Id of new created entry |     |
+| EntryIds | object[] | Id of new created entry |     |
 
 # Actions
 
@@ -616,7 +617,7 @@ _Response:_
 "success": true,  
 "code": 200, 
 "message": "Successfully created user.",  
-"entryId": 2  
+"entryIds": [2]  
 }
 ```
 ## ApiConfigs actions
@@ -812,9 +813,9 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 300), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
 
-Get list of orders. Max 100 orders per request.
+Get list of orders. Max 300 orders per request.
 
 _Request:_
 ```
@@ -1254,9 +1255,9 @@ _Response:_
 \[RESPONSE: **Empty list or list of xTransportOrder**\]
 
 - **api/0.9/transport-orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 300), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
 
-Get list of transport orders. Max 100 transport orders per request.
+Get list of transport orders. Max 300 transport orders per request.
 
 _Request:_
 ```
@@ -1462,12 +1463,12 @@ _Response:_
 \[v0.9\]
 \[POST\]
 \[SECURED\]
-\[REQUEST BODY: **xTransportOrderBody**\]
+\[REQUEST BODY: **Array of xTransportOrderBody**\]
 \[RESPONSE: **xResNewEntry**\]
 
 - **api/0.9/transport-orders**
 
-Create transport order.
+Create transport orders.
 
 _Request:_
 ```
@@ -1476,7 +1477,7 @@ curl -X 'POST' \
 \-H 'accept: */*' \
 \-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
 \-H 'Content-Type: application/json' \
-\-d '{  
+\-d '[{  
 "apiConfigId": 0,
 "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
 "receiverAddress": {
@@ -1523,7 +1524,7 @@ curl -X 'POST' \
 "parcelLocker": "string",
 "labelPrinter": "string",
 "labelHost": "string"
-}
+}]
 ```
 _Response:_
 ```
@@ -1531,7 +1532,7 @@ _Response:_
 "success": true, 
 "code": 200,
 "message": "Successfully created.",
-"entryId": 1
+"entryIds": [1]
 }
 ```
 ## Warehouses actions
