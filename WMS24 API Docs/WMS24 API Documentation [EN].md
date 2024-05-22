@@ -651,7 +651,7 @@ _Response body:_
 \[POST\]
 \[ANONYMOUS\]
 \[REQUEST BODY: **xRegisterBody**\]
-\[RESPONSE: **xResNewEntry**\]
+\[RESPONSE: **xResNewEntries**\]
 
 - **api/0.9/auth/register**
 
@@ -1149,7 +1149,7 @@ _Response:_
 \[POST\]
 \[SECURED\]
 \[REQUEST BODY: **Array of xOrderBody**\]
-\[RESPONSE: **xResNewEntry**\]
+\[RESPONSE: **xResNewEntries**\]
 
 - **api/0.9/orders**
 
@@ -1665,7 +1665,7 @@ _Response:_
 \[POST\]
 \[SECURED\]
 \[REQUEST BODY: **Array of xTransportOrderBody**\]
-\[RESPONSE: **xResNewEntry**\]
+\[RESPONSE: **xResNewEntries**\]
 
 - **api/0.9/transport-orders**
 
