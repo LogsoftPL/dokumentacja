@@ -88,7 +88,7 @@ Available API versions: **v0.9**
 | **Description** | **Doc version** | **Date** | **Author** |
 | --- | --- | --- | --- |
 | Creation of document. | 1.0 | 17.05.2024 | Artur Masłowski |
-| Added the feature to add batch transport orders. Changed xResNewEntry to xResNewEntries. The limit for obtaining orders and transport orders was raised to 300. Added POST method for xOrder. | 1.05 | 22.05.2024 | Artur Masłowski |
+| Added the feature to add batch transport orders. Changed xResNewEntry to xResNewEntries. Added POST method for xOrder. | 1.05 | 22.05.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -874,9 +874,9 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 300), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
 
-Get list of orders. Max 300 orders per request.
+Get list of orders. Max 100 orders per request.
 
 _Request:_
 ```
@@ -1456,9 +1456,9 @@ _Response:_
 \[RESPONSE: **Empty list or list of xTransportOrder**\]
 
 - **api/0.9/transport-orders**
-- Parameters: \[ _limit_ (int, optional – max 300), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
 
-Get list of transport orders. Max 300 transport orders per request.
+Get list of transport orders. Max 100 transport orders per request.
 
 _Request:_
 ```
