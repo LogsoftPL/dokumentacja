@@ -501,10 +501,10 @@ Object describing request body for transport order.
 | ReferenceNr | string | Reference number | x   |
 | ExternalStatus | string | External status | x   |
 | Packages | List&lt;xPackage&gt; | Packages | x   |
+| ShippingServiceId | int | Id of xShippingService | x   |
 | WarehouseId | int | Id of xWarehouse |     |
 | ExternalId | string | External id |     |
 | Description | string | Description |     |
-| ShippingServiceId | int | Id of xShippingService |     |
 | COD | double | Cash on delivery value |     |
 | CODCurrency | string | Cash on delivery currency (ex. PLN, USD etc.) |     |
 | BankAccountNr | string | Customer bank account number |     |
