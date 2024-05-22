@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.03 - 22.05.2024**
+Doc version / date: **v1.05 - 22.05.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -56,6 +56,8 @@ Available API versions: **v0.9**
     - [xWarehouse](#xwarehouse)
 
     - [xResLogin](#xreslogin)
+  
+    - [xOrderBody](#xorderbody)
 
 5. [Actions](#actions)
 
@@ -86,7 +88,7 @@ Available API versions: **v0.9**
 | **Description** | **Doc version** | **Date** | **Author** |
 | --- | --- | --- | --- |
 | Creation of document. | 1.0 | 17.05.2024 | Artur Masłowski |
-| Added the feature to add batch transport orders. Changed xResNewEntry to xResNewEntries. The limit for obtaining orders and transport orders was raised to 300. | 1.03 | 22.05.2024 | Artur Masłowski |
+| Added the feature to add batch transport orders. Changed xResNewEntry to xResNewEntries. The limit for obtaining orders and transport orders was raised to 300. Added POST method for xOrder. | 1.05 | 22.05.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -254,6 +256,7 @@ Object describing order.
 | Warehouse | xWarehouse | Warehouse |     |
 | SourceInfo | string | Source info |     |
 | SourceConfigId | int | Source config id |     |
+| MarketPlaceDocNr | int | Marketplace document number |     |
 | MarketPlaceDocId | int | Marketplace document id |     |
 | ERPDocNr | string | ERP document number |     |
 | ERPDocId | int | Id of document ERP |     |
@@ -307,8 +310,8 @@ Object describing order items for xOrder.
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
 | --- | --- | --- | --- |
 | Id  | int (readonly) | Identifier |     |
-| ProductName | string | Product name |     |
-| OrderedQuantity | double | Quantity |     |
+| ProductName | string | Product name | x   |
+| OrderedQuantity | double | Quantity | x   |
 | LineNumber | int | Line number |     |
 | ProductId | int | Product id |     |
 | ProductExternalId | int | Product external id |     |
@@ -551,6 +554,64 @@ Object describing response for creation entry action.
 | Code | int | Http code |     |
 | Message | string | Response message |     |
 | EntryIds | object[] | Id of new created entry |     |
+
+#### xOrderBody
+Object describing request body for transport order.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| OwnerToken | guid | Token of owner related to order | x   |
+| Priority | int | Priority | x   |
+| WantInvoice | bool | Does a customer want an invoice? | x   |
+| CreationDate | datetime | Order creation date | x   |
+| Items | List&lt;xOrderItem&gt; | List of order items (products) | x   |
+| InvoiceStatus | xStatus | Status of invoice |     |
+| ReceiverAddress | xAddress | Address of receiver |     |
+| InvoiceAddress | xAddress | Address of invoice |     |
+| WarehouseId | int | Id of warehouse |     |
+| SourceInfo | string | Source info |     |
+| SourceConfigId | int | Source config id |     |
+| MarketPlaceDocNr | int | Marketplace document number |     |
+| MarketPlaceDocId | int | Marketplace document id |     |
+| ERPDocNr | string | ERP document number |     |
+| ERPDocId | int | Id of document ERP |     |
+| ERPConfigId | int | ERP config id |     |
+| InvoiceDocNr | string | Invoice document number |     |
+| InvoiceDocId | int | Invoice document id |     |
+| InvoiceConfigId | int | Invoice config id |     |
+| InvoiceStatusDate | datetime | Invoice status date |     |
+| WMSDocNr | string | WMS document number |     |
+| WMSDocId | int | WMS document id |     |
+| WMSConfigId | int | WMS config id |     |
+| Currency | string | Currency code (ex. PLN, USD etc.) |     |
+| PaymentMethod | string | Payment method |     |
+| PaymentValue | double | Payment value |     |
+| PaymentDate | datetime | Payment date |     |
+| Paid | bool | Did customer paid for order? |     |
+| UserComments | string | User comments |     |
+| AdminComments | string | Admin comments |     |
+| COD | double | Cash on delivery value |     |
+| CODPaymentMethod | string | Cash on delivery payment method |     |
+| CODCurrency | string | Cash on delivery currency code (ex. PLN, USD etc.) |     |
+| BankAccountNr | string | Customer bank account |     |
+| Insurance | double | Insurance value |     |
+| InsuranceCurrency | string | Insurance currency code (ex. PLN, USD etc.) |     |
+| DeclaredValue | double | Declared value |     |
+| DeclaredValueCurrency | string | Declared value currency code (ex. PLN, USD etc.) |     |
+| ParcelLocker | string | Parcel locker code |     |
+| CustomSourceId | int | Custom source id |     |
+| MarketplaceUserLogin | string | Marketplace user login |     |
+| ShippingServiceExternalSourceID | string | Id of external service |     |
+| ShippingServiceSourceExternalName | string | Name of external service |     |
+| IsFulfillmentOrder | bool | Is fulfillment order? |     |
+| FulfillmentStatus | string | Fulfillment status |     |
+| ShippingPrice | float | Shipping price |     |
+| InvoiceFullName | string | Invoice person full name |     |
+| InvoiceCompany | string | Company name |     |
+| InvoiceNip | string | NIP of company |     |
+| ExtraField1 | string | Extra field |     |
+| ExtraField2 | string | Extra field |     |
 
 # Actions
 
@@ -1083,6 +1144,146 @@ _Response:_
 "transportOrderId": null
 }
 ```
+
+\[v0.9\]
+\[POST\]
+\[SECURED\]
+\[REQUEST BODY: **Array of xOrderBody**\]
+\[RESPONSE: **xResNewEntry**\]
+
+- **api/0.9/orders**
+
+Create orders.
+
+_Request:_
+```
+curl -X 'POST' \
+'https://localhost:7072/api/v0.9/orders' \
+\-H 'accept: */*' \
+\-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+\-H 'Content-Type: application/json' \
+  -d '[
+  {
+    "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
+    "priority": 0,
+    "wantInvoice": true,
+    "creationDate": "2024-05-22T09:19:12.901Z"
+    "items": [
+      {
+        "productName": "string",
+        "orderedQuantity": 0,
+        "lineNumber": 0,
+        "productId": 0,
+        "productExternalId": "string",
+        "productCode": "string",
+        "productAlternativeCode": "string",
+        "productWarehouseGroup": "string",
+        "productEAN": "string",
+        "productUnit": "string",
+        "productWeight": 0,
+        "productVolume": 0,
+        "productHeight": 0,
+        "productLength": 0,
+        "productWidth": 0,
+        "productBoxUnit": "string",
+        "productBoxEAN": "string",
+        "productBoxQuantity": 0,
+        "productPalletUnit": "string",
+        "productPalletEAN": "string",
+        "productPalletQuantity": 0,
+        "productIsService": true,
+        "confirmedQuantity": 0,
+        "priceNetto": 0,
+        "taxRate": 0,
+        "priceBrutto": 0,
+        "offer": "string",
+        "set": "string",
+        "boughtDate": "2024-05-22T09:19:12.901Z"
+      }
+    ],
+    "receiverAddress": {
+      "name": "string",
+      "street": "string",
+      "city": "string",
+      "zipCode": "string",
+      "country": "string",
+      "name2": "string",
+      "name3": "string",
+      "buildingNumber": "string",
+      "apartmentNumber": "string",
+      "contactPerson": "string",
+      "contactPhone": "string",
+      "contactEmail": "string"
+    },
+    "invoiceAddress": {
+      "name": "string",
+      "street": "string",
+      "city": "string",
+      "zipCode": "string",
+      "country": "string",
+      "name2": "string",
+      "name3": "string",
+      "buildingNumber": "string",
+      "apartmentNumber": "string",
+      "contactPerson": "string",
+      "contactPhone": "string",
+      "contactEmail": "string"
+    },
+    "warehouseId": null,
+    "sourceInfo": "string",
+    "sourceConfigId": 0,
+    "marketPlaceDocNr": "string",
+    "marketPlaceDocId": 0,
+    "erpDocNr": "string",
+    "erpDocId": 0,
+    "erpConfigId": 0,
+    "invoiceDocNr": "string",
+    "invoiceDocId": 0,
+    "invoiceConfigId": 0,
+    "wmsDocNr": "string",
+    "wmsDocId": 0,
+    "wmsConfigId": 0,
+    "currency": "string",
+    "paymentMethod": "string",
+    "paymentValue": 0,
+    "paymentDate": "2024-05-22T09:19:12.901Z",
+    "paid": true,
+    "userComments": "string",
+    "adminComments": "string",
+    "cod": 0,
+    "codPaymentMethod": "string",
+    "codCurrency": "string",
+    "bankAccountNr": "string",
+    "insurance": 0,
+    "insuranceCurrency": "string",
+    "declaredValue": 0,
+    "declaredValueCurrency": "string",
+    "parcelLocker": "string",
+    "customSourceId": 0,
+    "marketplaceUserLogin": "string",
+    "shippingServiceExternalSourceID": "string",
+    "shippingServiceSourceExternalName": "string",
+    "isFulfillmentOrder": true,
+    "fulfillmentStatus": "string",
+    "shippingPrice": 0,
+    "invoiceFullName": "string",
+    "invoiceCompany": "string",
+    "invoiceNip": "string",
+    "extraField1": "string",
+    "extraField2": "string"
+  }
+]'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully created.",
+"entryIds": [1]
+}
+```
+
 ## Owners actions
 
 \[v0.9\]
@@ -1481,7 +1682,6 @@ curl -X 'POST' \
 "apiConfigId": 0,
 "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
 "receiverAddress": {
-"id": 0,
 "name": "string",
 "street": "string",
 "city": "string",
@@ -1499,7 +1699,6 @@ curl -X 'POST' \
 "referenceNr": "string",
 "externalStatus": "string",
 "packages": [{
-"id": 0,
 "trackingNumber": "string",
 "type": "string",
 "sizeType": "string",
