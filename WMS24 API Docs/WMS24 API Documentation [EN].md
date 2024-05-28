@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.05 - 22.05.2024**
+Doc version / date: **v1.06 - 28.05.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -89,6 +89,7 @@ Available API versions: **v0.9**
 | --- | --- | --- | --- |
 | Creation of document. | 1.0 | 17.05.2024 | Artur Masłowski |
 | Added the feature to add batch transport orders and orders. Changed xResNewEntry to xResNewEntries. Added POST method for xOrder. | 1.05 | 22.05.2024 | Artur Masłowski |
+| Changed xTransportOrderBody. ApiConfigId => ApiConfigName, ShippingServiceId => ShippingServiceName. | 1.06 | 28.05.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -494,14 +495,14 @@ Object describing request body for transport order.
 
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
 | --- | --- | --- | --- |
-| ApiConfigId | int | Id of xApiConfig | x   |
+| ApiConfigName | string | Name of xApiConfig (IntegrationName) | x   |
 | OwnerToken | guid | Token of owner | x   |
 | ReceiverAddress | xAddress | Receiver address | x   |
 | OrderNr | string | Transport order number | x   |
 | ReferenceNr | string | Reference number | x   |
 | ExternalStatus | string | External status | x   |
 | Packages | List&lt;xPackage&gt; | Packages | x   |
-| ShippingServiceId | int | Id of xShippingService | x   |
+| ShippingServiceName | string | Name of xShippingService | x   |
 | WarehouseId | int | Id of xWarehouse |     |
 | ExternalId | string | External id |     |
 | Description | string | Description |     |
@@ -1679,7 +1680,7 @@ curl -X 'POST' \
 \-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
 \-H 'Content-Type: application/json' \
 \-d '[{  
-"apiConfigId": 0,
+"apiConfigName": "string",
 "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
 "receiverAddress": {
 "name": "string",
@@ -1712,7 +1713,7 @@ curl -X 'POST' \
 "warehouseId": 0,
 "externalId": "string",
 "description": "string",
-"shippingServiceId": 0,
+"shippingServiceName": "string",
 "cod": 0,
 "codCurrency": "string",
 "bankAccountNr": "string",
