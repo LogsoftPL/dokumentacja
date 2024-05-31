@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.06 - 28.05.2024**
+Doc version / date: **v1.07 - 31.05.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -90,6 +90,7 @@ Available API versions: **v0.9**
 | Creation of document. | 1.0 | 17.05.2024 | Artur Masłowski |
 | Added the feature to add batch transport orders and orders. Changed xResNewEntry to xResNewEntries. Added POST method for xOrder. | 1.05 | 22.05.2024 | Artur Masłowski |
 | Changed xTransportOrderBody. ApiConfigId => ApiConfigName, ShippingServiceId => ShippingServiceName. | 1.06 | 28.05.2024 | Artur Masłowski |
+| Changed xTransportOrderBody. Added ShippingServiceCourierService field. | 1.07 | 31.05.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -503,6 +504,7 @@ Object describing request body for transport order.
 | ExternalStatus | string | External status | x   |
 | Packages | List&lt;xPackage&gt; | Packages | x   |
 | ShippingServiceName | string | Name of xShippingService | x   |
+| ShippingServiceCourierService | string | CourierService of xShippingService | x - if CourierService in xShippingService is NOT null   |
 | WarehouseId | int | Id of xWarehouse |     |
 | ExternalId | string | External id |     |
 | Description | string | Description |     |
