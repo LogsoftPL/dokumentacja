@@ -1716,6 +1716,7 @@ curl -X 'POST' \
 "externalId": "string",
 "description": "string",
 "shippingServiceName": "string",
+"shippingServiceCourierService": "string",
 "cod": 0,
 "codCurrency": "string",
 "bankAccountNr": "string",
