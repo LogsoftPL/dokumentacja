@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.07 - 31.05.2024**
+Doc version / date: **v1.08 - 03.06.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -91,6 +91,7 @@ Available API versions: **v0.9**
 | Added the feature to add batch transport orders and orders. Changed xResNewEntry to xResNewEntries. Added POST method for xOrder. | 1.05 | 22.05.2024 | Artur Masłowski |
 | Changed xTransportOrderBody. ApiConfigId => ApiConfigName, ShippingServiceId => ShippingServiceName. | 1.06 | 28.05.2024 | Artur Masłowski |
 | Changed xTransportOrderBody. Added ShippingServiceCourierService field. | 1.07 | 31.05.2024 | Artur Masłowski |
+| Added ExternalPackageNumber field for xPackage. | 1.08 | 03.06.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -369,6 +370,7 @@ Object describing fields for package.
 | Weight | double | Weight |     |
 | Description | string | Description |     |
 | InternalPackageNumber | string | Internal package number (name) | x   |
+| ExternalPackageNumber | string | External package number |     |
 
 #### xPackageLabel
 Object describing label file for xPackage.
@@ -1347,7 +1349,8 @@ _Response:_
 "height": 200,
 "weight": 200,
 "description": "AVC/01",
-"internalPackageNumber": "AVC/01"
+"internalPackageNumber": "AVC/01",
+"externalPackageNumber": "ABC123"
 }]
 ```
 \[v0.9\]
