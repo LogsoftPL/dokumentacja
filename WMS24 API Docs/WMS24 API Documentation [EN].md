@@ -573,7 +573,7 @@ Object describing request body for order.
 | WantInvoice | bool | Does a customer want an invoice? | x   |
 | CreationDate | datetime | Order creation date | x   |
 | Items | List&lt;xOrderItem&gt; | List of order items (products) | x   |
-| MarketPlaceDocNr | int | Marketplace document number | (recommended)   |
+| MarketPlaceDocNr | string | Marketplace document number | (recommended)   |
 | MarketPlaceDocId | int | Marketplace document id |     |
 | InvoiceStatus | xStatus | Status of invoice |     |
 | ReceiverAddress | xAddress | Address of receiver |     |
