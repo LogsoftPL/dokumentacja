@@ -261,7 +261,7 @@ Object describing order.
 | Warehouse | xWarehouse | Warehouse |     |
 | SourceInfo | string | Source info |     |
 | SourceConfigId | int | Source config id |     |
-| MarketPlaceDocNr | int | Marketplace document number |     |
+| MarketPlaceDocNr | string | Marketplace document number |     |
 | MarketPlaceDocId | int | Marketplace document id |     |
 | ERPDocNr | string | ERP document number |     |
 | ERPDocId | int | Id of document ERP |     |
