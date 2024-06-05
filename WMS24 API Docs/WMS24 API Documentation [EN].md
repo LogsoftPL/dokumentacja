@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.09 - 04.06.2024**
+Doc version / date: **v1.1 - 05.06.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -93,6 +93,7 @@ Available API versions: **v0.9**
 | Changed xTransportOrderBody. Added ShippingServiceCourierService field. | 1.07 | 31.05.2024 | Artur Masłowski |
 | Added ExternalPackageNumber field for xPackage. | 1.08 | 03.06.2024 | Artur Masłowski |
 | ExternalStatus in xTransportOrder from now is not required | 1.09 | 04.06.2024 | Artur Masłowski |
+| Added (recommended) flag to MarketPlaceDocNr | 1.1 | 05.06.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -572,14 +573,14 @@ Object describing request body for order.
 | WantInvoice | bool | Does a customer want an invoice? | x   |
 | CreationDate | datetime | Order creation date | x   |
 | Items | List&lt;xOrderItem&gt; | List of order items (products) | x   |
+| MarketPlaceDocNr | int | Marketplace document number | (recommended)   |
+| MarketPlaceDocId | int | Marketplace document id |     |
 | InvoiceStatus | xStatus | Status of invoice |     |
 | ReceiverAddress | xAddress | Address of receiver |     |
 | InvoiceAddress | xAddress | Address of invoice |     |
 | WarehouseId | int | Id of warehouse |     |
 | SourceInfo | string | Source info |     |
 | SourceConfigId | int | Source config id |     |
-| MarketPlaceDocNr | int | Marketplace document number |     |
-| MarketPlaceDocId | int | Marketplace document id |     |
 | ERPDocNr | string | ERP document number |     |
 | ERPDocId | int | Id of document ERP |     |
 | ERPConfigId | int | ERP config id |     |
