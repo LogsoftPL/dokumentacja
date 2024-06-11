@@ -1428,7 +1428,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xTracking**\]
 
-- **api/0.9/tracking/all/transport-order/{transportOrderId}**
+- **api/0.9/tracking/all/{transportOrderId}**
 - Path: \[ _transportOrderId_ (int, required) \]
 
 Get tracking for transport order.
