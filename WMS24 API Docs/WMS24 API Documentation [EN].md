@@ -77,7 +77,7 @@ Available API versions: **v0.9**
 
     - [Services actions](#services-actions)
 
-    - [Tracking actions](#tracking-action)
+    - [Tracking actions](#tracking-actions)
 
     - [TransportOrders actions](#transportorders-actions)
 
