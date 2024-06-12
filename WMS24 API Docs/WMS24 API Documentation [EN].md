@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.1 - 05.06.2024**
+Doc version / date: **v1.11 - 12.06.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -94,6 +94,7 @@ Available API versions: **v0.9**
 | Added ExternalPackageNumber field for xPackage. | 1.08 | 03.06.2024 | Artur Masłowski |
 | ExternalStatus in xTransportOrder from now is not required | 1.09 | 04.06.2024 | Artur Masłowski |
 | Added (recommended) flag to MarketPlaceDocNr | 1.1 | 05.06.2024 | Artur Masłowski |
+| Removed SourceInfo field from xOrderBody | 1.11 | 12.06.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -579,7 +580,6 @@ Object describing request body for order.
 | ReceiverAddress | xAddress | Address of receiver |     |
 | InvoiceAddress | xAddress | Address of invoice |     |
 | WarehouseId | int | Id of warehouse |     |
-| SourceInfo | string | Source info |     |
 | SourceConfigId | int | Source config id |     |
 | ERPDocNr | string | ERP document number |     |
 | ERPDocId | int | Id of document ERP |     |
@@ -1237,7 +1237,6 @@ curl -X 'POST' \
       "contactEmail": "string"
     },
     "warehouseId": null,
-    "sourceInfo": "string",
     "sourceConfigId": 0,
     "marketPlaceDocNr": "string",
     "marketPlaceDocId": 0,
