@@ -1,0 +1,10 @@
+1. Docelowa baza musi mieć atrybuty stoków i produktów dokładnie take same jak w źródłowej (polskie znaki!)
+2. Grupy magazynowe także tożsame.
+3. Jeśli exportujemy na takie same lokacje jak źródłowe, zadbajmy aby były wszystkie w docelowej bazie.
+4. Exportujemy stoki: doc_standardExportStockAsPZ_v1_1 (jeśli każdy stock ma mieć taką samą lokację w docelowej bazie ustawiamy parametr @oneLocation)
+5. Zapisujemy wygenerowany XML w intfTab (intf_intefraceID najlepiej powyżej 150) do pola intf_fileData, intf_typeID=1, intf_status=0, intf_fileName - dowolne
+7. Importujemy procedurą doc_standardImport_v1_1. Jeśli będzie sporo stoków i produktów (pow. 500), proponuję użyć sqlcmd np: 
+    sqlcmd -S 192.168.85.2\lssql -i "C:\temp\ppp.sql" -U userek -P haselko >> "C:\temp\OUT_BestService-przzenosiny.txt"
+8. Potencjalne błędy będą zapisywane w intf_desciption oraz w pliku wyjściowym konsoli
+
+
