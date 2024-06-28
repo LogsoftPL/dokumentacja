@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.11 - 12.06.2024**
+Doc version / date: **v1.2 - 28.06.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -59,6 +59,18 @@ Available API versions: **v0.9**
   
     - [xOrderBody](#xorderbody)
 
+    - [xProduct](#xproduct)
+    
+    - [xProductApiConfig](#xproductapiconfig)
+  
+    - [xProductDescription](#xproductdescription)
+  
+    - [xProductParameter](#xproductparameter)
+  
+    - [xProductSet](#xproductset)
+  
+    - [xProductStock](xproductstock)
+
 5. [Actions](#actions)
 
     - [Auth actions](#auth-actions)
@@ -95,6 +107,7 @@ Available API versions: **v0.9**
 | ExternalStatus in xTransportOrder from now is not required | 1.09 | 04.06.2024 | Artur Masłowski |
 | Added (recommended) flag to MarketPlaceDocNr | 1.1 | 05.06.2024 | Artur Masłowski |
 | Removed SourceInfo field from xOrderBody | 1.11 | 12.06.2024 | Artur Masłowski |
+| Added Product models. | 1.2 | 28.06.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -104,9 +117,7 @@ Address email of IT support: [logsoft@logsoft.com.pl](mailto:logsoft@logsoft.com
 
 Endpoint example:
 
-<http://x.x.x.x:PORT/api/v0.9/transport-orders?limit=50>
-
-Requests are made to the service using the _http_ protocol. This is a temporary solution. In the future, all queries will be called using the _https_ protocol.
+<https://x.x.x.x:PORT/api/v0.9/transport-orders?limit=50>
 
 Under _x.x.x.x:PORT_ is the address of the host with port on which the API service is issued. The host address along with the port can be obtained from the IT support.
 
@@ -619,6 +630,110 @@ Object describing request body for order.
 | InvoiceNip | string | NIP of company |     |
 | ExtraField1 | string | Extra field |     |
 | ExtraField2 | string | Extra field |     |
+
+#### xProduct
+Object describing product model
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| IsSet | bool | Is product set |     |
+| Name | string | Name |     |
+| ImageUrls | Array<string> | Image urls |     |
+| OwnerToken | guid | Owner token |     |
+| Code | string | Code |     |
+| ManufacturerName | string | Manufacturer name |     |
+| SourceId | string | Source id (id of product from a source) |     |
+| SourceName | string | Source name |     |
+| AlternativeCode | string | Alternative code |     |
+| CategoryId | string | Category id |     |
+| WarehouseGroup | string | Warehouse group |     |
+| Ean | string | EAN |     |
+| Unit | string | Unit |     |
+| Weight | double | Weight |     |
+| Volume | double | Volume |     |
+| Height | double | Height |     |
+| Length | double | Length |     |
+| Width | double | Width |     |
+| BoxUnit | string | Box unit |     |
+| BoxEAN | string | Box EAN |     |
+| BoxQuantity | double | Box quantity |     |
+| PalletUnit | string | Pallet unit |     |
+| PalletEAN | string | Pallet EAN |     |
+| PalletQuantity | double | Pallet quantity |     |
+| PriceNetto | double | Net price |     |
+| TaxRate | double | Tax rate |     |
+| PriceBrutto | double | Gross price |     |
+| StatusDate | datetime | Status date |     |
+| Status | xStatus | Status |     |
+
+#### xProductApiConfig
+Object describing product api config model
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| ProductId  | int | Id of xProduct |     |
+| ApiConfigId  | int | Id of xApiConfig |     |
+| ExportSetDetails  | bool | Export set details? |     |
+| Code  | string | Product code |     |
+| Name  | string | Product name |     |
+| AlternativeCode  | string | Product alternative code |     |
+| Ean  | string | Product EAN |     |
+
+#### xProductDescription
+Object describing product descriptions
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| ProductId  | int | Id of xProduct |     |
+| CountryCode  | string | Country code (ex. PL, EN, US) |     |
+| Description  | string | Description |     |
+| DescriptionExtra1  | string | Extra field 1 |     |
+| DescriptionExtra2  | string | Extra field 2 |     |
+| DescriptionExtra3  | string | Extra field 3 |     |
+| DescriptionExtra4  | string | Extra field 4 |     |
+
+#### xProductParameter
+Object describing product parameters
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| ProductId  | int | Id of xProduct |     |
+| CountryCode  | string | Country code (ex. PL, EN, US) |     |
+| Name  | string | Parameter name |     |
+| Value  | string | Parameter value |     |
+
+#### xProductSet
+Object describing product sets
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| SetId  | int | Id of xProduct (which is a set) |     |
+| ProductId  | int | Id of xProduct (belongs to a set) |     |
+| Quantity  | int | Quantity |     |
+
+#### xProductStock
+Object describing product stocks
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| ProductId  | int | Id of xProduct |     |
+| ModificationDate  | datetime | Modification date time |     |
+| Quantity  | double | Quantity |     |
+| WarehouseId  | int | Id of xWarehouse |     |
+| ReservedQuantity  | double | Reserved quantity |     |
+| AvailableQuantity  | double | Available quantity |     |
+| BlockedQuantity  | double | Blocked quantity |     |
+| OrderedQuantity  | double | Ordered quantity |     |
+| Attribute1  | string | Attribute 1 |     |
+| Attribute2  | string | Attribute 2 |     |
+| Attribute3  | string | Attribute 3 |     |
+| ModificationSource  | string | Modification Source |     |
 
 # Actions
 
@@ -1747,7 +1862,6 @@ _Response:_
 \[v0.9\]
 \[GET\]
 \[SECURED\]
-
 \[RESPONSE: **Empty list or list of xWarehouse**\]
 
 - **api/0.9/warehouses**
@@ -1783,4 +1897,278 @@ _Response:_
 },
 "description": null
 }]
+```
+## Products actions
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xProduct**\]
+
+- **api/0.9/products**
+- Parameters: \[ _limit_ (int, optional – max 100) \]
+  
+Get list of products. Max 100 per request.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products?limit=1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+[
+  {
+    "id": 1,
+    "isSet": true,
+    "name": "PATELNIA_TEST",
+    "imageUrls": [
+      "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQjc7XyEsisAb99GTvTUBpp4NSjBId2Exo1Io3iJ7KUOgoJpPico_NjJGxKhSqs23jANGT1LMRzEkQq9nVfte59mAyWf1Xmq8dviWtwcplSU74xuMfaE2SV"
+    ],
+    "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
+    "code": "123123",
+    "manufacturerName": null,
+    "sourceId": null,
+    "sourceName": null,
+    "alternativeCode": "PATELNIA_TEST",
+    "categoryId": "123123",
+    "warehouseGroup": null,
+    "ean": "",
+    "unit": "szt",
+    "weight": null,
+    "volume": null,
+    "height": null,
+    "length": null,
+    "width": null,
+    "boxUnit": null,
+    "boxEAN": null,
+    "boxQuantity": null,
+    "palletUnit": null,
+    "palletEAN": null,
+    "palletQuantity": null,
+    "priceNetto": 18.2764,
+    "taxRate": 23,
+    "priceBrutto": 22.48,
+    "statusDate": null,
+    "status": {
+      "id": 1013,
+      "name": "Aktywny",
+      "englishName": "Active",
+      "dependency": "ProductStatus",
+      "code": "Active",
+      "description": null,
+      "backColor": "#339966",
+      "textColor": "#FFFFFF"
+    }
+  }
+]
+```
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **xProduct**\]
+
+- **api/0.9/products/{productId}**
+- Path: \[ _productId_ (int, required) \]
+  
+Get product by id.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+{
+  "id": 1,
+  "isSet": true,
+  "name": "PATELNIA_TEST",
+  "imageUrls": [
+    "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQjc7XyEsisAb99GTvTUBpp4NSjBId2Exo1Io3iJ7KUOgoJpPico_NjJGxKhSqs23jANGT1LMRzEkQq9nVfte59mAyWf1Xmq8dviWtwcplSU74xuMfaE2SV"
+  ],
+  "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
+  "code": "123123",
+  "manufacturerName": null,
+  "sourceId": null,
+  "sourceName": null,
+  "alternativeCode": "PATELNIA_TEST",
+  "categoryId": "123123",
+  "warehouseGroup": null,
+  "ean": "",
+  "unit": "szt",
+  "weight": null,
+  "volume": null,
+  "height": null,
+  "length": null,
+  "width": null,
+  "boxUnit": null,
+  "boxEAN": null,
+  "boxQuantity": null,
+  "palletUnit": null,
+  "palletEAN": null,
+  "palletQuantity": null,
+  "priceNetto": 18.2764,
+  "taxRate": 23,
+  "priceBrutto": 22.48,
+  "statusDate": null,
+  "status": {
+    "id": 1013,
+    "name": "Aktywny",
+    "englishName": "Active",
+    "dependency": "ProductStatus",
+    "code": "Active",
+    "description": null,
+    "backColor": "#339966",
+    "textColor": "#FFFFFF"
+  }
+}
+```
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xProductSock**\]
+
+- **api/0.9/products/stocks/all/{productId}**
+- Path: \[ _productId_ (int, required) \]
+  
+Get product stocks by product id.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products/stocks/all/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+[
+  {
+    "id": 23,
+    "productId": 1,
+    "modificationDate": "2024-06-06T13:26:42.9593019",
+    "quantity": 43,
+    "warehouseId": null,
+    "reservedQuantity": 0,
+    "availableQuantity": 43,
+    "blockedQuantity": 0,
+    "orderedQuantity": null,
+    "attribute1": null,
+    "attribute2": null,
+    "attribute3": null,
+    "modificationSource": "wms"
+  }
+]
+```
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xProductApiConfig**\]
+
+- **api/0.9/products/api-configs/all/{productId}**
+- Path: \[ _productId_ (int, required) \]
+  
+Get product api configs by product id.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products/api-configs/all/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+[
+  {
+    "id": 2,
+    "productId": 1,
+    "apiConfigId": 3,
+    "exportSetDetails": false,
+    "code": "Test",
+    "name": null,
+    "alternativeCode": null,
+    "ean": null
+  }
+]
+```
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xProductSet**\]
+
+- **api/0.9/products/sets/all/{productId}**
+- Path: \[ _productId_ (int, required) \]
+  
+Get product sets by product id.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products/sets/all/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+[
+  {
+    "id": 1,
+    "setId": 1,
+    "productId": 2,
+    "quantity": 3
+  },
+  {
+    "id": 2,
+    "setId": 1,
+    "productId": 3,
+    "quantity": 2
+  }
+]
+```
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xProductParameter**\]
+
+- **api/0.9/products/parameters/all/{productId}**
+- Path: \[ _productId_ (int, required) \]
+  
+Get product parameters by product id.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products/parameters/all/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+[
+  {
+    "id": 1,
+    "productId": 1,
+    "countryCode": "PL",
+    "name": "Test",
+    "value": null
+  },
+  {
+    "id": 2,
+    "productId": 1,
+    "countryCode": "EN",
+    "name": "Test2",
+    "value": "Test"
+  }
+]
 ```
