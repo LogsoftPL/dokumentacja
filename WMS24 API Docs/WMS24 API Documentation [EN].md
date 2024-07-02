@@ -747,7 +747,7 @@ Object describing product stocks
 \[REQUEST BODY: **xLoginBody**\]
 \[RESPONSE: **xResLogin**\]
 
-- **api/0.9/auth/login**
+- **api/v0.9/auth/login**
 
 Obtain a token that is used for authorization when using other secured endpoints. It is valid for 24 hours.
 
@@ -777,7 +777,7 @@ _Response body:_
 \[REQUEST BODY: **xRegisterBody**\]
 \[RESPONSE: **xResNewEntries**\]
 
-- **api/0.9/auth/register**
+- **api/v0.9/auth/register**
 
 Create an API access account. You can use endpoint if you have a special token designed for registration and registration is enabled.
 
@@ -812,7 +812,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xApiConfig**\]
 
-- **api/0.9/api-configs**
+- **api/v0.9/api-configs**
 
 Get api configs.
 
@@ -878,7 +878,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xAttachment**\]
 
-- **api/0.9/attachments/all/transport-order/{transportOrderId}**
+- **api/v0.9/attachments/all/transport-order/{transportOrderId}**
 - Path: \[ _transportOrderId_ (int, required) \]
 
 Get attachments for transport order.
@@ -913,7 +913,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xAttachmentFile**\]
 
-- **api/0.9/attachments/file/transport-order/{transportOrderId}/{attachmentId}**
+- **api/v0.9/attachments/file/transport-order/{transportOrderId}/{attachmentId}**
 - Path: \[ _transportOrderId_ (int, required), _attachmentId_ (int, required) \]
 
 Get attachment file for attachment.
@@ -941,7 +941,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xLog for xTransportOrder**\]
 
-- **api/0.9/logs/all/transport-order/{transportOrderId}**
+- **api/v0.9/logs/all/transport-order/{transportOrderId}**
 - Path: \[ _transportOrderId_ (int, required) \]
 
 Get logs for transport order.
@@ -971,7 +971,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xLogJson**\]
 
-- **api/0.9/logs/json/transport-order/{transportOrderId}/{logId}**
+- **api/v0.9/logs/json/transport-order/{transportOrderId}/{logId}**
 - Path: \[ _transportOrderId_ (required), _logId_ (required)\]
 
 Get log JSON object (response and request) for log.
@@ -997,7 +997,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xOrder**\]
 
-- **api/0.9/orders**
+- **api/v0.9/orders**
 - Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
 
 Get list of orders. Max 100 orders per request.
@@ -1135,7 +1135,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xOrder or null**\]
 
-- **api/0.9/orders/{orderId}**
+- **api/v0.9/orders/{orderId}**
 - Path: \[ _orderId_ (int, required) \]
 
 Get order.
@@ -1275,7 +1275,7 @@ _Response:_
 \[REQUEST BODY: **Array of xOrderBody**\]
 \[RESPONSE: **xResNewEntries**\]
 
-- **api/0.9/orders**
+- **api/v0.9/orders**
 
 Create orders.
 
@@ -1414,7 +1414,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xOwner**\]
 
-- **api/0.9/owners**
+- **api/v0.9/owners**
 
 Get list of owners.
 
@@ -1443,7 +1443,7 @@ Packages actions
 \[SECURED\]
 \[RESPONSE: **List of xPackage**\]
 
-- **api/0.9/packages/all/{transportOrderId}**
+- **api/v0.9/packages/all/{transportOrderId}**
 - Path: \[ _transportOrderId_ (int, required) \]
 
 Get packages for transport order.
@@ -1476,7 +1476,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xPackageLabel**\]
 
-- **api/0.9/packages/label/{transportOrderId}/{packageId}**
+- **api/v0.9/packages/label/{transportOrderId}/{packageId}**
 - Path: \[ _transportOrderId_ (required), _packageId_ (required)\]
 
 Get label for package.
@@ -1502,7 +1502,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **List of xShippingService**\]
 
-- **api/0.9/services**
+- **api/v0.9/services**
 
 Get list of available shipping services.
 
@@ -1544,7 +1544,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xTracking**\]
 
-- **api/0.9/tracking/all/{transportOrderId}**
+- **api/v0.9/tracking/all/{transportOrderId}**
 - Path: \[ _transportOrderId_ (int, required) \]
 
 Get tracking for transport order.
@@ -1579,7 +1579,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xTransportOrder**\]
 
-- **api/0.9/transport-orders**
+- **api/v0.9/transport-orders**
 - Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
 
 Get list of transport orders. Max 100 transport orders per request.
@@ -1685,7 +1685,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xTransportOrder or null**\]
 
-- **api/0.9/transport-orders/{transportOrderId}**
+- **api/v0.9/transport-orders/{transportOrderId}**
 - Path: \[ _transportOrderId_ (int, required) \]
 
 Get transport order.
@@ -1791,7 +1791,7 @@ _Response:_
 \[REQUEST BODY: **Array of xTransportOrderBody**\]
 \[RESPONSE: **xResNewEntries**\]
 
-- **api/0.9/transport-orders**
+- **api/v0.9/transport-orders**
 
 Create transport orders.
 
@@ -1866,7 +1866,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xWarehouse**\]
 
-- **api/0.9/warehouses**
+- **api/v0.9/warehouses**
 
 Get list of warehouses.
 
@@ -1907,7 +1907,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xProduct**\]
 
-- **api/0.9/products**
+- **api/v0.9/products**
 - Parameters: \[ _limit_ (int, optional – max 100) \]
   
 Get list of products. Max 100 per request.
@@ -1973,7 +1973,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xProduct**\]
 
-- **api/0.9/products/{productId}**
+- **api/v0.9/products/{productId}**
 - Path: \[ _productId_ (int, required) \]
   
 Get product by id.
@@ -2037,7 +2037,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xProductSock**\]
 
-- **api/0.9/products/stocks/all/{productId}**
+- **api/v0.9/products/stocks/all/{productId}**
 - Path: \[ _productId_ (int, required) \]
   
 Get product stocks by product id.
@@ -2075,7 +2075,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xProductApiConfig**\]
 
-- **api/0.9/products/api-configs/all/{productId}**
+- **api/v0.9/products/api-configs/all/{productId}**
 - Path: \[ _productId_ (int, required) \]
   
 Get product api configs by product id.
@@ -2108,7 +2108,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xProductSet**\]
 
-- **api/0.9/products/sets/all/{productId}**
+- **api/v0.9/products/sets/all/{productId}**
 - Path: \[ _productId_ (int, required) \]
   
 Get product sets by product id.
@@ -2143,7 +2143,7 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **Empty list or list of xProductParameter**\]
 
-- **api/0.9/products/parameters/all/{productId}**
+- **api/v0.9/products/parameters/all/{productId}**
 - Path: \[ _productId_ (int, required) \]
   
 Get product parameters by product id.
