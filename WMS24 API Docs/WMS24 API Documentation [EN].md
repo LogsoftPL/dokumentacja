@@ -576,7 +576,7 @@ Object describing response for creation entry action.
 | Success | bool | Was the request successful? |     |
 | Code | int | Http code |     |
 | Message | string | Response message |     |
-| EntryIds | object[] | Id of new created entry |     |
+| EntryIds | Array<object> | Ids of new created entries |     |
 
 #### xOrderBody
 Object describing request body for order.
