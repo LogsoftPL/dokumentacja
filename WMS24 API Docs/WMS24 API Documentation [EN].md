@@ -57,6 +57,8 @@ Available API versions: **v0.9**
 
     - [xResLogin](#xreslogin)
   
+    - [xResNewEntries](#xresnewentries)
+  
     - [xOrderBody](#xorderbody)
 
     - [xProduct](#xproduct)
