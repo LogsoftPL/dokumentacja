@@ -7,7 +7,6 @@ Start_BL_statusy.bat | C:\Logsoft\Baselinker | Primavera |
 Start_BL_tworzenie_LP.bat | C:\Logsoft\Baselinker | Primavera | 
 Wms24.CourierLink.WorkerService.exe | C:\Logsoft\CLINK | Gerlach, UNIQ, DKT | 
 LogsoftAutomationService.exe | C:\Logsoft\LogsoftAutomationService | Wszyscy z bazy NASZA | 
-LogsoftMarsService.exe | C:\Logsoft\MarsService - prod | WITEX | Wysyła Confirm-IN, JSONY WMMBXY
 
 ## Usługi IIS, uruchamiane automatycznie
 | Plik | Ścieżka | Dotyczy| Uwagi |
