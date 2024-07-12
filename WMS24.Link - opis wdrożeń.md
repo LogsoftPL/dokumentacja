@@ -7,7 +7,7 @@
 		Eksport statusów z WMS do Clink - clink_updateStatusSend
 		Update nr LP oraz pola door_tr_currentStatus - clink_updateWMSStatus
 
- b. Serwis drukujący WMS24.CourierLink.WorkerService
+ b. Serwis drukujący WMS24.CourierLink.WorkerService na kompie lokalnym w magazynie (Renata, Wacław)
 
  c. Raport mailowy "UPS RAPORT LISTOW" - via LinkServer
 	
@@ -31,7 +31,7 @@
 	
 4. **HART (Integracja SUUS):**
 
- a. Insertacz via LinkServer
+ a. Insertacz via LinkServer - har_InsertIntoCLinkTO_Database - wywoływane ppm w "Zamówienia od klienta" -> "Ustaw wysyłkę RohligSuus dla zamówienia"
 
  b. Serwis drukujący na kompie HART - **!!!zminić ConncectionString!!!**
 	
