@@ -1,6 +1,6 @@
 ## Opis interfejsu WMS <-> WMS24.Link
 
-1. **Gerlach:**
+1. **Gerlach (UPS i DPD):**
 	
  a. Serwis insertujący na serwerze Gerlach - WMS24.CourierLink.Sync
 		Zasilany z procedury clink_expTransportOrders oraz widoku clink_expPackages.
