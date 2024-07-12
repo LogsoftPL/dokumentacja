@@ -2,7 +2,7 @@
 
 1. **Gerlach (UPS i DPD):**
 	
- a. Serwis insertujący na serwerze Gerlach - WMS24.CourierLink.Sync
+ a. Serwis insertujący na serwerze Gerlach - WMS24.CourierLink.Sync (C:\LOGSOFT\Import zleceń)
 		Zasilany z procedury clink_expTransportOrders oraz widoku clink_expPackages.
 		Eksport statusów z WMS do Clink - clink_updateStatusSend
 		Update nr LP oraz pola door_tr_currentStatus - clink_updateWMSStatus
