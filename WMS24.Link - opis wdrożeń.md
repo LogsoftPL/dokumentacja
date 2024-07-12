@@ -31,7 +31,7 @@
 	
 4. **HART (Integracja SUUS):**
 
- a. Insertacz via LinkServer - har_InsertIntoCLinkTO_Database - wywoływane ppm w "Zamówienia od klienta" -> "Ustaw wysyłkę RohligSuus dla zamówienia"
+ a. Insertacz via LinkServer - har_InsertIntoCLinkTO_Database - wywoływane ppm w "Zamówienia od klienta" -> "Ustaw wysyłkę RohligSuus dla zamówienia". Aktualizacja nr LP poprzez clink_updateTrackingNumber z harmonogramu jobem CLINK-UpdateTrackNum.
 
  b. Serwis drukujący na kompie HART - **!!!zminić ConncectionString!!!**
 	
