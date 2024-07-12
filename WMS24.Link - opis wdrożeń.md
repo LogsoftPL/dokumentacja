@@ -17,7 +17,7 @@
 		Dla BL-BestStore: zamówienia dodawane do Clinka przy imporcie z BL (con_BLparseJSONOrderAndRead). Wstawiane ze statusem etykiety "Zablokowana", ustawiany status etykiety "Wygenerowana" na terminalu przy pakowaniu, po czym drukowana. Aktualizacja ilości paczek i nr LP w harmonogramie "BestStore-upd.Il.Paczek".
 		Dla Witchen wywoływana z "...confirmPacking"
 
- b. Serwis drukujący na serwerze DKT
+ b. Serwis drukujący na serwerze DKT (c:\LOGSOFT\CLINK_BL)
 
  c. Raporty via link server.
 
