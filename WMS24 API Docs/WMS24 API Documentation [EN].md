@@ -952,7 +952,7 @@ curl -X 'GET' \
 _Response:_
 ```
 {
-"attachmentData": "\[base64 encoded\]",
+"attachmentData": "[base64 encoded]",
 "extension": "PDF",
 "originalFileName": "shippingOrder_XXX ",
 "originalFilePath": null
