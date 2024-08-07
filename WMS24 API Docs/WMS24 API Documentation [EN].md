@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.2 - 28.06.2024**
+Doc version / date: **v1.3 - 07.08.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -22,6 +22,8 @@ Available API versions: **v0.9**
     - [xAttachment](#xattachment)
 
     - [xAttachmentFile](#xattachmentfile)
+      
+    - [xAttachmentBody](#xattachmentbody)
 
     - [xLog](#xlog)
 
@@ -112,6 +114,7 @@ Available API versions: **v0.9**
 | Added (recommended) flag to MarketPlaceDocNr | 1.1 | 05.06.2024 | Artur Masłowski |
 | Removed SourceInfo field from xOrderBody | 1.11 | 12.06.2024 | Artur Masłowski |
 | Added Product models. | 1.2 | 28.06.2024 | Artur Masłowski |
+| Added endpoint to add attachment. Added new parameter in xOrder GETs | 1.3 | 07.08.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -739,6 +742,25 @@ Object describing product stocks
 | Attribute3  | string | Attribute 3 |     |
 | ModificationSource  | string | Modification Source |     |
 
+#### xAttachmentBody
+Object describing request body for attachment.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OwnerToken  | Guid  | Owner token | x   |
+| TransportOrderId  | int | Id of xTransportOrder | x - or OrderId   |
+| OrderId  | int | Id of xOrder | x - or TransportOrderId   |
+| Type  | string | Type of attachment (faktura) | x   |
+| DocumentNr  | string | Document number | x   |
+| OriginalFileName  | string | File name |     |
+| OriginalFilePath  | string | File path |     |
+| AttachmentData  | string | Attachment data (file) |     |
+| Extension  | string | Extension (ex. pdf, zpl, gif) |     |
+| Description  | string | Description |     |
+| ExternalId  | string | External id |     |
+| LabelPrinter  | string | Label printer |     |
+| LabelHost  | string | Label host |     |
+
 # Actions
 
 ## Auth actions
@@ -936,6 +958,48 @@ _Response:_
 "originalFilePath": null
 }
 ```
+\[v0.9\]
+\[POST\]
+\[SECURED\]
+\[REQUEST BODY: **xAttachmentBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/attachments**
+
+Create attachment.
+
+_Request:_
+```
+curl -X 'POST' \  
+'https://localhost:7072/api/v0.9/attachments' \
+\-H 'accept: */*' \
+\-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+\-H 'Content-Type: application/json' \
+  -d '{
+  "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
+  "orderId": 1,
+  "type": "faktura",
+  "documentNr": "FV-1",
+  "originalFileName": "faktura",
+  "originalFilePath": null,
+  "attachmentData": "0x",
+  "extension": "PDF",
+  "description": "Faktura VAT",
+  "externalId": "5432",
+  "labelPrinter": "PRINTER-23",
+  "labelHost": "DESKTOP-43548"
+}'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully created.",
+"entryIds": [1]
+}
+```
+
 ## Logs actions
 
 \[v0.9\]
@@ -1000,7 +1064,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional)\]
 
 Get list of orders. Max 100 orders per request.
 
@@ -1129,7 +1193,8 @@ _Response:_
 "importDate": "2024-05-16T03:01:23.4234235",
 "orderCloseDate": null,
 "orderPage": null,
-"transportOrderId": null
+"transportOrderId": null,
+"mainTrackingNumber": null
 }]
 ```
 \[v0.9\]
@@ -1138,7 +1203,7 @@ _Response:_
 \[RESPONSE: **xOrder or null**\]
 
 - **api/v0.9/orders/{orderId}**
-- Path: \[ _orderId_ (int, required) \]
+- Path: \[ _orderId_ (int, required), _getTrackingNumbers_ (bool, optional) \]
 
 Get order.
 
@@ -1267,7 +1332,8 @@ _Response:_
 "importDate": "2024-05-16T03:01:23.4234235",
 "orderCloseDate": null,
 "orderPage": null,
-"transportOrderId": null
+"transportOrderId": null,
+"mainTrackingNumber": null
 }
 ```
 
