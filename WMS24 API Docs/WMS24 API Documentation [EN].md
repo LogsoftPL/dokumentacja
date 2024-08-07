@@ -81,7 +81,7 @@ Available API versions: **v0.9**
 
     - [ApiConfigs actions](#apiconfigs-actions)
 
-    - [Attachments actions](#attachments-action)
+    - [Attachments actions](#attachments-actions)
 
     - [Logs actions](#logs-actions)
 
