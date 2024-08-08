@@ -754,7 +754,7 @@ Object describing request body for attachment.
 | DocumentNr  | string | Document number | x   |
 | OriginalFileName  | string | File name |     |
 | OriginalFilePath  | string | File path |     |
-| AttachmentData  | string | Attachment data (file) |     |
+| AttachmentData  | string | Attachment data (file encoded in base64) |     |
 | Extension  | string | Extension (ex. pdf, zpl, gif) |     |
 | Description  | string | Description |     |
 | ExternalId  | string | External id |     |
@@ -982,7 +982,7 @@ curl -X 'POST' \
   "documentNr": "FV-1",
   "originalFileName": "faktura",
   "originalFilePath": null,
-  "attachmentData": "0x",
+  "attachmentData": "[base64 encoded file]",
   "extension": "PDF",
   "description": "Faktura VAT",
   "externalId": "5432",
