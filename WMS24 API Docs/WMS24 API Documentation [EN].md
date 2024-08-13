@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.3 - 07.08.2024**
+Doc version / date: **v1.31 - 13.08.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -115,6 +115,7 @@ Available API versions: **v0.9**
 | Removed SourceInfo field from xOrderBody | 1.11 | 12.06.2024 | Artur Masłowski |
 | Added Product models. | 1.2 | 28.06.2024 | Artur Masłowski |
 | Added endpoint to add attachment. Added new parameter in xOrder GETs | 1.3 | 07.08.2024 | Artur Masłowski |
+| Added page parameter in xOrder and xTransportOrder GET | 1.31 | 13.08.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -1064,7 +1065,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional)\]
 
 Get list of orders. Max 100 orders per request.
 
@@ -1648,7 +1649,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xTransportOrder**\]
 
 - **api/v0.9/transport-orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)\]
 
 Get list of transport orders. Max 100 transport orders per request.
 
