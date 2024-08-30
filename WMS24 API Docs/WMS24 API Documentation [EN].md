@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.31 - 13.08.2024**
+Doc version / date: **v1.35 - 30.08.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -74,6 +74,8 @@ Available API versions: **v0.9**
     - [xProductSet](#xproductset)
   
     - [xProductStock](xproductstock)
+      
+    - [xOrderPatchStatusBody](xorderpatchstatusbody)
 
 5. [Actions](#actions)
 
@@ -116,6 +118,7 @@ Available API versions: **v0.9**
 | Added Product models. | 1.2 | 28.06.2024 | Artur Masłowski |
 | Added endpoint to add attachment. Added new parameter in xOrder GETs | 1.3 | 07.08.2024 | Artur Masłowski |
 | Added page parameter in xOrder and xTransportOrder GET | 1.31 | 13.08.2024 | Artur Masłowski |
+| Added new endpoint PATCH to update xOrder statuses. Added new parameters for xOrders GET. | 1.35 | 30.08.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -762,6 +765,19 @@ Object describing request body for attachment.
 | LabelPrinter  | string | Label printer |     |
 | LabelHost  | string | Label host |     |
 
+#### xOrderPatchStatusBody
+Object describing request body for update statuses.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OrderId  | int | Identifier | x   |
+| OrderStatus  | int | Id of xStatus |     |
+| WMSStatus  | int | Id of xStatus |     |
+| ERPStatus  | int | Id of xStatus |     |
+| InvoiceStatus  | int | Id of xStatus |     |
+| ERPDocStatus  | int | Id of xStatus |     |
+| WMSDocStatus  | int | Id of xStatus |     |
+
 # Actions
 
 ## Auth actions
@@ -1065,9 +1081,17 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional), _orderStatus_ (int, optional), _wmsStatus_ (int, optional), _erpStatus_ (int, optional)\]
 
 Get list of orders. Max 100 orders per request.
+
+To get orders with a specific status, use the parameters: 
+
+_orderStatus_ - order status
+_erpStatus_ - ERP status
+_wmsStatus_ - WMS status
+
+The status identifier is given as the parameter value.
 
 _Request:_
 ```
@@ -1195,7 +1219,7 @@ _Response:_
 "orderCloseDate": null,
 "orderPage": null,
 "transportOrderId": null,
-"mainTrackingNumber": null
+"trackingNumbers": []
 }]
 ```
 \[v0.9\]
@@ -1334,7 +1358,7 @@ _Response:_
 "orderCloseDate": null,
 "orderPage": null,
 "transportOrderId": null,
-"mainTrackingNumber": null
+"trackingNumbers": []
 }
 ```
 
@@ -1473,6 +1497,41 @@ _Response:_
 "code": 200,
 "message": "Successfully created.",
 "entryIds": [1]
+}
+```
+
+\[v0.9\]
+\[PATCH\]
+\[SECURED\]
+\[REQUEST BODY: **xOrderPatchStatusBody**\]
+\[RESPONSE: **xResponse**\]
+
+- **api/v0.9/orders/status**
+
+Update statuses of xOrder.
+
+_Request:_
+```
+curl -X 'PATCH' \
+  'https://localhost:7072/api/v0.9/orders/status' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "orderId": 3415,
+  "orderStatus": null,
+  "wmsStatus": 1004,
+  "erpStatus": 1005,
+  "invoiceStatus": null,
+  "erpDocStatus": null,
+  "wmsDocStatus": null
+}'
+```
+_Response:_
+```
+{
+	"success": true,
+	"code": 200,
+	"message": "ERP status updated. WMS status updated."
 }
 ```
 
