@@ -632,8 +632,8 @@ Object describing request body for order.
 | ParcelLocker | string | Parcel locker code |     |
 | CustomSourceId | int | Custom source id |     |
 | MarketplaceUserLogin | string | Marketplace user login |     |
-| ShippingServiceExternalSourceID | string | Id of external service |     |
-| ShippingServiceSourceExternalName | string | Name of external service |     |
+| ShippingServiceExternalSourceID | string | CourierService of xShippingService | x - if CourierService in xShippingService is NOT null and ShippingServiceSourceExternalName is not null   |
+| ShippingServiceSourceExternalName | string | Name of xShippingService |     |
 | IsFulfillmentOrder | bool | Is fulfillment order? |     |
 | FulfillmentStatus | string | Fulfillment status |     |
 | ShippingPrice | float | Shipping price |     |
