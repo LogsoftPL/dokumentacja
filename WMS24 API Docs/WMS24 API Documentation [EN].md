@@ -118,7 +118,7 @@ Available API versions: **v0.9**
 | Added Product models. | 1.2 | 28.06.2024 | Artur Masłowski |
 | Added endpoint to add attachment. Added new parameter in xOrder GETs | 1.3 | 07.08.2024 | Artur Masłowski |
 | Added page parameter in xOrder and xTransportOrder GET | 1.31 | 13.08.2024 | Artur Masłowski |
-| Added new endpoint PATCH to update xOrder statuses. Added new parameters for xOrders GET. | 1.35 | 30.08.2024 | Artur Masłowski |
+| Added new endpoint PATCH to update xOrder statuses. Added new parameters for xOrders GET. Updated xOrder response. | 1.35 | 30.08.2024 | Artur Masłowski |
 
 # Introduction
 
