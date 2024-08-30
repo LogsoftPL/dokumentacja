@@ -331,6 +331,7 @@ Object describing order.
 | OrderCloseDate | datetime | Close date |     |
 | OrderPage | string | Order page |     |
 | TransportOrderId | int | Id of related transport order |     |
+| TrackingNumbers | Array<string> | Tracking numbers |     |
 
 #### xOrderItem
 Object describing order items for xOrder.
