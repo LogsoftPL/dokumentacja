@@ -73,9 +73,9 @@ Available API versions: **v0.9**
   
     - [xProductSet](#xproductset)
   
-    - [xProductStock](xproductstock)
+    - [xProductStock](#xproductstock)
       
-    - [xOrderPatchStatusBody](xorderpatchstatusbody)
+    - [xOrderPatchStatusBody](#xorderpatchstatusbody)
 
 5. [Actions](#actions)
 
