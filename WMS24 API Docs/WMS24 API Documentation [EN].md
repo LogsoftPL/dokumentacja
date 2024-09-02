@@ -1088,9 +1088,7 @@ Get list of orders. Max 100 orders per request.
 
 To get orders with a specific status, use the parameters: 
 
-_orderStatus_ - order status
-_erpStatus_ - ERP status
-_wmsStatus_ - WMS status
+_orderStatus_ - order status, _erpStatus_ - ERP status, _wmsStatus_ - WMS status
 
 The status identifier is given as the parameter value.
 
