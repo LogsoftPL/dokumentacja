@@ -77,7 +77,7 @@ Available API versions: **v0.9**
       
     - [xOrderPatchStatusBody](#xorderpatchstatusbody)
     
-    - [xOrderPatchDocs](#xorderpatchcocs)
+    - [xOrderPatchDocs](#xorderpatchdocs)
 
 5. [Actions](#actions)
 
