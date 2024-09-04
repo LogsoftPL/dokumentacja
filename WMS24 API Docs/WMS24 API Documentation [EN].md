@@ -1527,6 +1527,7 @@ curl -X 'PATCH' \
   'https://localhost:7072/api/v0.9/orders/status' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
   -d '{
   "orderId": 3415,
   "orderStatus": null,
@@ -1547,7 +1548,7 @@ _Response:_
 \[v0.9\]
 \[PATCH\]
 \[SECURED\]
-\[REQUEST BODY: **xOrderPatchStatusBody**\]
+\[REQUEST BODY: **xOrderPatchDocs**\]
 \[RESPONSE: **xResponse**\]
 
 - **api/v0.9/orders/documents**
@@ -1560,6 +1561,7 @@ curl -X 'PATCH' \
   'https://localhost:7072/api/v0.9/orders/documents' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
   -d '{
   "orderId": 3415,
   "erpDocNr": "FAKTURA/32145432",
