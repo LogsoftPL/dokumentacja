@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.35 - 30.08.2024**
+Doc version / date: **v1.4 - 04.09.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -76,6 +76,8 @@ Available API versions: **v0.9**
     - [xProductStock](#xproductstock)
       
     - [xOrderPatchStatusBody](#xorderpatchstatusbody)
+    
+    - [xOrderPatchDocs](#xorderpatchcocs)
 
 5. [Actions](#actions)
 
@@ -119,6 +121,7 @@ Available API versions: **v0.9**
 | Added endpoint to add attachment. Added new parameter in xOrder GETs | 1.3 | 07.08.2024 | Artur Masłowski |
 | Added page parameter in xOrder and xTransportOrder GET | 1.31 | 13.08.2024 | Artur Masłowski |
 | Added new endpoint PATCH to update xOrder statuses. Added new parameters for xOrders GET. Updated xOrder response. | 1.35 | 30.08.2024 | Artur Masłowski |
+| Added new endpoint PATCH to update info about documents (WMS and ERP) in xOrder. Removed changing WMSDocStatus and ERPDocStatus within PATCH /orders/status. | 1.4 | 04.09.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -776,6 +779,15 @@ Object describing request body for update statuses.
 | WMSStatus  | int | Id of xStatus |     |
 | ERPStatus  | int | Id of xStatus |     |
 | InvoiceStatus  | int | Id of xStatus |     |
+
+#### xOrderPatchDocs
+Object describing request body for update documents info and statuses
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OrderId  | int | Identifier | x   |
+| ERPDocNr  | string | Number/title of ERP document |     |
+| WMSDocNr  | string | Number/title of WMS document  |     |
 | ERPDocStatus  | int | Id of xStatus |     |
 | WMSDocStatus  | int | Id of xStatus |     |
 
@@ -1520,9 +1532,7 @@ curl -X 'PATCH' \
   "orderStatus": null,
   "wmsStatus": 1004,
   "erpStatus": 1005,
-  "invoiceStatus": null,
-  "erpDocStatus": null,
-  "wmsDocStatus": null
+  "invoiceStatus": null
 }'
 ```
 _Response:_
@@ -1531,6 +1541,39 @@ _Response:_
 	"success": true,
 	"code": 200,
 	"message": "ERP status updated. WMS status updated."
+}
+```
+
+\[v0.9\]
+\[PATCH\]
+\[SECURED\]
+\[REQUEST BODY: **xOrderPatchStatusBody**\]
+\[RESPONSE: **xResponse**\]
+
+- **api/v0.9/orders/documents**
+
+Update documents numbers/titles and according statuses of xOrder.
+
+_Request:_
+```
+curl -X 'PATCH' \
+  'https://localhost:7072/api/v0.9/orders/documents' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "orderId": 3415,
+  "erpDocNr": "FAKTURA/32145432",
+  "wmsDocNr": null,
+  "erpDocStatus": 1024,
+  "wmsDocStatus": null
+}'
+```
+_Response:_
+```
+{
+	"success": true,
+	"code": 200,
+	"message": "ERP document status updated. ERP document number updated."
 }
 ```
 
