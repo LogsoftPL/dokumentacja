@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.4 - 04.09.2024**
+Doc version / date: **v1.5 - 04.10.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -79,6 +79,10 @@ Available API versions: **v0.9**
     
     - [xOrderPatchDocs](#xorderpatchdocs)
 
+    - [xProductStockBody](#xproductstockbody)
+      
+    - [xProductStockItem](#xproductstockitem)
+
 5. [Actions](#actions)
 
     - [Auth actions](#auth-actions)
@@ -122,6 +126,7 @@ Available API versions: **v0.9**
 | Added page parameter in xOrder and xTransportOrder GET | 1.31 | 13.08.2024 | Artur Masłowski |
 | Added new endpoint PATCH to update xOrder statuses. Added new parameters for xOrders GET. Updated xOrder response. | 1.35 | 30.08.2024 | Artur Masłowski |
 | Added new endpoint PATCH to update info about documents (WMS and ERP) in xOrder. Removed changing WMSDocStatus and ERPDocStatus within PATCH /orders/status. | 1.4 | 04.09.2024 | Artur Masłowski |
+| Added new endpoint PUT to products stocks. Added new endpoint to get attachments for xOrder. | 1.5 | 04.10.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -549,6 +554,7 @@ Object describing request body for transport order.
 | ParcelLocker | string | Parcel locker code |     |
 | LabelPrinter | string | Label printer name |     |
 | LabelHost | string | Label host |     |
+| Parameters | List&lt;xParameter&gt; | Parameters |     |
 
 #### xWarehouse
 Object describing warehouse fields.
@@ -791,6 +797,28 @@ Object describing request body for update documents info and statuses
 | ERPDocStatus  | int | Id of xStatus |     |
 | WMSDocStatus  | int | Id of xStatus |     |
 
+#### xProductStockBody
+Object describing request body for product stocks
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Items  | Array<xProductStockItem> | Stocks items | x   |
+| StatusId  | int | Id of xStatus (StockStatus) | x   |
+
+#### xProductStockItem
+Object describing item of product stock
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OwnerToken  | Guid | Owner token | x   |
+| ProductCode  | string | Product code | x   |
+| Quantity  | double | Quantity | x   |
+| AvailableQuantity  | double | Available quantity | x   |
+| ReservedQuantity  | double | Reserved quantity | x   |
+| BlockedQuantity  | double | Blocked quantity | x   |
+| WarehouseCode  | string | Warehouse code | x   |
+| UpdateDate  | datetime | Change date of stock |     |
+
 # Actions
 
 ## Auth actions
@@ -965,10 +993,71 @@ _Response:_
 \[v0.9\]
 \[GET\]
 \[SECURED\]
+\[RESPONSE: **Empty list or list of xAttachment**\]
+
+- **api/v0.9/attachments/all/order/{orderId}**
+- Path: \[ _orderId_ (int, required) \]
+
+Get attachments for order.
+
+_Request:_
+```
+curl -X 'GET' \  
+'https://localhost:7072/api/v0.9/attachments/all/order/123' \
+\-H 'accept: */*' \
+\-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+[
+{
+"id": 12,
+"creationDate": "2024-05-17T14:17:29.2265027",
+"ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
+"type": "shippingOrder",
+"documentNr": "shippingOrder_XXX",
+"description": "List przewozowy.",
+"autoPrintOn": null,
+"status": null,
+"printer": null,
+"printerHost": null,
+"printDate": null
+}
+]
+```
+\[v0.9\]
+\[GET\]
+\[SECURED\]
 \[RESPONSE: **xAttachmentFile**\]
 
 - **api/v0.9/attachments/file/transport-order/{transportOrderId}/{attachmentId}**
 - Path: \[ _transportOrderId_ (int, required), _attachmentId_ (int, required) \]
+
+Get attachment file for attachment.
+
+_Request:_
+```
+curl -X 'GET' \  
+'https://localhost:7072/api/v0.9/attachments/file/transport-order/123/12' \
+\-H 'accept: */*' \
+\-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
+{
+"attachmentData": "[base64 encoded]",
+"extension": "PDF",
+"originalFileName": "shippingOrder_XXX ",
+"originalFilePath": null
+}
+```
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **xAttachmentFile**\]
+
+- **api/v0.9/attachments/file/order/{orderId}/{attachmentId}**
+- Path: \[ _orderId_ (int, required), _attachmentId_ (int, required) \]
 
 Get attachment file for attachment.
 
@@ -1094,7 +1183,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional), _orderStatus_ (int, optional), _wmsStatus_ (int, optional), _erpStatus_ (int, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional), _orderStatus_ (int, optional), _wmsStatus_ (int, optional), _erpStatus_ (int, optional), _ownerTokens_ (string, optional, separated by commas)\]
 
 Get list of orders. Max 100 orders per request.
 
@@ -2240,6 +2329,47 @@ _Response:_
     "modificationSource": "wms"
   }
 ]
+```
+
+\[v0.9\]
+\[PUT\]
+\[SECURED\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/products/stocks**
+  
+Update/create products stocks.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products/stocks' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c \
+  -d '{
+  "items": [
+    {
+      "ownerToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "productCode": "XLS3232",
+      "quantity": 43,
+      "availableQuantity": 43,
+      "reservedQuantity": 0,
+      "blockedQuantity": 0,
+      "warehouseCode": "CL Acme",
+      "updateDate": "2024-10-04T06:57:18.222Z"
+    }
+  ],
+  "statusId": 1039
+}'
+```
+_Response:_
+```
+{
+"success": true,  
+"code": 200, 
+"message": "Successfully created 1 stocks.",  
+"entryIds": [43932]  
+}
 ```
 
 \[v0.9\]
