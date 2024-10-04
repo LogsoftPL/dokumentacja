@@ -126,7 +126,7 @@ Available API versions: **v0.9**
 | Added page parameter in xOrder and xTransportOrder GET | 1.31 | 13.08.2024 | Artur Masłowski |
 | Added new endpoint PATCH to update xOrder statuses. Added new parameters for xOrders GET. Updated xOrder response. | 1.35 | 30.08.2024 | Artur Masłowski |
 | Added new endpoint PATCH to update info about documents (WMS and ERP) in xOrder. Removed changing WMSDocStatus and ERPDocStatus within PATCH /orders/status. | 1.4 | 04.09.2024 | Artur Masłowski |
-| Added new endpoint PUT to products stocks. Added new endpoint to get attachments for xOrder. | 1.5 | 04.10.2024 | Artur Masłowski |
+| Added new endpoint PUT to products stocks. Added new endpoint to get attachments for xOrder. Added Array<xParameter> field to xTransportOrderBody. | 1.5 | 04.10.2024 | Artur Masłowski |
 
 # Introduction
 
