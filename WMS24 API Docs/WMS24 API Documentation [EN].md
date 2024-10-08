@@ -612,7 +612,7 @@ Object describing request body for order.
 | ReceiverAddress | xAddress | Address of receiver |     |
 | InvoiceAddress | xAddress | Address of invoice |     |
 | WarehouseId | int | Id of warehouse |     |
-| SourceConfigId | int | Source config id |     |
+| SourceConfigName | string | Name of xApiConfig |     |
 | ERPDocNr | string | ERP document number |     |
 | ERPDocId | int | Id of document ERP |     |
 | ERPConfigId | int | ERP config id |     |
