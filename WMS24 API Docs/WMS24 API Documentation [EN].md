@@ -1,6 +1,6 @@
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.5 - 04.10.2024**
+Doc version / date: **v1.51 - 10.10.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -127,6 +127,7 @@ Available API versions: **v0.9**
 | Added new endpoint PATCH to update xOrder statuses. Added new parameters for xOrders GET. Updated xOrder response. | 1.35 | 30.08.2024 | Artur Masłowski |
 | Added new endpoint PATCH to update info about documents (WMS and ERP) in xOrder. Removed changing WMSDocStatus and ERPDocStatus within PATCH /orders/status. | 1.4 | 04.09.2024 | Artur Masłowski |
 | Added new endpoint PUT to products stocks. Added new endpoint to get attachments for xOrder. Added Array<xParameter> field to xTransportOrderBody. | 1.5 | 04.10.2024 | Artur Masłowski |
+| Added OrderType and ProcessingDate for xOrder. | 1.51 | 10.10.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -340,6 +341,8 @@ Object describing order.
 | OrderPage | string | Order page |     |
 | TransportOrderId | int | Id of related transport order |     |
 | TrackingNumbers | Array<string> | Tracking numbers |     |
+| OrderType | enum (0 - order, 1 - aviso) | Order type (default: 0)  |     |
+| ProcessingDate | datetime | Processing date (for aviso type) |     |
 
 #### xOrderItem
 Object describing order items for xOrder.
@@ -607,6 +610,7 @@ Object describing request body for order.
 | CreationDate | datetime | Order creation date | x   |
 | Items | List&lt;xOrderItem&gt; | List of order items (products) | x   |
 | MarketPlaceDocNr | string | Marketplace document number | (recommended)   |
+| OrderType | enum (order, aviso) | Order type (default: order)  |     |
 | MarketPlaceDocId | int | Marketplace document id |     |
 | InvoiceStatus | xStatus | Status of invoice |     |
 | ReceiverAddress | xAddress | Address of receiver |     |
@@ -651,6 +655,7 @@ Object describing request body for order.
 | InvoiceNip | string | NIP of company |     |
 | ExtraField1 | string | Extra field |     |
 | ExtraField2 | string | Extra field |     |
+| ProcessingDate | datetime | Processing date (for aviso type) |     |
 
 #### xProduct
 Object describing product model
