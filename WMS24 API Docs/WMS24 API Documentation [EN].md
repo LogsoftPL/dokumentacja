@@ -877,7 +877,7 @@ Object describing request body for product
 | PalletEAN | string | PalletEAN |     |
 | PalletQuantity | double | PalletQuantity |     |
 
-#### xProductDescriptionBody
+#### xProductDescriptionsBody
 Object describing request body for product description
 
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
