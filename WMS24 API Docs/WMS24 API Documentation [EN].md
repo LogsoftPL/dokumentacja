@@ -86,13 +86,13 @@ Available API versions: **v0.9**
 
     - [xProductBody](#xproductbody)
     
-    - [xProductDescriptionBody](#xproductdescriptionbody)
+    - [xProductDescriptionsBody](#xproductdescriptionsbody)
     
     - [xProductParameter](#xproductparameter)
 
-	- [xProductParameterBody](#xproductparameterbody)
+    - [xProductParametersBody](#xproductparametersbody)
 	
-	- [xProductPatchBody](#xproductpatchbody)
+    - [xProductPatchBody](#xproductpatchbody)
 	
 5. [Actions](#actions)
 
