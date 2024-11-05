@@ -1,6 +1,7 @@
+
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.51 - 10.10.2024**
+Doc version / date: **v1.6 - 05.11.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -83,6 +84,16 @@ Available API versions: **v0.9**
       
     - [xProductStockItem](#xproductstockitem)
 
+    - [xProductBody](#xproductbody)
+    
+    - [xProductDescriptionBody](#xproductdescriptionbody)
+    
+    - [xProductParameter](#xproductparameter)
+
+	- [xProductParameterBody](#xproductparameterbody)
+	
+	- [xProductPatchBody](#xproductpatchbody)
+	
 5. [Actions](#actions)
 
     - [Auth actions](#auth-actions)
@@ -128,6 +139,7 @@ Available API versions: **v0.9**
 | Added new endpoint PATCH to update info about documents (WMS and ERP) in xOrder. Removed changing WMSDocStatus and ERPDocStatus within PATCH /orders/status. | 1.4 | 04.09.2024 | Artur Masłowski |
 | Added new endpoint PUT to products stocks. Added new endpoint to get attachments for xOrder. Added Array<xParameter> field to xTransportOrderBody. | 1.5 | 04.10.2024 | Artur Masłowski |
 | Added OrderType and ProcessingDate for xOrder. | 1.51 | 10.10.2024 | Artur Masłowski |
+| Added new GET, POST and DELETE endpoints for products. Added new fields to xProduct. Changed validation for requests. | 1.6 | 11.05.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -663,7 +675,7 @@ Object describing product model
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
 | --- | --- | --- | --- |
 | Id  | int (readonly) | Identifier |     |
-| IsSet | bool | Is product set |     |
+| IsSet | bool | Is product set? |     |
 | Name | string | Name |     |
 | ImageUrls | Array<string> | Image urls |     |
 | OwnerToken | guid | Owner token |     |
@@ -692,6 +704,9 @@ Object describing product model
 | PriceBrutto | double | Gross price |     |
 | StatusDate | datetime | Status date |     |
 | Status | xStatus | Status |     |
+| ProductIsService| bool | Is product service? |     |
+| PurchasePriceNetto| double | Purchase price netto |     |
+| PurchasePriceBrutto| double | Purchase price brutto |     |
 
 #### xProductApiConfig
 Object describing product api config model
@@ -823,6 +838,106 @@ Object describing item of product stock
 | BlockedQuantity  | double | Blocked quantity | x   |
 | WarehouseCode  | string | Warehouse code | x   |
 | UpdateDate  | datetime | Change date of stock |     |
+
+#### xProductBody
+Object describing request body for product
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OwnerToken | Guid | Owner token | x   |
+| Code | string | Product code | x   |
+| Name | string | Product name | x   |
+| ManufacturerName | string | Manufacturer name | x   |
+| PriceBrutto | double | Price brutto | x   |
+| PurchasePriceBrutto | double | Purchase price brutto | x   |
+| TaxRate | double | Tax rate | x   |
+| PriceNetto | double | Price netto (if not provided, calculated from TaxRate and PriceBrutto) |  |
+| PurchasePriceNetto | double | Price purchase netto (if not provided, calculated from TaxRate and PricePurchaseBrutto) |     |
+| IsSet | bool | Is product set? (default: false) |     |
+| ProductIsService | bool | Is product service? (default: false) |     |
+| ImageUrls | Array<string> | Urls for images |     |
+| Descriptions | List<xProductDescription> | Descriptions |     |
+| Parameters | List<xProductParameter> | Parameters |     |
+| SourceId | string | Source id |     |
+| SourceName | string | Source name |     |
+| AlternativeCode | string | Alternative code |     |
+| CategoryId | string | Category id |     |
+| WarehouseGroup | string | Warehouse group |     |
+| Ean | string | EAN |     |
+| Unit | string | Unit |     |
+| Weight | double | Weight |     |
+| Volume | double | Volume |     |
+| Height | double | Height |     |
+| Length | double | Length |     |
+| Width | double | Width |     |
+| BoxUnit | string | BoxUnit |     |
+| BoxEAN | string | BoxEAN |     |
+| BoxQuantity | double | BoxQuantity |     |
+| PalletUnit | string | PalletUnit |     |
+| PalletEAN | string | PalletEAN |     |
+| PalletQuantity | double | PalletQuantity |     |
+
+#### xProductDescriptionBody
+Object describing request body for product description
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OwnerToken | Guid | Owner token | x   |
+| ProductId | int | Product id | x   |
+| CountryCode | string | Country code (ex. PL, EN, US) | x   |
+| Description | string | Description |     |
+| DescriptionExtra1 | string | Description extra 1 |     |
+| DescriptionExtra2 | string | Description extra 2 |     |
+| DescriptionExtra3 | string | Description extra 3 |     |
+| DescriptionExtra4 | string | Description extra 4 |     |
+
+#### xProductParametersBody
+Object describing request body for product parameter
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OwnerToken | Guid | Owner token | x   |
+| ProductId | int | Product id | x   |
+| CountryCode | string | Country code (ex. PL, EN, US) | x   |
+| Name | string | Name | x   |
+| Value | string | Value |     |
+
+#### xProductPatchBody
+Object describing request body for update product
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OwnerToken | Guid | Owner token | x   |
+| ProductId | int | Product id | x   |
+| Code | string | Product code |     |
+| Name | string | Product name |     |
+| ManufacturerName | string | Manufacturer name |     |
+| PriceBrutto | double | Price brutto |     |
+| PurchasePriceBrutto | double | Purchase price brutto |     |
+| TaxRate | double | Tax rate |     |
+| PriceNetto | double | Price netto (if not provided, calculated from TaxRate and PriceBrutto) |  |
+| PurchasePriceNetto | double | Price purchase netto (if not provided, calculated from TaxRate and PricePurchaseBrutto) |     |
+| IsSet | bool | Is product set? (default: false) |     |
+| ProductIsService | bool | Is product service? (default: false) |     |
+| ImageUrls | Array<string> | Urls for images |     |
+| SourceId | string | Source id |     |
+| SourceName | string | Source name |     |
+| AlternativeCode | string | Alternative code |     |
+| CategoryId | string | Category id |     |
+| WarehouseGroup | string | Warehouse group |     |
+| Ean | string | EAN |     |
+| Unit | string | Unit |     |
+| Weight | double | Weight |     |
+| Volume | double | Volume |     |
+| Height | double | Height |     |
+| Length | double | Length |     |
+| Width | double | Width |     |
+| BoxUnit | string | BoxUnit |     |
+| BoxEAN | string | BoxEAN |     |
+| BoxQuantity | double | BoxQuantity |     |
+| PalletUnit | string | PalletUnit |     |
+| PalletEAN | string | PalletEAN |     |
+| PalletQuantity | double | PalletQuantity |     |
 
 # Actions
 
@@ -2480,4 +2595,261 @@ _Response:_
     "value": "Test"
   }
 ]
+```
+
+\[v0.9\]
+\[POST\]
+\[SECURED\]
+\[REQUEST BODY: **Array of xProductBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/products**
+
+Create products.
+
+_Request:_
+```
+curl -X 'POST' \
+  'https://localhost:7072/api/v0.9/products' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+  -d '[
+  {
+    "ownerToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "code": "Test3423",
+    "name": "Wielkie buty zielone",
+    "manufacturerName": "Zielonka CO",
+    "priceBrutto": 39.99,
+    "purchasePriceBrutto": 39.99,
+    "taxRate": 23,
+    "imageUrls": [
+      "https://url.com/image.jpeg"
+    ],
+    "descriptions": [
+      {
+        "countryCode": "PL",
+        "description": "Opis",
+      }
+    ],
+    "parameters": [
+      {
+        "countryCode": "PL",
+        "name": "Kolor",
+        "value": "Zielony"
+      }
+    ],
+    "sourceName": "allegro",
+    "categoryId": "43245",
+    "ean": "978020137962",
+    "unit": "szt",
+    "weight": 2,
+    "boxQuantity": 1,
+  }
+]'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully created.",
+"entryIds": [1]
+}
+```
+
+\[v0.9\]
+\[PATCH\]
+\[SECURED\]
+\[REQUEST BODY: **Array of xProductPatchBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/products**
+
+Update products.
+
+_Request:_
+```
+curl -X 'PATCH' \
+  'https://localhost:7072/api/v0.9/products' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+  -d '[
+  {
+    "ownerToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "productId": 1,
+    "name": "Wielkie buty",
+    "imageUrls": [
+      "https://url.com/image.jpeg"
+      "https://url.com/image2.jpeg"
+    ],
+    "weight": 2.2
+  }
+]'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully updated 1 entity.",
+"entryIds": [1]
+}
+```
+
+\[v0.9\]
+\[DELETE\]
+\[SECURED\]
+\[RESPONSE: **xResponse**\]
+
+- **api/v0.9/products/descriptions/{id}**
+- Path: \[ _id_ (int, required) \]
+
+Delete product description.
+
+_Request:_
+```
+curl -X 'DELETE' \
+  'https://localhost:7072/api/v0.9/products/descriptions/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' 
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully deleted description.",
+}
+```
+
+\[v0.9\]
+\[DELETE\]
+\[SECURED\]
+\[RESPONSE: **xResponse**\]
+
+- **api/v0.9/products/parameters/{id}**
+- Path: \[ _id_ (int, required) \]
+
+Delete product parameter.
+
+_Request:_
+```
+curl -X 'DELETE' \
+  'https://localhost:7072/api/v0.9/products/parameters/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' 
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully deleted parameter.",
+}
+```
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xProductDescription**\]
+
+- **api/v0.9/products/descriptions/all/{productId}**
+- Path: \[ _productId_ (int, required) \]
+
+Get all descriptions for product.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/products/descriptions/all/1' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' 
+```
+_Response:_
+```
+[
+  {
+    "id": 2,
+    "productId": 1,
+    "countryCode": "PL",
+    "description": "Opis",
+    "descriptionExtra1": null,
+    "descriptionExtra2": null,
+    "descriptionExtra3": null,
+    "descriptionExtra4": null
+  }
+]
+```
+
+\[v0.9\]
+\[POST\]
+\[SECURED\]
+\[REQUEST BODY: **Array of xProductDescriptionsBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/products/descriptions**
+
+Add descriptions to products.
+
+_Request:_
+```
+curl -X 'POST' \
+  'https://localhost:7072/api/v0.9/products/descriptions' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+  -d '[
+  {
+    "ownerToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "productId": 1,
+    "countryCode": "EN",
+    "description": "Description"
+  }
+]
+'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully created 1 entity.",
+"entryIds": [2]
+}
+```
+
+\[v0.9\]
+\[POST\]
+\[SECURED\]
+\[REQUEST BODY: **Array of xProductParameterBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/products/parameters**
+
+Add parameters to products.
+
+_Request:_
+```
+curl -X 'POST' \
+  'https://localhost:7072/api/v0.9/products/parameters' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+  -d '[
+  {
+    "ownerToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "productId": 1,
+    "countryCode": "EN",
+    "name": "color",
+    "value": "red"
+  }
+]
+'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully created 1 entity.",
+"entryIds": [2]
+}
 ```
