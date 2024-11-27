@@ -70,9 +70,9 @@ tu diopisac
 
 ## Numeratory
 WSPÓLNE DLA WSZYSTKICH ZLECENIODAWCÓW
-- ZG______ - zbiórka grupowa wielosztukowa (standard)
-- ZS______ - zbiórka grupowa zleceń jednosztukowych
-- ZB______ - zbiórka batchowa
+- ZG______ - zbiórka grupowa wielosztukowa (standard) [door_taskGroupType = 2]
+- ZS______ - zbiórka grupowa zleceń jednosztukowych [door_taskGroupType = 4]
+- ZB______ - zbiórka batchowa [door_taskGroupType = 6]
 
 ## Zasady grupowania
 
