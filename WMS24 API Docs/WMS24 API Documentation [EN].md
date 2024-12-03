@@ -1,7 +1,7 @@
 
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.6 - 05.11.2024**
+Doc version / date: **v1.7 - 03.12.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -93,6 +93,8 @@ Available API versions: **v0.9**
     - [xProductParametersBody](#xproductparametersbody)
 	
     - [xProductPatchBody](#xproductpatchbody)
+  
+    - [xProductStockApiConfig](#xproductstockppiaonfig)
 	
 5. [Actions](#actions)
 
@@ -119,6 +121,8 @@ Available API versions: **v0.9**
     - [Warehouses actions](#warehouses-actions)
       
     - [Products actions](#products-actions)
+  
+    - [Statuses actions](#statuses-actions)
 
 # Changes
 
@@ -140,6 +144,7 @@ Available API versions: **v0.9**
 | Added new endpoint PUT to products stocks. Added new endpoint to get attachments for xOrder. Added Array<xParameter> field to xTransportOrderBody. | 1.5 | 04.10.2024 | Artur Masłowski |
 | Added OrderType and ProcessingDate for xOrder. | 1.51 | 10.10.2024 | Artur Masłowski |
 | Added new GET, POST and DELETE endpoints for products. Added new fields to xProduct. Changed validation for requests. | 1.6 | 05.11.2024 | Artur Masłowski |
+| Added new param wmsDocId in GET list of xOrder. Added duplicate validaton to MarketpPlaceDocNr. Added to xOrderPatchDocs new fields (document ids). Added posibility to GET list of xOrder by status codes. Updated xProductStockBody model. Added Added new endpoint GET /statuses. | 1.7 | 03.12.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -816,6 +821,8 @@ Object describing request body for update documents info and statuses
 | WMSDocNr  | string | Number/title of WMS document  |     |
 | ERPDocStatus  | int | Id of xStatus |     |
 | WMSDocStatus  | int | Id of xStatus |     |
+| WMSDocId  | int | Id of WMS document |     |
+| ERPDocId  | int | Id of ERP document |     |
 
 #### xProductStockBody
 Object describing request body for product stocks
@@ -831,13 +838,21 @@ Object describing item of product stock
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
 | --- | --- | --- | --- |
 | OwnerToken  | Guid | Owner token | x   |
-| ProductCode  | string | Product code | x   |
+| ProductCode  | string | Product code | x - if ProductApiConfig is not provided   |
+| ProductApiConfig  | xProductStockApiConfig | Additional product code by api config | x - if ProductCode is not provided   |
 | Quantity  | double | Quantity | x   |
 | AvailableQuantity  | double | Available quantity | x   |
 | ReservedQuantity  | double | Reserved quantity | x   |
 | BlockedQuantity  | double | Blocked quantity | x   |
 | WarehouseCode  | string | Warehouse code | x   |
 | UpdateDate  | datetime | Change date of stock |     |
+
+#### xProductStockApiConfig
+Object describing product stock api config
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| ApiConfigName  | string | Api config name | x   |
+| ProductCode  | string | Product code | x   |
 
 #### xProductBody
 Object describing request body for product
@@ -1303,7 +1318,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional), _orderStatus_ (int, optional), _wmsStatus_ (int, optional), _erpStatus_ (int, optional), _ownerTokens_ (string, optional, separated by commas)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional), _orderStatus_ (string, optional), _wmsStatus_ (string, optional), _erpStatus_ (string, optional), _ownerTokens_ (string, optional, separated by commas), _wmsDocId_ (int, optional)\]
 
 Get list of orders. Max 100 orders per request.
 
@@ -1311,7 +1326,7 @@ To get orders with a specific status, use the parameters:
 
 _orderStatus_ - order status, _erpStatus_ - ERP status, _wmsStatus_ - WMS status
 
-The status identifier is given as the parameter value.
+The status identifier/code is given as the parameter value.
 
 _Request:_
 ```
@@ -2852,4 +2867,38 @@ _Response:_
 "message": "Successfully created 1 entity.",
 "entryIds": [2]
 }
+```
+
+## Statuses actions
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xStatus**\]
+
+- **api/v0.9/statuses**
+
+Get all statuses.
+
+_Request:_
+```
+curl -X 'GET' \
+  'https://localhost:7072/api/v0.9/statuses' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' 
+```
+_Response:_
+```
+[
+ {
+    "id": 1,
+    "name": "Utworzone",
+    "englishName": "Created",
+    "dependency": "TransportOrderStatus",
+    "code": "Created",
+    "description": "Utworzone gotowe do generacji",
+    "backColor": "#FFFF99",
+    "textColor": "#333333"
+  },
+]
 ```
