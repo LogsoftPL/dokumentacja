@@ -973,7 +973,7 @@ Object describing subitem of xConfirmOrderItemsBody
 
 | **Property** | **Type** | **Description** | **Required? (x - true)** |
 | --- | --- | --- | --- |
-| ItemCode | string | Code of order item | x -required if ItemId is null   |
+| ItemCode | string | Code of order item | x - required if ItemId is null   |
 | ItemId | int | Id of order item | x - required if ItemCode is null   |
 | ConfirmedQuantity | int | Confirmed quantity | x   |
 | ChangeValueType | enum | FIXED or GAIN (default FIXED) |     |
