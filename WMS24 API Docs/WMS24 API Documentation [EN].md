@@ -1,7 +1,7 @@
 
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.7 - 03.12.2024**
+Doc version / date: **v1.72 - 10.12.2024**
 Available API versions: **v0.9**
 
 # Table of contents
@@ -95,6 +95,10 @@ Available API versions: **v0.9**
     - [xProductPatchBody](#xproductpatchbody)
   
     - [xProductStockApiConfig](#xproductstockppiaonfig)
+  
+    - [xConfirmOrderItemsBody](#xconfirmorderitemsbody)
+  
+    - [xConfirmOrderItem](#xconfirmorderitem)
 	
 5. [Actions](#actions)
 
@@ -145,6 +149,7 @@ Available API versions: **v0.9**
 | Added OrderType and ProcessingDate for xOrder. | 1.51 | 10.10.2024 | Artur Masłowski |
 | Added new GET, POST and DELETE endpoints for products. Added new fields to xProduct. Changed validation for requests. | 1.6 | 05.11.2024 | Artur Masłowski |
 | Added new param wmsDocId in GET list of xOrder. Added duplicate validaton to MarketpPlaceDocNr. Added to xOrderPatchDocs new fields (document ids). Added posibility to GET list of xOrder by status codes. Updated xProductStockBody model. Added Added new endpoint GET /statuses. | 1.7 | 03.12.2024 | Artur Masłowski |
+| Added endpoint to confirm order items. | 1.72 | 10.12.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -953,6 +958,25 @@ Object describing request body for update product
 | PalletUnit | string | PalletUnit |     |
 | PalletEAN | string | PalletEAN |     |
 | PalletQuantity | double | PalletQuantity |     |
+
+#### xConfirmOrderItemsBody
+Object describing request body confirming order items
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| OwnerToken | Guid | Owner token | x   |
+| OrderId | int | Order id | x   |
+| ConfirmOrderItem | Array<xConfirmOrderItem> | Array of xConfirmOrderItems | x   |
+
+#### xConfirmOrderItem
+Object describing subitem of xConfirmOrderItemsBody
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| ItemCode | string | Code of order item | x -required if ItemId is null   |
+| ItemId | int | Id of order item | x - required if ItemCode is null   |
+| ConfirmedQuantity | int | Confirmed quantity | x   |
+| ChangeValueType | enum | FIXED or GAIN (default FIXED) |     |
 
 # Actions
 
@@ -1803,6 +1827,45 @@ _Response:_
 }
 ```
 
+\[v0.9\]
+\[PATCH\]
+\[SECURED\]
+\[REQUEST BODY: **xConfirmOrderItemsBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/orders/confirm**
+
+Confirm order items.
+
+_Request:_
+```
+curl -X 'PATCH' \
+  'https://localhost:7072/api/v0.9/orders/confirm' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+  -d '{
+  "ownerToken": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
+  "orderId": "1",
+  "confirmOrderItems": [
+	{
+	   "itemCode": "TED4399",
+	   "confirmedQuantity": 2,
+           "changeValueType": "GAIN"
+	}
+  ]
+}'
+```
+_Response:_
+```
+{
+	"success": true, 
+	"code": 200,
+	"message": "Successfully confirmed order items.",
+	"entryIds": [1]
+}
+```
+
 ## Owners actions
 
 \[v0.9\]
@@ -1824,7 +1887,7 @@ curl -X 'GET' \
 _Response:_
 ```
 [{
-"token": "2db7e5cf-b84c-42a1-aea4-533f660c534f ",
+"token": "2db7e5cf-b84c-42a1-aea4-533f660c534f",
 "name": "Test",
 "status": 1,
 "address": null,
@@ -1832,7 +1895,7 @@ _Response:_
 "wmsId": "32"
 }]
 ```
-Packages actions
+## Packages actions
 
 \[v0.9\]
 \[GET\]
