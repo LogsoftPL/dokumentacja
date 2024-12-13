@@ -580,6 +580,8 @@ Object describing request body for transport order.
 | LabelPrinter | string | Label printer name |     |
 | LabelHost | string | Label host |     |
 | Parameters | List&lt;xParameter&gt; | Parameters |     |
+| WMSDocId | int | Id of WMS document |     |
+| OrderId | int | Id of xOrder |     |
 
 #### xWarehouse
 Object describing warehouse fields.
@@ -2306,7 +2308,8 @@ curl -X 'POST' \
 "declaredValueCurrency": "string",
 "parcelLocker": "string",
 "labelPrinter": "string",
-"labelHost": "string"
+"labelHost": "string",
+"wmsDocId": 332,
 }]
 ```
 _Response:_
