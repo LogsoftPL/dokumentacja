@@ -1,8 +1,7 @@
 
 # WMS24 API DOCUMENTATION
 
-Doc version / date: **v1.72 - 10.12.2024**
-Available API versions: **v0.9**
+Available API versions: **v1.72**
 
 # Table of contents
 
