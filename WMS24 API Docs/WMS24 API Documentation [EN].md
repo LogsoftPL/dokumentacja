@@ -1,7 +1,7 @@
 
 # WMS24 API DOCUMENTATION
 
-Available API versions: **v1.72**
+Available API versions: **v1.75**
 
 # Table of contents
 
@@ -149,6 +149,7 @@ Available API versions: **v1.72**
 | Added new GET, POST and DELETE endpoints for products. Added new fields to xProduct. Changed validation for requests. | 1.6 | 05.11.2024 | Artur Masłowski |
 | Added new param wmsDocId in GET list of xOrder. Added duplicate validaton to MarketpPlaceDocNr. Added to xOrderPatchDocs new fields (document ids). Added posibility to GET list of xOrder by status codes. Updated xProductStockBody model. Added Added new endpoint GET /statuses. | 1.7 | 03.12.2024 | Artur Masłowski |
 | Added endpoint to confirm order items. | 1.72 | 10.12.2024 | Artur Masłowski |
+| Added getTransportOrderInfo and type parameteres for xOrder GET. Mark getTrackingNumbers parameter as obsolete. Added IP whitelist handler. Added new fields: CourierConfigName for xOrderBody and TransportOrderStatus for xOrder. | 1.75 | 12.02.2025 | Artur Masłowski |
 
 # Introduction
 
@@ -361,9 +362,10 @@ Object describing order.
 | OrderCloseDate | datetime | Close date |     |
 | OrderPage | string | Order page |     |
 | TransportOrderId | int | Id of related transport order |     |
-| TrackingNumbers | Array<string> | Tracking numbers |     |
+| TrackingNumbers | Array<string> | Tracking numbers (when getTransportOrderInfo param is true) |     |
 | OrderType | enum (0 - order, 1 - aviso) | Order type (default: 0)  |     |
 | ProcessingDate | datetime | Processing date (for aviso type) |     |
+| TransportOrderStatus | xStatus | Transport order status (when getTransportOrderInfo param is true) |     |
 
 #### xOrderItem
 Object describing order items for xOrder.
@@ -679,6 +681,7 @@ Object describing request body for order.
 | ExtraField1 | string | Extra field |     |
 | ExtraField2 | string | Extra field |     |
 | ProcessingDate | datetime | Processing date (for aviso type) |     |
+| CourierConfigName | string | Courier config name |     |
 
 #### xProduct
 Object describing product model
@@ -1343,7 +1346,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), _getTrackingNumbers_ (bool, optional), _orderStatus_ (string, optional), _wmsStatus_ (string, optional), _erpStatus_ (string, optional), _ownerTokens_ (string, optional, separated by commas), _wmsDocId_ (int, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _orderStatus_ (string, optional), _wmsStatus_ (string, optional), _erpStatus_ (string, optional), _ownerTokens_ (string, optional, separated by commas), _wmsDocId_ (int, optional), _getTransportOrderInfo_ (bool, optional)\]
 
 Get list of orders. Max 100 orders per request.
 
@@ -1488,9 +1491,14 @@ _Response:_
 \[RESPONSE: **xOrder or null**\]
 
 - **api/v0.9/orders/{orderId}**
-- Path: \[ _orderId_ (int, required), _getTrackingNumbers_ (bool, optional) \]
+- Path: \[ _id_ (int, required), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _getTransportOrderInfo_ (bool, optional), _type_ (string, optional, default = Id) \]
 
 Get order.
+
+_Id_ accept two types of identifier:
+- Id (default),
+- MarketplaceDocNr
+It can be specified by using _type_ parameter.
 
 _Request:_
 ```
