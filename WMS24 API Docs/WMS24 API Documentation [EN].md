@@ -800,7 +800,7 @@ Object describing request body for attachment.
 | OwnerToken  | Guid  | Owner token | x   |
 | TransportOrderId  | int | Id of xTransportOrder | x - or OrderId   |
 | OrderId  | int | Id of xOrder | x - or TransportOrderId   |
-| Type  | string | Type of attachment (faktura) | x   |
+| Type  | string | Type of attachment (available: Invoice, WZ) | x   |
 | DocumentNr  | string | Document number | x   |
 | OriginalFileName  | string | File name |     |
 | OriginalFilePath  | string | File path |     |
