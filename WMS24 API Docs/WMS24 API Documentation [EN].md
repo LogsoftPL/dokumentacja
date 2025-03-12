@@ -1357,8 +1357,7 @@ To get orders with a specific status, use the parameters:
 _orderStatus_ - order status, _erpStatus_ - ERP status, _wmsStatus_ - WMS status
 
 The status identifier/code is given as the parameter value. Ex.
-
-api/v0.9/orders?orderStatus=100 (by identifier)
+api/v0.9/orders?orderStatus=100 (by identifier) <br />
 api/v0.9/orders?orderStatus=Created (by code)
 
 _Request:_
