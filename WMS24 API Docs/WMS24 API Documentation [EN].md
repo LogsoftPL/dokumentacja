@@ -802,7 +802,7 @@ Object describing request body for attachment.
 | OrderId  | int | Id of xOrder | x - or TransportOrderId   |
 | Type  | string | Type of attachment (available: Invoice, WZ) | x   |
 | DocumentNr  | string | Document number | x   |
-| OriginalFileName  | string | File name |     |
+| OriginalFileName  | string | File name (if not provided DocumentNr value will be inserted) |     |
 | OriginalFilePath  | string | File path |     |
 | AttachmentData  | string | Attachment data (file encoded in base64) |     |
 | Extension  | string | Extension (ex. pdf, zpl, gif) |     |
