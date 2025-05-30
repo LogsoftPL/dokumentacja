@@ -3,7 +3,7 @@
 
 Available API versions: **0.9**
 
-Doc version: v1.75
+Doc version: v1.8
 
 # Table of contents
 
@@ -152,6 +152,7 @@ Doc version: v1.75
 | Added new param wmsDocId in GET list of xOrder. Added duplicate validaton to MarketpPlaceDocNr. Added to xOrderPatchDocs new fields (document ids). Added posibility to GET list of xOrder by status codes. Updated xProductStockBody model. Added Added new endpoint GET /statuses. | 1.7 | 03.12.2024 | Artur Masłowski |
 | Added endpoint to confirm order items. | 1.72 | 10.12.2024 | Artur Masłowski |
 | Added getTransportOrderInfo and type parameteres for xOrder GET. Mark getTrackingNumbers parameter as obsolete. Added IP whitelist handler. Added new fields: CourierConfigName for xOrderBody and TransportOrderStatus for xOrder. | 1.75 | 12.02.2025 | Artur Masłowski |
+| Added to xOrderBody new fields. Added new parameters to GET /products. | 1.8 | 30.05.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -684,6 +685,10 @@ Object describing request body for order.
 | ExtraField2 | string | Extra field |     |
 | ProcessingDate | datetime | Processing date (for aviso type) |     |
 | CourierConfigName | string | Courier config name |     |
+| SendDateFrom | datetime | Proposed send date from |     |
+| SendDateTo | datetime | Proposed send date to |     |
+| DeliveryDateFrom | datetime | Proposed delivery date from |     |
+| DeliveryDateTo | datetime | Courier config name |  Proposed delivery date to   |
 
 #### xProduct
 Object describing product model
@@ -2381,7 +2386,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xProduct**\]
 
 - **api/v0.9/products**
-- Parameters: \[ _limit_ (int, optional – max 100) \]
+- Parameters: \[ _limit_ (int, optional – max 100),  _page_ (int, optional), _status_ (string, optional), _ownerToken_ (Guid, optional) \]
   
 Get list of products. Max 100 per request.
 
