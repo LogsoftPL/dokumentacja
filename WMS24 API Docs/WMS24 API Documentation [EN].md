@@ -1,7 +1,7 @@
 
 # WMS24 API DOCUMENTATION
 
-Available API versions: **0.9**
+Available API versions: **1.1**
 
 Doc version: v1.8
 
