@@ -1,6 +1,6 @@
 # Mapa pól JSON: Baselinker → Link (WMS24.Link)
 
-# Endpint Orders
+# Endpoint Orders
 Dokumentacja:
 https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#xorder
 
