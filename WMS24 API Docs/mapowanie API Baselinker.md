@@ -1,4 +1,4 @@
-# Mapa pól JSON: Baselinker → Link (WMS24.Link)
+# Mapa pól Baselinker → Link
 
 # Endpoint Orders
 Dokumentacja:
