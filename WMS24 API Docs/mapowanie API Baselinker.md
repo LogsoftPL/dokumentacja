@@ -1,11 +1,10 @@
 # Mapa pól JSON: Baselinker → Link (WMS24.Link)
 
-### Opracowano na podstawie:
+# Endpint Orders
+Dokumentacja:
+https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#xorder
 
-* Przykładów JSON z obu systemów
-* Dokumentacji [xOrder](#xorder) i [xOrderItem](#xorderitem) (\[pełna dokumentacja]\(link dokumetaacja.md))
-
----
+Jest to odpowiednik edndpointa `GetOrders` w systmie Baselinker
 
 ## Tabela mapowania głównych pól zamówienia
 
@@ -167,35 +166,7 @@ Identyfikatory produktu (`product_id` w Baselinker) i (`productId` w Link) mogą
 
 * **Flagi boolowskie:**  Baselinker potrafi mieć wartości typu string (`"1"`, `"0"`), Link oczekuje typu bool (`true`/`false`).
 * **Liczby:**  Jeśli pole nie istnieje w Baselinker – pole docelowe zostaje puste/null.
-* **EAN, SKU, itp.:**  Jeśli nie występują w Baselinker – można wypełnić tylko częściowo.
 
----
 
-## Załączniki/Linki
-
-* **order\_page**: `orderPage` – Link do zamówienia w systemie, jeśli jest dostępny.
-
----
-
-## Braki / pola niemapowane
-
-Niektóre pola w Link są specyficzne dla WMS/ERP, np.:
-
-* `erpStatus`, `wmsStatus` – w Baselinker brak odpowiednika.
-* `warehouse`, `warehouseId` – jeśli nie zarządzane przez Baselinker.
-
----
-
-## Źródła
-
-* \[xOrder, xOrderItem – dokumentacja API WMS24.Link]\(link dokumetaacja.md)
-* Przykład JSON z Baselinker i Link (2025-03-31)
-
----
-
-# Podsumowanie
-
-**Proces mapowania** jest w dużej mierze 1:1 dla podstawowych pól (adresy, dane płatności, produkty, wartości liczbowe), a różnice pojawiają się w strukturze statusów, typach danych i obecności niektórych pól (dodatkowe, zaawansowane pola WMS/ERP w Link).
-Produkty i adresy są najbardziej bezpośrednie do mapowania – reszta wymaga ew. transformacji typów i formatów dat.
 
 ---
