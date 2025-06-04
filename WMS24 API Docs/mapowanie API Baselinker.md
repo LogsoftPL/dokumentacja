@@ -36,9 +36,9 @@ Jest to odpowiednik edndpointa `GetOrders` w systmie Baselinker
 | `delivery_city`           | `receiverAddress.city`                  | string                            | Miasto odbiorcy                                                      |
 | `delivery_postcode`       | `receiverAddress.zipCode`               | string                            | Kod pocztowy odbiorcy                                                |
 | `delivery_country_code`   | `receiverAddress.country`               | string                            | Kod kraju odbiorcy (np. PL)                                          |
-| `delivery_point_id`       | `parcelLocker`                          | string                            | Id punktu odbioru (np. paczkomat, automat One Box)                   |
-| `delivery_point_name`     | brak (można mapować do extraField)      | string                            | Nazwa punktu odbioru                                                 |
-| `delivery_point_address`  | brak (można mapować do extraField)      | string                            | Adres punktu odbioru                                                 |
+| `delivery_point_id`       |                                         | string                            | Id punktu odbioru (np. paczkomat, automat One Box)                   |
+| `delivery_point_name`     | `parcelLocker`                          | string                            | Nazwa punktu odbioru                                                 |
+| `delivery_point_address`  | brak                                    | string                            | Adres punktu odbioru                                                 |
 | `delivery_point_postcode` | brak                                    | string                            | Kod pocztowy punktu                                                  |
 | `delivery_point_city`     | brak                                    | string                            | Miasto punktu                                                        |
 | `invoice_fullname`        | `invoiceAddress.name`/`invoiceFullName` | string                            | Imię i nazwisko na fakturze                                          |
@@ -51,9 +51,9 @@ Jest to odpowiednik edndpointa `GetOrders` w systmie Baselinker
 | `want_invoice`            | `wantInvoice`                           | bool                              | Czy klient chce fakturę (Baselinker: string '1'/'0', Link: bool)     |
 | `order_page`              | `orderPage`                             | string                            | Link do zamówienia w panelu                                          |
 | `products[]`              | `items[]`                               | List<xOrderItem>                  | Lista produktów (patrz szczegóły niżej)                              |
-| `delivery_company`        | brak, ew. extraField                    | string                            | Nazwa firmy odbiorczej, zwykle puste                                 |
-| `delivery_state`          | brak                                    | string                            | Województwo odbiorcy (w Link nieużywane)                             |
-| `invoice_state`           | brak                                    | string                            | Województwo faktura (w Link nieużywane)                              |
+| `delivery_company`        | `receiverAddress.name`                  | string                            |                                |
+| `delivery_state`          |                                         | string                            | Województwo odbiorcy (w Link nieużywane)                             |
+| `invoice_state`           |                                         | string                            | Województwo faktura (w Link nieużywane)                              |
 | `extra_field_1/2`         | `extraField1/2`                         | string                            | Pola dodatkowe                                                       |
 
 ---
@@ -70,12 +70,12 @@ Jest to odpowiednik edndpointa `GetOrders` w systmie Baselinker
 | `ean`                       | `productEAN`             | string           | EAN                                                   |
 | `price_brutto`              | `priceBrutto`            | double           | Cena brutto za sztukę                                 |
 | `tax_rate`                  | `taxRate`                | double           | Stawka VAT                                            |
-| `variant_id`                | `productAlternativeCode` | string           | Kod wariantu (jeśli dotyczy)                          |
+| `variant_id`                |                          | string           | Info o wariancie w def produktu                       |
 | `auction_id`                | `offer`                  | string           | Id aukcji / oferty allegro                            |
 | `weight`                    | `productWeight`          | double           | Waga produktu (jeśli dotyczy)                         |
 | `location`                  | `productWarehouseGroup`  | string           | Lokalizacja/magazyn                                   |
 | `attributes`                | brak dedykowanego        | string           | Atrybuty - można zmapować do custom fields            |
-| `bundle_id`                 | brak                     | int              | Identyfikator zestawu (jeśli dotyczy)                 |
+| `bundle_id`                 |                          | int              | Info o zestawie w def produktu                        |
 | brak w Baselinker           | `confirmedQuantity`      | double           | Potwierdzona ilość (przepisujemy z ordered)           |
 | brak w Baselinker           | `priceNetto`             | double           | Cena netto (można wyliczyć na podstawie brutto i VAT) |
 | brak w Baselinker           | `set`                    | string           | Oznaczenie zestawu, jeżeli dotyczy                    |
@@ -114,9 +114,10 @@ Jest to odpowiednik edndpointa `GetOrders` w systmie Baselinker
 | `"want_invoice": "0"`                       | `wantInvoice: false`               | Konwersja string na bool                       |
 | `"user_comments": ""`                       | `userComments: null`               | Przepisujemy 1:1                               |
 
----
 
 ## Mapowanie statusów
+
+temat do omówienia !!!
 
 Baselinker: `order_status_id` → Link: `orderStatus.id`
 **Statusy należy mapować wg logiki systemu docelowego (np. 'Wysłane', 'Finished', 'ReadyForProcessing').**
