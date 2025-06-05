@@ -36,8 +36,8 @@ Jest to odpowiednik edndpointa `GetOrders` w systmie Baselinker
 | `delivery_city`           | `receiverAddress.city`                  | string                            | Miasto odbiorcy                                                      |
 | `delivery_postcode`       | `receiverAddress.zipCode`               | string                            | Kod pocztowy odbiorcy                                                |
 | `delivery_country_code`   | `receiverAddress.country`               | string                            | Kod kraju odbiorcy (np. PL)                                          |
-| `delivery_point_id`       |                                         | string                            | Id punktu odbioru (np. paczkomat, automat One Box)                   |
-| `delivery_point_name`     | `parcelLocker`                          | string                            | Nazwa punktu odbioru                                                 |
+| `delivery_point_id`       | `parcelLocker`                          | string                            | Id punktu odbioru (np. paczkomat, automat One Box)                   |
+| `delivery_point_name`     | brak                                    | string                            | Nazwa punktu odbioru                                                 |
 | `delivery_point_address`  | brak                                    | string                            | Adres punktu odbioru                                                 |
 | `delivery_point_postcode` | brak                                    | string                            | Kod pocztowy punktu                                                  |
 | `delivery_point_city`     | brak                                    | string                            | Miasto punktu                                                        |
