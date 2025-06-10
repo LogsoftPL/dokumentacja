@@ -6,7 +6,7 @@ https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20A
 Dokumentacja (enpoint)
 https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#orders-status-actions
 
-Odpowiednik setPrderStatus https://api.baselinker.com/index.php?method=setOrderStatus
+Odpowiednik setOrderStatus w Baselinker: https://api.baselinker.com/index.php?method=setOrderStatus
 
 
 # Endpoint Orders
