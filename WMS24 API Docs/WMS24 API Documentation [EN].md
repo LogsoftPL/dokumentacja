@@ -112,6 +112,8 @@ Doc version: v1.8
     - [Logs actions](#logs-actions)
 
     - [Orders actions](#orders-actions)
+      
+    - [Orders status actions](#orders-status-actions)
 
     - [Owners actions](#owners-actions)
 
