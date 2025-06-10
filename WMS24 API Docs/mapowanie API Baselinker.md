@@ -1,16 +1,19 @@
 # Mapa pól Baselinker → Link
 
-# Endpoint Orders
-Dokumentacja (struktura):
-https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#xorder
-Dokumentacja (enpoint)
-https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#orders-actions
-
 # Endpoint Statuses
 Dokumentacja (struktura):
 https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#xorderpatchstatusbody
 Dokumentacja (enpoint)
 https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#orders-status-actions
+
+Odpowiednik setPrderStatus https://api.baselinker.com/index.php?method=setOrderStatus
+
+
+# Endpoint Orders
+Dokumentacja (struktura):
+https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#xorder
+Dokumentacja (enpoint)
+https://github.com/LogsoftPL/dokumentacja/blob/main/WMS24%20API%20Docs/WMS24%20API%20Documentation%20%5BEN%5D.md#orders-actions
 
 
 Jest to odpowiednik edndpointa `GetOrders` w systmie Baselinker
