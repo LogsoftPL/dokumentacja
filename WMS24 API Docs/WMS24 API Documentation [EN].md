@@ -1778,6 +1778,7 @@ _Response:_
 "entryIds": [1]
 }
 ```
+## Orders status actions
 
 \[v0.9\]
 \[PATCH\]
