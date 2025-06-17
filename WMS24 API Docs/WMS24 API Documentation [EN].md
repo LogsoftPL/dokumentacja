@@ -382,7 +382,7 @@ Object describing order items for xOrder.
 | OrderedQuantity | double | Quantity | x   |
 | LineNumber | int | Line number |     |
 | ProductId | int | Product id from xProduct |     |
-| ProductExternalId | int | Product external id |     |
+| ProductExternalId | string | Product external id |     |
 | ProductCode | string | Product code from xProduct |     |
 | ProductAlternativeCode | string | Product alternative code |     |
 | ProductWarehouseGroup | string | Product warehouse group |     |
