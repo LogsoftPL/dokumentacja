@@ -3,7 +3,7 @@
 
 Available API versions: **1.1**
 
-Doc version: v1.8
+Doc version: v1.81
 
 # Table of contents
 
@@ -155,6 +155,7 @@ Doc version: v1.8
 | Added endpoint to confirm order items. | 1.72 | 10.12.2024 | Artur Masłowski |
 | Added getTransportOrderInfo and type parameteres for xOrder GET. Mark getTrackingNumbers parameter as obsolete. Added IP whitelist handler. Added new fields: CourierConfigName for xOrderBody and TransportOrderStatus for xOrder. | 1.75 | 12.02.2025 | Artur Masłowski |
 | Added to xOrderBody new fields. Added new parameters to GET /products. | 1.8 | 30.05.2024 | Artur Masłowski |
+| Added new parameter to GET /products. | 1.81 | 26.06.2024 | Artur Masłowski |
 
 # Introduction
 
@@ -2454,15 +2455,19 @@ _Response:_
 \[SECURED\]
 \[RESPONSE: **xProduct**\]
 
-- **api/v0.9/products/{productId}**
-- Path: \[ _productId_ (int, required) \]
-  
-Get product by id.
+- **api/v0.9/products/{id}**
+- Path: \[ _id_ (int, required) \]
+- Parameters: \[ _idType_ (string, optional)  \]
+- 
+Get product by identifier.
+Available idType:
+- Id (default)
+- Code
 
 _Request:_
 ```
 curl -X 'GET' \
-  'https://localhost:7072/api/v0.9/products/1' \
+  'https://localhost:7072/api/v0.9/products/123123?idType=Code' \
   -H 'accept: */*' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
 ```
