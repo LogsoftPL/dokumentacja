@@ -2458,12 +2458,12 @@ _Response:_
 - **api/v0.9/products/{id}**
 - Path: \[ _id_ (int, required) \]
 - Parameters: \[ _idType_ (string, optional)  \]
-- 
+  
 Get product by identifier.
 Available idType:
 - Id (default)
 - Code
-
+  
 _Request:_
 ```
 curl -X 'GET' \
