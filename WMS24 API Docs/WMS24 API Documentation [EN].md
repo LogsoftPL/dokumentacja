@@ -154,8 +154,8 @@ Doc version: v1.81
 | Added new param wmsDocId in GET list of xOrder. Added duplicate validaton to MarketpPlaceDocNr. Added to xOrderPatchDocs new fields (document ids). Added posibility to GET list of xOrder by status codes. Updated xProductStockBody model. Added Added new endpoint GET /statuses. | 1.7 | 03.12.2024 | Artur Masłowski |
 | Added endpoint to confirm order items. | 1.72 | 10.12.2024 | Artur Masłowski |
 | Added getTransportOrderInfo and type parameteres for xOrder GET. Mark getTrackingNumbers parameter as obsolete. Added IP whitelist handler. Added new fields: CourierConfigName for xOrderBody and TransportOrderStatus for xOrder. | 1.75 | 12.02.2025 | Artur Masłowski |
-| Added to xOrderBody new fields. Added new parameters to GET /products. | 1.8 | 30.05.2024 | Artur Masłowski |
-| Added new parameter to GET /products. | 1.81 | 26.06.2024 | Artur Masłowski |
+| Added to xOrderBody new fields. Added new parameters to GET /products. | 1.8 | 30.05.2025 | Artur Masłowski |
+| Added new parameter to GET /products. | 1.81 | 26.06.2025 | Artur Masłowski |
 
 # Introduction
 
