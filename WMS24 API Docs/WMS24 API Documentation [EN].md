@@ -3,7 +3,7 @@
 
 Available API versions: **0.9**
 
-Doc version: v1.81
+Doc version: v1.9
 
 # Table of contents
 
@@ -100,6 +100,8 @@ Doc version: v1.81
     - [xConfirmOrderItemsBody](#xconfirmorderitemsbody)
   
     - [xConfirmOrderItem](#xconfirmorderitem)
+  
+    - [xOrderSimple](#xordersimple)
 	
 5. [Actions](#actions)
 
@@ -156,6 +158,7 @@ Doc version: v1.81
 | Added getTransportOrderInfo and type parameteres for xOrder GET. Mark getTrackingNumbers parameter as obsolete. Added IP whitelist handler. Added new fields: CourierConfigName for xOrderBody and TransportOrderStatus for xOrder. | 1.75 | 12.02.2025 | Artur Masłowski |
 | Added to xOrderBody new fields. Added new parameters to GET /products. | 1.8 | 30.05.2025 | Artur Masłowski |
 | Added new parameter to GET /products. | 1.81 | 26.06.2025 | Artur Masłowski |
+| Added new GET /orders/status endpoint for getting orders at provided statuses. Added xOrderSimple model. | 1.9 | 13.08.2025 | Artur Masłowski |
 
 # Introduction
 
@@ -992,6 +995,24 @@ Object describing subitem of xConfirmOrderItemsBody
 | ConfirmedQuantity | int | Confirmed quantity | x   |
 | ChangeValueType | enum | FIXED or GAIN (default FIXED) |     |
 
+#### xOrderSimple
+Simple order model.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| SourceConfigId | int | Id of xApiConfig |     |
+| MarketPlaceDocNr | string | Marketplace/shop document number |     |
+| OrderType | enum (0 - order, 1 - aviso) | Order type  |     |
+| CreationDate | datetime | Creation date  |     |
+| OwnerToken | Guid | Owner token  |     |
+| ERPDocStatusId | int | ERP document status id  |     |
+| ERPStatusId | int | ERP status id  |     |
+| InvoiceStatusId | int | Invoice status id  |     |
+| OrderStatusId | int | Order status id  |     |
+| WMSDocStatusId | int | WMS document status id  |     |
+| WMSStatusId | int | WMS status id  |     |
+
 # Actions
 
 ## Auth actions
@@ -1640,6 +1661,37 @@ _Response:_
 "transportOrderId": null,
 "trackingNumbers": []
 }
+```
+
+\[v0.9\]
+\[GET\]
+\[SECURED\]
+\[RESPONSE: **Empty list or list of xOrderSimple**\]
+
+- **api/v0.9/orders/status**
+- Parameters: \[ _statuses_ (int separated by commas, required), _limit_ (int, optional – max 500), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional)]
+
+Get orders in provided statuses.
+
+Statuses should be provided as ids and separated by commas. 
+The order will be displayed in the response table when at least one of the specified
+status identifiers is available in one of these fields:
+- erpDocStatusId,
+- erpStatusId,
+- invoiceStatusId,
+- orderStatusId,
+- wmsDocStatusId,
+- wmsStatusId
+  
+_Request:_
+```
+curl -X 'GET' \
+'https://localhost:7072/api/v0.9/orders/status?statuses=1005,130&limit=500&page=1&creationDateFrom=2025-08-12' \
+\-H 'accept: */*' \
+\-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+```
+_Response:_
+```
 ```
 
 \[v0.9\]
@@ -2992,3 +3044,4 @@ _Response:_
   },
 ]
 ```
+
