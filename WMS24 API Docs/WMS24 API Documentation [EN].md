@@ -1692,6 +1692,36 @@ curl -X 'GET' \
 ```
 _Response:_
 ```
+[
+	{
+		"id": 1,
+		"sourceConfigId": 1,
+		"marketPlaceDocNr": "f2808dc0-76fd-11f0-b029-cb08e31b379b",
+		"orderType": 0,
+		"creationDate": "2025-08-12T00:01:00.326",
+		"ownerToken": "8b291c17-ad72-433f-8b2b-0e332061f2fc",
+		"erpDocStatusId": 1024,
+		"erpStatusId": 1005,
+		"invoiceStatusId": 1019,
+		"orderStatusId": 130,
+		"wmsDocStatusId": 1030,
+		"wmsStatusId": 1008
+	},
+	{
+		"id": 2,
+		"sourceConfigId": 1,
+		"marketPlaceDocNr": "7abd11a0-76fd-11f0-86b3-97e965639907",
+		"orderType": 0,
+		"creationDate": "2025-08-12T00:01:28.149",
+		"ownerToken": "2e1768e0-9a29-471e-855f-d30486f92f2f",
+		"erpDocStatusId": null,
+		"erpStatusId": null,
+		"invoiceStatusId": null,
+		"orderStatusId": 130,
+		"wmsDocStatusId": 1030,
+		"wmsStatusId": null
+	},
+]
 ```
 
 \[v0.9\]
@@ -3044,4 +3074,5 @@ _Response:_
   },
 ]
 ```
+
 
