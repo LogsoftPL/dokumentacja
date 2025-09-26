@@ -1,5 +1,5 @@
-# OK-API
-#API DOCUMENTATION
+# OK-API - Integrator
+# API DOCUMENTATION
 
 Available API versions: **0.9**
 
@@ -3074,6 +3074,7 @@ _Response:_
   },
 ]
 ```
+
 
 
 
