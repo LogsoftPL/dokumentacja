@@ -160,7 +160,7 @@ Doc version: v1.95
 | Added new parameter to GET /products. | 1.81 | 26.06.2025 | Artur Masłowski |
 | Added new GET /orders/status endpoint for getting orders at provided statuses. Added xOrderSimple model. | 1.9 | 13.08.2025 | Artur Masłowski |
 | Updated PATCH /orders/documents request body. | 1.92 | 04.12.2025 | Artur Masłowski |
-| Updated GET /orders filters. Added new endpoint: GET /orders/status | 1.95 | 13.12.2025 | Artur Masłowski |
+| Updated GET /orders filters. | 1.95 | 13.12.2025 | Artur Masłowski |
 
 # Introduction
 
@@ -3079,6 +3079,7 @@ _Response:_
   },
 ]
 ```
+
 
 
 
