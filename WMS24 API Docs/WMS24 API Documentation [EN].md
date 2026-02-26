@@ -3,7 +3,7 @@
 
 Available API versions: **0.9**
 
-Doc version: v1.9
+Doc version: v1.95
 
 # Table of contents
 
@@ -159,6 +159,8 @@ Doc version: v1.9
 | Added to xOrderBody new fields. Added new parameters to GET /products. | 1.8 | 30.05.2025 | Artur Masłowski |
 | Added new parameter to GET /products. | 1.81 | 26.06.2025 | Artur Masłowski |
 | Added new GET /orders/status endpoint for getting orders at provided statuses. Added xOrderSimple model. | 1.9 | 13.08.2025 | Artur Masłowski |
+| Updated PATCH /orders/documents request body. | 1.92 | 04.12.2025 | Artur Masłowski |
+| Updated GET /orders filters. Added new endpoint: GET /orders/status | 1.95 | 13.12.2025 | Artur Masłowski |
 
 # Introduction
 
@@ -841,10 +843,13 @@ Object describing request body for update documents info and statuses
 | OrderId  | int | Identifier | x   |
 | ERPDocNr  | string | Number/title of ERP document |     |
 | WMSDocNr  | string | Number/title of WMS document  |     |
+| InvoiceDocNr  | string | Number/title of Invoice document  |     |
 | ERPDocStatus  | int | Id of xStatus |     |
 | WMSDocStatus  | int | Id of xStatus |     |
+| InvoiceStatus  | int | Id of xStatus |     |
 | WMSDocId  | int | Id of WMS document |     |
 | ERPDocId  | int | Id of ERP document |     |
+| InvoiceDocId  | int | Id of Invoice document |     |
 
 #### xProductStockBody
 Object describing request body for product stocks
@@ -1377,7 +1382,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _orderStatus_ (string, optional), _wmsStatus_ (string, optional), _erpStatus_ (string, optional), _ownerTokens_ (string, optional, separated by commas), _wmsDocId_ (int, optional), _getTransportOrderInfo_ (bool, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _orderStatus_ (string, optional), _wmsStatus_ (string, optional), _erpStatus_ (string, optional), _wmsDocStatus_ (string, optional), _erpDocStatus_ (string, optional), _invoiceStatus_ (string, optional), _ownerTokens_ (string, optional, separated by commas), _wmsDocId_ (int, optional), _getTransportOrderInfo_ (bool, optional)\]
 
 Get list of orders. Max 100 orders per request.
 
@@ -3074,6 +3079,7 @@ _Response:_
   },
 ]
 ```
+
 
 
 
