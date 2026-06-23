@@ -3,7 +3,7 @@
 
 Available API versions: **0.9**
 
-Doc version: v1.95
+Doc version: v2
 
 # Table of contents
 
@@ -102,6 +102,16 @@ Doc version: v1.95
     - [xConfirmOrderItem](#xconfirmorderitem)
   
     - [xOrderSimple](#xordersimple)
+  
+    - [xVoucher](xvoucher)
+  
+    - [xOrderParameter](xorderparameter)
+  
+    - [xProductSetBody](xproductsetbody)
+  
+    - [xProductSetPatchBody](xproductsetpatchbody)
+  
+    - [xProductSetItem](xproductsetitem)
 	
 5. [Actions](#actions)
 
@@ -161,6 +171,7 @@ Doc version: v1.95
 | Added new GET /orders/status endpoint for getting orders at provided statuses. Added xOrderSimple model. | 1.9 | 13.08.2025 | Artur Masłowski |
 | Updated PATCH /orders/documents request body. | 1.92 | 04.12.2025 | Artur Masłowski |
 | Updated GET /orders filters. | 1.95 | 13.12.2025 | Artur Masłowski |
+| Added new endpoints: POST and PATCH /products/sets. Added xVoucher model. Updated xConfirmOrderItem. | 2.0 | 23.06.2026 | Artur Masłowski |
 
 # Introduction
 
@@ -377,6 +388,13 @@ Object describing order.
 | OrderType | enum (0 - order, 1 - aviso) | Order type (default: 0)  |     |
 | ProcessingDate | datetime | Processing date (for aviso type) |     |
 | TransportOrderStatus | xStatus | Transport order status (when getTransportOrderInfo param is true) |     |
+| SendDateFrom | datetime | Start-range date of sending the order |     |
+| SendDateTo | datetime | End-range date of sending the order |     |
+| DeliveryDateFrom | datetime | Start-range date of delivering the order |     |
+| DeliveryDateTo | datetime | End-range date of delivering the order |     |
+| PaymentId | string | Payment identifier |     |
+| Vouchers | List<xVoucher> | List of vouchers |     |
+| Parameters | List<xOrderParameter> | List of order parameters |     |
 
 #### xOrderItem
 Object describing order items for xOrder.
@@ -999,6 +1017,17 @@ Object describing subitem of xConfirmOrderItemsBody
 | ItemId | int | Id of order item | x - required if ItemCode is null   |
 | ConfirmedQuantity | int | Confirmed quantity | x   |
 | ChangeValueType | enum | FIXED or GAIN (default FIXED) |     |
+| Price | double | Price (for sets) |     |
+| ExtraField1 | string | ExtraField1 |     |
+| ExtraField2 | string | ExtraField2 |     |
+| ExtraField3 | string | ExtraField3 |     |
+| ExtraField4 | string | ExtraField4 |     |
+| ExtraField5 | string | ExtraField5 |     |
+| ExtraField6 | string | ExtraField6 |     |
+| ExtraField7 | string | ExtraField7 |     |
+| ExtraField8 | string | ExtraField8 |     |
+| ExtraField9 | string | ExtraField9 |     |
+| ExtraField10 | string | ExtraField10 |     |
 
 #### xOrderSimple
 Simple order model.
@@ -1018,7 +1047,53 @@ Simple order model.
 | WMSDocStatusId | int | WMS document status id  |     |
 | WMSStatusId | int | WMS status id  |     |
 
-# Actions
+#### xVoucher
+Voucher model.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| Code  | string | Voucher code |     |
+| Description  | string | Description |     |
+| TermsAndConditions  | string | Additional terms and conditions |     |
+| DiscountAmount  | string | Amount of discount |     |
+| ApplicableOrderItemId  | int | Id of order item which voucher belongs to |     |
+| DiscountValueType  | enum (FixedAmount, Percentage) | Discount value type |     |
+| DiscountItemType  | enum (OrderTotal, Item, ShippingCost) | Type of discount |     |
+
+#### xOrderParameter
+Object describing additional parameters for xOrder.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | int (readonly) | Identifier |     |
+| Name | string | Name of parameter |     |
+| Value | string | Value of parameter |     |
+
+#### xProductSetBody
+Object describing request body for creating product sets.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| ProductId  | int | Identifier of product, which we want to mark as set | x   |
+| Items  | List<xProductSetItem> | Definition of product set | x   |
+
+#### xProductSetPatchBody
+Object describing request body for updating product sets.
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| ProductId  | int | Identifier of product set | x   |
+| Items  | List<xProductSetItem> | Definition of product set. Passing empty array clear this product set definition and revert its state to normal mode (not set)  | x   |
+
+#### xProductSetItem
+Object describing definition of product set
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| ProductId  | int | Identifier of product, which is part of a set | x   |
+| Quantity  | int | Quantity (> 0) | x   |
+| Rate  | double | Rate. This describes the percentage of the set that this item accounts for; for example, if there is a set consisting of two items – a laptop and a mouse – and the whole set costs 1,000 PLN, setting the ‘Rate’ for the laptop to 0.9 and for the mouse to 0.1 will allow the price of the set to be split into 900 PLN for the laptop and 100 PLN for the mouse. |     |
 
 ## Auth actions
 
@@ -3043,6 +3118,89 @@ _Response:_
 "code": 200,
 "message": "Successfully created 1 entity.",
 "entryIds": [2]
+}
+```
+
+\[v0.9\]
+\[POST\]
+\[SECURED\]
+\[REQUEST BODY: **Array of xProductSetBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/products/sets**
+
+Mark product as set and create definition of this set.
+
+_Request:_
+```
+curl -X 'POST' \
+  'https://localhost:7072/api/v0.9/products/sets' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+  -d '
+{
+	"productId": 123,
+	"items": [
+		{
+			"productId": 12345,
+			"quantity": 1,
+			"rate": 0.4
+		},
+		{
+			"productId": 54321,
+			"quantity": 2,
+			"rate": 0.6
+		}
+	]
+}
+'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully created 2 entities.",
+"entryIds": [1,2]
+}
+```
+
+\[v0.9\]
+\[PATCH\]
+\[SECURED\]
+\[REQUEST BODY: **Array of xProductSetPatchBody**\]
+\[RESPONSE: **xResNewEntries**\]
+
+- **api/v0.9/products/sets**
+
+Update set product and definition of this set. Passing empty `items` array clear definition of this set and mark product as normal product.
+
+_Request:_
+```
+curl -X 'PATCH' \
+  'https://localhost:7072/api/v0.9/products/sets' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+  -d '
+{
+	"productId": 123,
+	"items": [
+		{
+			"productId": 12345,
+			"quantity": 3,
+			"rate": 1
+		},
+	]
+}
+'
+```
+_Response:_
+```
+{  
+"success": true, 
+"code": 200,
+"message": "Successfully updated 1 entity.",
+"entryIds": [1]
 }
 ```
 
