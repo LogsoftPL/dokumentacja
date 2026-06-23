@@ -103,15 +103,15 @@ Doc version: v2
   
     - [xOrderSimple](#xordersimple)
   
-    - [xVoucher](xvoucher)
+    - [xVoucher](#xvoucher)
   
-    - [xOrderParameter](xorderparameter)
+    - [xOrderParameter](#xorderparameter)
   
-    - [xProductSetBody](xproductsetbody)
+    - [xProductSetBody](#xproductsetbody)
   
-    - [xProductSetPatchBody](xproductsetpatchbody)
+    - [xProductSetPatchBody](#xproductsetpatchbody)
   
-    - [xProductSetItem](xproductsetitem)
+    - [xProductSetItem](#xproductsetitem)
 	
 5. [Actions](#actions)
 
