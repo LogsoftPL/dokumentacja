@@ -1093,7 +1093,7 @@ Object describing definition of product set
 | --- | --- | --- | --- |
 | ProductId  | int | Identifier of product, which is part of a set | x   |
 | Quantity  | int | Quantity (> 0) | x   |
-| Rate  | double | Rate. This describes the percentage of the set that this item accounts for; for example, if there is a set consisting of two items – a laptop and a mouse – and the whole set costs 1,000 PLN, setting the ‘Rate’ for the laptop to 0.9 and for the mouse to 0.1 will allow the price of the set to be split into 900 PLN for the laptop and 100 PLN for the mouse. |     |
+| Rate  | double | Rate (min 0 and max 1). This describes the percentage of the set that this item accounts for; for example, if there is a set consisting of two items – a laptop and a mouse – and the whole set costs 1,000 PLN, setting the ‘Rate’ for the laptop to 0.9 and for the mouse to 0.1 will allow the price of the set to be split into 900 PLN for the laptop and 100 PLN for the mouse. | x   |
 
 ## Auth actions
 
