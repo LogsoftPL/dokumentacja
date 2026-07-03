@@ -1,0 +1,6 @@
+1. Słowniki->Kurierzy->Baselinker. Mapujemy nazwę usługi (cub_doorTrService) z zamówienia z określonego źródła (cub_BLOrderSourceID)
+2. Nazwy źródeł na ich ID, pobieramy metodą bezparametrową getOrderSources (https://api.baselinker.com/)
+3. Odszukujemy ID integracji kurierskiej w BL poprzez getCourierAccounts podając "courier_code" np:"paczkomaty" (w tabeli konfiguracji pole cub_courier_code)
+4. Zapisujemy ID integracji do cub_account_id
+
+Interfejs importu z BL wrzuca do błędu zam., których kuriera nie można zmapować.
