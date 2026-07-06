@@ -3,7 +3,7 @@
 
 Available API versions: **0.9**
 
-Doc version: v2
+Doc version: v2.1
 
 # Table of contents
 
@@ -112,6 +112,8 @@ Doc version: v2
     - [xProductSetPatchBody](#xproductsetpatchbody)
   
     - [xProductSetItem](#xproductsetitem)
+  
+    - [xOrderItemLine](#xorderitemline)
 	
 5. [Actions](#actions)
 
@@ -172,6 +174,7 @@ Doc version: v2
 | Updated PATCH /orders/documents request body. | 1.92 | 04.12.2025 | Artur Masłowski |
 | Updated GET /orders filters. | 1.95 | 13.12.2025 | Artur Masłowski |
 | Added new endpoints: POST and PATCH /products/sets. Added xVoucher model. Updated xConfirmOrderItem. | 2.0 | 23.06.2026 | Artur Masłowski |
+| Added new model: xOrderItemLine. Added new parameters for handling order lines. | 2.1 | 06.07.2026 | Artur Masłowski |
 
 # Introduction
 
@@ -1028,6 +1031,7 @@ Object describing subitem of xConfirmOrderItemsBody
 | ExtraField8 | string | ExtraField8 |     |
 | ExtraField9 | string | ExtraField9 |     |
 | ExtraField10 | string | ExtraField10 |     |
+| AcceptCreatingLines | bool | Allow to create xOrdemItem |     |
 
 #### xOrderSimple
 Simple order model.
@@ -1094,6 +1098,32 @@ Object describing definition of product set
 | ProductId  | int | Identifier of product, which is part of a set | x   |
 | Quantity  | int | Quantity (> 0) | x   |
 | Rate  | double | Rate (min 0 and max 1). This describes the percentage of the set that this item accounts for; for example, if there is a set consisting of two items – a laptop and a mouse – and the whole set costs 1,000 PLN, setting the ‘Rate’ for the laptop to 0.9 and for the mouse to 0.1 will allow the price of the set to be split into 900 PLN for the laptop and 100 PLN for the mouse. | x   |
+
+#### xOrderItemLine
+Object describing definition of order item line
+
+| **Property** | **Type** | **Description** | **Required? (x - true)** |
+| --- | --- | --- | --- |
+| Id  | long (readonly) | Identifier |     |
+| Quantity | int | Quantity |     |
+| ConfirmedQuantity | int | Confirmed quantity |     |
+| LineNumber | int | Line number |     |
+| Price | double | Price (for sets) |     |
+| ExtraField1 | string | ExtraField1 |     |
+| ExtraField2 | string | ExtraField2 |     |
+| ExtraField3 | string | ExtraField3 |     |
+| ExtraField4 | string | ExtraField4 |     |
+| ExtraField5 | string | ExtraField5 |     |
+| ExtraField6 | string | ExtraField6 |     |
+| ExtraField7 | string | ExtraField7 |     |
+| ExtraField8 | string | ExtraField8 |     |
+| ExtraField9 | string | ExtraField9 |     |
+| ExtraField10 | string | ExtraField10 |     |
+| Lot | string | Lot |     |
+| LoadUnit | string | Load unit |     |
+| BoughtDate | datetime | Bought date |     |
+| BestBeforeDate | datetime | Best before date |     |
+| QualityStatus | string | Quality status |     |
 
 ## Auth actions
 
@@ -1457,7 +1487,7 @@ _Response:_
 \[RESPONSE: **Empty list or list of xOrder**\]
 
 - **api/v0.9/orders**
-- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _orderStatus_ (string, optional), _wmsStatus_ (string, optional), _erpStatus_ (string, optional), _wmsDocStatus_ (string, optional), _erpDocStatus_ (string, optional), _invoiceStatus_ (string, optional), _ownerTokens_ (string, optional, separated by commas), _wmsDocId_ (int, optional), _getTransportOrderInfo_ (bool, optional)\]
+- Parameters: \[ _limit_ (int, optional – max 100), _page_ (int, optional), _creationDateFrom_ (datetime, optional), _creationDateTo_ (datetime, optional), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _orderStatus_ (string, optional), _wmsStatus_ (string, optional), _erpStatus_ (string, optional), _wmsDocStatus_ (string, optional), _erpDocStatus_ (string, optional), _invoiceStatus_ (string, optional), _ownerTokens_ (string, optional, separated by commas), _wmsDocId_ (int, optional), _getTransportOrderInfo_ (bool, optional), _getLines_ (bool, optional)\]
 
 Get list of orders. Max 100 orders per request.
 
@@ -1514,7 +1544,8 @@ _Response:_
 "priceBrutto": 11.83,
 "offer": "13457673795",
 "set": null,
-"boughtDate": "2024-05-17T12:03:51.58"
+"boughtDate": "2024-05-17T12:03:51.58",
+"lines": []
 }],  
 "invoiceStatus": null,
 "erpStatus": null,
@@ -1604,7 +1635,7 @@ _Response:_
 \[RESPONSE: **xOrder or null**\]
 
 - **api/v0.9/orders/{orderId}**
-- Path: \[ _id_ (int, required), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _getTransportOrderInfo_ (bool, optional), _type_ (string, optional, default = Id) \]
+- Path: \[ _id_ (int, required), ~~_getTrackingNumbers_ (bool, optional, obsolete)~~, _getTransportOrderInfo_ (bool, optional), _type_ (string, optional, default = Id), _getLines_ (bool, optional) \]
 
 Get order.
 
